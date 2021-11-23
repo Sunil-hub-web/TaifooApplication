@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +31,7 @@ import java.util.ArrayList;
 
 public class Homepage extends Fragment {
 
-    TextView text_name;
+    TextView text_name,text_shopByCategory;
     SliderAdpter sliderAdpter;
     ViewPager2 sliderViewPager2;
     TextView [] dots;
@@ -57,7 +59,16 @@ public class Homepage extends Fragment {
         sliderViewPager2 = view.findViewById(R.id.sliderViewPager2);
         dots_container = view.findViewById(R.id.dots_container);
         showitemRecycler = view.findViewById(R.id.showitemRecycler);
+        text_shopByCategory = view.findViewById(R.id.shopByCategory);
         text_name = view.findViewById(R.id.name);
+
+
+        String mystring=new String("Shop");
+        String text = "by Category";
+        SpannableString content = new SpannableString(mystring);
+        content.setSpan(new UnderlineSpan(), 0, mystring.length(), 0);
+        text_shopByCategory.setText(content+" "+text);
+
 
         imageSlider.add(new ShowImage_ModelClass(R.drawable.banner1));
         imageSlider.add(new ShowImage_ModelClass(R.drawable.banner2));

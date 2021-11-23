@@ -154,11 +154,22 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/shopByCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/details"
+                    android:textColor="#22647E"
+                    android:layout_marginLeft="@dimen/fifteen"
+                    android:textSize="@dimen/edittextsize"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/ten"></TextView>
+
                 <RelativeLayout
                     android:id="@+id/item"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/details"
+                    android:layout_below="@id/shopByCategory"
                     android:layout_marginTop="@dimen/thirty">
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -172,7 +183,7 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/hundred_fifty"
+                    android:layout_height="@dimen/hundred"
                     android:layout_below="@id/item"
                     android:layout_marginTop="@dimen/thirty"
                     android:background="@drawable/banner2">
@@ -183,7 +194,7 @@
                         android:layout_height="wrap_content"
                         android:text="You Can Call AnyTime To"
                         android:textColor="#FFFFFF"
-                        android:textSize="@dimen/textsize"
+                        android:textSize="@dimen/edittextsize"
                         android:textStyle="bold"
                         android:layout_marginLeft="@dimen/ten"
                         android:layout_centerVertical="true"></TextView>
@@ -194,7 +205,7 @@
                         android:layout_height="wrap_content"
                         android:text="Get Your Product"
                         android:textColor="#FFFFFF"
-                        android:textSize="@dimen/textsize"
+                        android:textSize="@dimen/edittextsize"
                         android:layout_below="@id/text"
                         android:textStyle="bold"
                         android:layout_marginLeft="@dimen/ten"
@@ -214,6 +225,17 @@
 
 
                 </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/bestSelling"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/details"
+                    android:textColor="#22647E"
+                    android:layout_marginLeft="@dimen/fifteen"
+                    android:textSize="@dimen/edittextsize"
+                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/ten"></TextView>
 
 
             </RelativeLayout>

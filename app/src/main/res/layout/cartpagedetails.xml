@@ -55,7 +55,7 @@
                 android:id="@+id/totalPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#F61403"
+                android:textColor="#D81405"
                 android:layout_marginTop="@dimen/five"
                 android:textSize="@dimen/edittextsize"
                 android:text="500.00"
@@ -67,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Rs."
-                android:textColor="#F61403"
+                android:textColor="#D81405"
                 android:textSize="@dimen/edittextsize"
                 android:textStyle="bold"
                 android:layout_marginTop="@dimen/five"></TextView>
@@ -87,7 +87,7 @@
                 android:layout_width="@dimen/fourteen"
                 android:layout_height="@dimen/fourteen"
                 android:src="@drawable/wrong"
-                android:layout_margin="@dimen/eight"
+                android:layout_margin="@dimen/five"
                 android:id="@+id/img_Delete"></ImageView>
 
         </RelativeLayout>
