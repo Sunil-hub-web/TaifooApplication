@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fifty">
+
+
+        <ImageView
+            android:id="@+id/menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sort"
+            android:layout_marginTop="@dimen/ten"
+            android:onClick="Clickmenu"
+            android:layout_marginRight="@dimen/five">
+
+        </ImageView>
+
+      <!--  <ImageView
+            android:id="@+id/imagecart"
+            android:layout_width="@dimen/twenty_five"
+            android:layout_height="@dimen/twenty_five"
+            android:src="@drawable/cartimage"
+            android:layout_marginTop="@dimen/five"
+            android:layout_toLeftOf="@id/menu"
+            android:layout_marginRight="@dimen/twenty"
+            android:onClick="Cartpage">
+
+        </ImageView>-->
+
+        <ImageView
+            android:id="@+id/search"
+            android:layout_width="@dimen/thirty"
+            android:layout_height="@dimen/thirty"
+            android:src="@drawable/search"
+            android:layout_marginTop="5dp"
+            android:onClick="Serachpage"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="@dimen/sixty"
+            android:layout_height="@dimen/twenty"
+            android:src="@drawable/logo"
+            android:onClick="Serachpage"
+            android:layout_marginRight="@dimen/five"
+            android:layout_toRightOf="@id/menu"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY">
+
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/loc"
+            android:layout_width="@dimen/thirty"
+            android:layout_height="@dimen/thirty"
+            android:src="@drawable/location_on"
+            android:onClick="Serachpage"
+            android:layout_marginRight="@dimen/ten"
+            android:layout_toRightOf="@id/logo"
+            android:layout_centerVertical="true">
+
+        </ImageView>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#22647E"
+            android:textSize="@dimen/edittextsize"
+            android:text="Home"
+            android:layout_toRightOf="@id/loc"
+            android:layout_centerVertical="true"
+            android:textStyle="bold"></TextView>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

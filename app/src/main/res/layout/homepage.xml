@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/sliderViewPager2"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/two_hundred"
+                    android:paddingStart="40dp"
+                    android:paddingEnd="40dp">
+
+                </androidx.viewpager2.widget.ViewPager2>
+
+                <LinearLayout
+                    android:id="@+id/dots_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/hundred"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:orientation="horizontal"></LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/sliderViewPager2"
+                    android:layout_marginTop="@dimen/twenty"
+                    android:orientation="horizontal"
+                    android:weightSum="4">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/image"
+                            android:layout_width="@dimen/forty_five"
+                            android:layout_height="@dimen/forty_five"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/webcapture">
+
+                        </ImageView>
+
+                        <TextView
+                            android:id="@+id/name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/image"
+                            android:layout_centerHorizontal="true"
+                            android:text="Farm Fresh"
+                            android:textColor="#5B5B5C"
+                            android:textSize="@dimen/twelve_size"
+                            android:textStyle="bold"></TextView>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/image1"
+                            android:layout_width="@dimen/forty_five"
+                            android:layout_height="@dimen/forty_five"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/webcapture1">
+
+                        </ImageView>
+
+                        <TextView
+                            android:id="@+id/name1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/image1"
+                            android:layout_centerHorizontal="true"
+                            android:text="Halaal cut"
+                            android:textColor="#5B5B5C"
+                            android:textSize="@dimen/twelve_size"
+                            android:textStyle="bold"></TextView>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/image3"
+                            android:layout_width="@dimen/forty_five"
+                            android:layout_height="@dimen/forty_five"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/webcaptur2">
+
+                        </ImageView>
+
+                        <TextView
+                            android:id="@+id/name3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/image3"
+                            android:layout_centerHorizontal="true"
+                            android:text="Fast Delivery"
+                            android:textColor="#5B5B5C"
+                            android:textSize="@dimen/twelve_size"
+                            android:textStyle="bold"></TextView>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:id="@+id/image4"
+                            android:layout_width="@dimen/forty_five"
+                            android:layout_height="@dimen/forty_five"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/webcapture3">
+
+                        </ImageView>
+
+                        <TextView
+                            android:id="@+id/name4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/image4"
+                            android:layout_centerHorizontal="true"
+                            android:text="Healthy &amp; Hygienic"
+                            android:textColor="#5B5B5C"
+                            android:textSize="@dimen/ten_size"
+                            android:textStyle="bold"></TextView>
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/details"
+                    android:layout_marginTop="@dimen/thirty">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/showitemRecycler">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/hundred_fifty"
+                    android:layout_below="@id/item"
+                    android:layout_marginTop="@dimen/thirty"
+                    android:background="@drawable/banner2">
+
+                    <TextView
+                        android:id="@+id/text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="You Can Call AnyTime To"
+                        android:textColor="#FFFFFF"
+                        android:textSize="@dimen/textsize"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="@dimen/ten"
+                        android:layout_centerVertical="true"></TextView>
+
+                    <TextView
+                        android:id="@+id/text1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Get Your Product"
+                        android:textColor="#FFFFFF"
+                        android:textSize="@dimen/textsize"
+                        android:layout_below="@id/text"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="@dimen/ten"
+                        android:layout_centerVertical="true"></TextView>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/ten"
+                        android:text="CALL +91-1800 888 545"
+                        app:backgroundTint="#DA291C"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:textSize="@dimen/ten_size"></com.google.android.material.button.MaterialButton>
+
+
+                </RelativeLayout>
+
+
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

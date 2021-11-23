@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TaifooApplication</string>
+
+    <string name="read">Read our   </string>
+    <string name="condition">Terms &amp; Conditions</string>
+
+    <string name="home">HOME</string>
+    <string name="myAccount">MY ACCOUNT</string>
+    <string name="wishlist">WISHLIST</string>
+    <string name="cart">CART</string>
+</resources>
