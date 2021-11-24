@@ -33,14 +33,14 @@ public class SliderAdpter extends RecyclerView.Adapter<SliderAdpter.ViewHOlder> 
 
     @NonNull
     @Override
-    public SliderAdpter.ViewHOlder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHOlder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.slider_items,parent,false);
         return new ViewHOlder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SliderAdpter.ViewHOlder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHOlder holder, int position) {
 
         ShowImage_ModelClass slideImage = show_Image.get(position);
 

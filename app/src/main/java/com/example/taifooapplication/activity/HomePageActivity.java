@@ -28,8 +28,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
     BottomNavigationView bottomNavigation;
 
-    TextView nav_MyOrder,text_name,nav_Profile;
-    ImageView loc,logo,search;
+    public static TextView nav_MyOrder,text_name,nav_Profile;
+    public static ImageView loc,logo,search;
 
 
     @Override
@@ -90,7 +90,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
             }
         });
-
 
         bottomNavigation.setSelectedItemId(R.id.home);
 

@@ -59,9 +59,9 @@
 
         <ImageView
             android:id="@+id/loc"
-            android:layout_width="@dimen/thirty"
-            android:layout_height="@dimen/thirty"
-            android:src="@drawable/location_on"
+            android:layout_width="@dimen/twenty_five"
+            android:layout_height="@dimen/twenty_five"
+            android:src="@drawable/place"
             android:onClick="Serachpage"
             android:layout_marginRight="@dimen/ten"
             android:layout_toRightOf="@id/logo"

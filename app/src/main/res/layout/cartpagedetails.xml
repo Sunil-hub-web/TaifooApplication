@@ -5,7 +5,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/hundred_ten"
+        android:layout_height="@dimen/hundred"
         android:id="@+id/first"
         android:layout_margin="@dimen/ten"
         android:background="@drawable/homecard_back"
@@ -14,7 +14,7 @@
         <ImageView
             android:id="@+id/productImage"
             android:layout_width="@dimen/eighty"
-            android:layout_height="@dimen/ninety"
+            android:layout_height="@dimen/eighty"
             android:src="@drawable/save"
             android:layout_margin="10dp"
             android:scaleType="fitXY"></ImageView>
@@ -34,7 +34,7 @@
             android:id="@+id/unit_Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/ten"
+            android:layout_marginTop="@dimen/five"
             android:text="ShopNmae"
             android:layout_below="@id/product_Name"
             android:layout_toRightOf="@id/productImage"
@@ -49,14 +49,13 @@
             android:layout_below="@+id/unit_Name"
             android:layout_toRightOf="@id/productImage"
             android:layout_marginLeft="@dimen/twenty"
-            android:layout_marginTop="@dimen/ten">
+            android:layout_marginTop="@dimen/five">
 
             <TextView
                 android:id="@+id/totalPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#D81405"
-                android:layout_marginTop="@dimen/five"
                 android:textSize="@dimen/edittextsize"
                 android:text="500.00"
                 android:textStyle="bold"
@@ -69,8 +68,7 @@
                 android:text="Rs."
                 android:textColor="#D81405"
                 android:textSize="@dimen/edittextsize"
-                android:textStyle="bold"
-                android:layout_marginTop="@dimen/five"></TextView>
+                android:textStyle="bold"></TextView>
 
         </RelativeLayout>
 
@@ -84,10 +82,10 @@
             android:background="@drawable/homecard_back">
 
             <ImageView
-                android:layout_width="@dimen/fourteen"
-                android:layout_height="@dimen/fourteen"
+                android:layout_width="@dimen/twelve"
+                android:layout_height="@dimen/twelve"
                 android:src="@drawable/wrong"
-                android:layout_margin="@dimen/five"
+                android:layout_margin="@dimen/eight"
                 android:id="@+id/img_Delete"></ImageView>
 
         </RelativeLayout>

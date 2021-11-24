@@ -31,14 +31,14 @@ public class MyOrderadapter extends RecyclerView.Adapter<MyOrderadapter.ViewHold
 
     @NonNull
     @Override
-    public MyOrderadapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.myorderdetails,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyOrderadapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         MyOrder_ModelClass myorder = my_order.get(position);
 

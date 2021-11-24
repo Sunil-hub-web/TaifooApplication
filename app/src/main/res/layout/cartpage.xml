@@ -175,7 +175,7 @@
         android:layout_marginRight="@dimen/twenty">
 
         <TextView
-            android:id="@+id/gotoCheckout"
+            android:id="@+id/text_gotoCheckout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Go To Checkout"

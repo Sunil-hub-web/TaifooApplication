@@ -7,8 +7,8 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/ten"
+                android:layout_height="@dimen/two_hundred_fifty"
+                android:layout_margin="@dimen/five"
                 android:layout_weight="1"
                 android:gravity="center"
                 app:cardCornerRadius="@dimen/ten"
@@ -22,49 +22,51 @@
                         android:id="@+id/productImage"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/hundred_fifty"
-                        android:src="@drawable/save"
-                        android:scaleType="fitXY"></ImageView>
+                        android:scaleType="fitXY"
+                        android:src="@drawable/save"></ImageView>
 
                     <TextView
                         android:id="@+id/productName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_below="@id/productImage"
+                        android:layout_marginLeft="@dimen/fifteen"
+                        android:layout_marginTop="@dimen/five"
                         android:layout_marginRight="@dimen/fifty"
                         android:layout_weight="1"
                         android:text="Chicken Legs"
-                        android:layout_marginLeft="@dimen/fifteen"
-                        android:layout_below="@id/productImage"
-                        android:textSize="@dimen/textsize"
-                        android:textStyle="bold"
-                        android:textColor="#1D4759"></TextView>
+                        android:textColor="#1D4759"
+                        android:textSize="@dimen/edittextsize"
+                        android:textStyle="bold"></TextView>
 
                     <TextView
                         android:id="@+id/productprice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_below="@id/productName"
+                        android:layout_marginLeft="@dimen/fifteen"
+                        android:layout_marginTop="@dimen/three"
                         android:layout_marginRight="@dimen/fifty"
                         android:layout_weight="1"
                         android:text="LOGIN"
-                        android:layout_marginLeft="@dimen/fifteen"
-                        android:layout_below="@id/productName"
                         android:textSize="@dimen/textsize"
                         android:textStyle="bold"></TextView>
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/addToCart"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/ten"
-                        android:layout_marginRight="@dimen/ten"
-                        android:layout_marginTop="@dimen/fifteen"
-                        android:layout_marginBottom="@dimen/fifteen"
-                        android:text="Signup"
+                        android:layout_height="@dimen/forty_five"
                         android:layout_below="@id/productprice"
-                        app:backgroundTint="#1D4759"
+                        android:layout_marginLeft="@dimen/ten"
+                        android:layout_marginTop="@dimen/three"
+                        android:layout_marginRight="@dimen/ten"
+                        android:layout_marginBottom="@dimen/five"
+                        android:text="Add To Cart"
                         android:textColor="@color/white"
+                        android:textSize="@dimen/twelve_size"
                         android:textStyle="bold"
-                        android:textSize="@dimen/textsize"></com.google.android.material.button.MaterialButton>
+                        app:backgroundTint="#1D4759"
+                        android:visibility="visible"></com.google.android.material.button.MaterialButton>
 
                     <RelativeLayout
                         android:id="@+id/showProduct"
@@ -76,39 +78,39 @@
                         android:visibility="gone">
 
                         <TextView
-                            android:id="@+id/text_Shapping"
+                            android:id="@+id/text_Unit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_marginLeft="@dimen/fifteen"
                             android:background="@drawable/box"
-                            android:text="Select"
+                            android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
                             android:gravity="center"
                             android:paddingLeft="@dimen/ten"
-                            android:layout_marginLeft="@dimen/fifteen"
-                            android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
-                            android:textSize="@dimen/textsize"
-                            android:textStyle="bold"></TextView>
+                            android:text="Select"
+                            android:textSize="@dimen/twelve_size"
+                            android:textStyle="bold"
+                            android:textColor="#1D4759"></TextView>
 
                         <LinearLayout
                             android:id="@+id/inc"
-                            android:layout_width="@dimen/eighty"
-                            android:layout_height="@dimen/twenty_five"
-                            android:weightSum="3"
-                            android:layout_marginRight="@dimen/twenty"
-                            android:layout_alignParentRight="true">
+                            android:layout_width="@dimen/seventy"
+                            android:layout_height="@dimen/forty"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/ten"
+                            android:weightSum="3">
 
                             <TextView
                                 android:id="@+id/t3"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:background="@drawable/addback"
                                 android:gravity="center"
                                 android:text="-"
-                                android:background="@drawable/textback"
-                                android:textColor="@color/white"
-                                android:textSize="@dimen/edittextsize"
-                                android:textStyle="bold"
-                                />
+                                android:textColor="#DF2424"
+                                android:textSize="@dimen/textsize"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:id="@+id/t2"
@@ -118,19 +120,19 @@
                                 android:gravity="center"
                                 android:text="1"
                                 android:textColor="@color/black"
-                                android:textSize="20sp" />
+                                android:textSize="@dimen/textsize" />
 
                             <TextView
                                 android:id="@+id/t1"
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
+                                android:background="@drawable/addback"
                                 android:gravity="center"
                                 android:text="+"
-                                android:background="@drawable/textback"
-                                android:textColor="@color/white"
-                                android:textSize="20sp"
-                                android:textStyle="bold"/>
+                                android:textColor="#DF2424"
+                                android:textSize="@dimen/textsize"
+                                android:textStyle="bold" />
 
                         </LinearLayout>
 
@@ -139,5 +141,7 @@
 
 
                 </RelativeLayout>
+
+
             </androidx.cardview.widget.CardView>
 </RelativeLayout>

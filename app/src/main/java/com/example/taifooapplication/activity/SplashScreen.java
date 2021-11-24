@@ -21,7 +21,6 @@ public class SplashScreen extends AppCompatActivity {
 
         handler.postDelayed(new Runnable() {
 
-
             @Override
             public void run() {
                 // This method will be executed once the timer is over

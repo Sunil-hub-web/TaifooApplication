@@ -22,8 +22,10 @@ import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.taifooapplication.R;
+import com.example.taifooapplication.adapter.BestSellingAdapter;
 import com.example.taifooapplication.adapter.ShowItemAdapter;
 import com.example.taifooapplication.adapter.SliderAdpter;
+import com.example.taifooapplication.modelclas.BestSelling_modelClass;
 import com.example.taifooapplication.modelclas.ShowImage_ModelClass;
 import com.example.taifooapplication.modelclas.ShowItem_ModelClass;
 
@@ -36,15 +38,16 @@ public class Homepage extends Fragment {
     ViewPager2 sliderViewPager2;
     TextView [] dots;
     LinearLayout dots_container;
-    RecyclerView showitemRecycler;
+    RecyclerView showitemRecycler,bestsellingRecycler;
     ShowItemAdapter showItemAdapter;
-    GridLayoutManager gridLayoutManager;
-
+    GridLayoutManager gridLayoutManager,gridLayoutManager1;
+    BestSellingAdapter bestSellingAdapter;
     ArrayList<ShowItem_ModelClass> showItem = new ArrayList<>();
 
     Handler sliderhandler = new Handler();
 
     ArrayList<ShowImage_ModelClass> imageSlider = new ArrayList<>();
+    ArrayList<BestSelling_modelClass> bestselling = new ArrayList<>();
 
     int currentPossition = 0;
 
@@ -61,6 +64,7 @@ public class Homepage extends Fragment {
         showitemRecycler = view.findViewById(R.id.showitemRecycler);
         text_shopByCategory = view.findViewById(R.id.shopByCategory);
         text_name = view.findViewById(R.id.name);
+        bestsellingRecycler = view.findViewById(R.id.bestsellingRecycler);
 
 
         String mystring=new String("Shop");
@@ -85,6 +89,8 @@ public class Homepage extends Fragment {
         dots = new TextView[arraysize];
 
         dotsIndicator();
+
+        selectedIndicatorPosition(currentPossition);
 
         sliderViewPager2.setClipToPadding(false);
         sliderViewPager2.setClipChildren(false);
@@ -116,11 +122,14 @@ public class Homepage extends Fragment {
         sliderViewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
-                super.onPageSelected(position);
+                //super.onPageSelected(position);
 
-                selectedIndicatorPosition(position++);
+                if (currentPossition > 4)
+                    currentPossition = 0;
+                    selectedIndicatorPosition (currentPossition++);
+
                 sliderhandler.removeCallbacks(sliderRunable);
-                sliderhandler.postDelayed(sliderRunable,3000);
+                sliderhandler.postDelayed(sliderRunable,2000);
 
             }
         });
@@ -140,6 +149,16 @@ public class Homepage extends Fragment {
         showitemRecycler.setLayoutManager(gridLayoutManager);
         showitemRecycler.setHasFixedSize(true);
         showitemRecycler.setAdapter(showItemAdapter);
+
+        bestselling.add (new BestSelling_modelClass (R.drawable.chickenlegs,"Chicken Legs","250.00",""));
+        bestselling.add (new BestSelling_modelClass (R.drawable.chikencutpice,"Chicken Curry cut","250.00","500gm"));
+        bestselling.add (new BestSelling_modelClass (R.drawable.chickenlegs,"Chicken Legs","250.0",""));
+
+        gridLayoutManager1 = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
+        bestSellingAdapter = new BestSellingAdapter (getContext(),bestselling);
+        bestsellingRecycler.setLayoutManager(gridLayoutManager1);
+        bestsellingRecycler.setHasFixedSize(true);
+        bestsellingRecycler.setAdapter(bestSellingAdapter);
 
         return view;
     }
