@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/ten"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/edit_userName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textfieldback"
+            android:padding="@dimen/twelve"
+            android:hint="User Name"
+            android:layout_margin="@dimen/ten"></EditText>
+
+        <EditText
+            android:id="@+id/edit_MobileNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textfieldback"
+            android:padding="@dimen/twelve"
+            android:hint="phone no"
+            android:layout_margin="@dimen/ten"></EditText>
+
+        <EditText
+            android:id="@+id/edit_EmailId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textfieldback"
+            android:padding="@dimen/twelve"
+            android:hint="email id"
+            android:layout_margin="@dimen/ten"></EditText>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/fifteen"
+            android:background="@drawable/textfieldback">
+            <Spinner
+                android:id="@+id/spinner_City"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:spinnerMode="dropdown"
+                android:backgroundTint="@color/black"></Spinner>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/fifteen"
+            android:background="@drawable/textfieldback">
+            <Spinner
+                android:id="@+id/spinner_Pincode"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/forty_five"
+                android:spinnerMode="dropdown"
+                android:backgroundTint="@color/black"></Spinner>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/edit_Ares"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textfieldback"
+            android:padding="@dimen/twelve"
+            android:layout_margin="@dimen/ten"
+            android:hint="area"></EditText>
+
+        <EditText
+            android:id="@+id/edit_Address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/textfieldback"
+            android:padding="@dimen/twelve"
+            android:layout_margin="@dimen/ten"
+            android:hint="address"></EditText>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_Save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ten"
+            android:layout_marginRight="@dimen/ten"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:padding="10dp"
+            android:text="Save"
+            app:backgroundTint="#DA291C"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="15dp"></com.google.android.material.button.MaterialButton>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

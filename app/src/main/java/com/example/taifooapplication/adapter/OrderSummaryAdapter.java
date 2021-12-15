@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.taifooapplication.R;
 import com.example.taifooapplication.modelclas.OrderSummary_ModelClass;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -39,9 +40,19 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
 
         OrderSummary_ModelClass order_summary = ordersummary.get(position);
 
-        holder.productImage.setImageResource(order_summary.getImage());
-        holder.productName.setText(order_summary.getName());
-        holder.total.setText(order_summary.getPrice());
+        String image = "https://"+order_summary.getProduct_img();
+        Picasso.with(context).load(image).into(holder.productImage);
+        holder.productName.setText(order_summary.getProduct_name());
+
+        String quantity = order_summary.getQuantity();
+        String salesPrice = order_summary.getSale_price();
+
+        Double d_quantity = Double.valueOf(quantity);
+        Double d_salesPrice = Double.valueOf(salesPrice);
+        Double amount = d_quantity * d_salesPrice;
+        String str_amount = String.valueOf(amount);
+
+        holder.total.setText(str_amount);
 
     }
 

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/rel_Click"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/homecard_back"
+        android:layout_margin="@dimen/fifteen"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/addressdetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ten"
+            android:layout_margin="@dimen/twenty"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textsize"></TextView>
+
+        <TextView
+            android:id="@+id/addressId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ten"
+            android:layout_margin="@dimen/twenty"
+            android:textColor="@color/black"
+            android:layout_below="@id/addressdetails"
+            android:textSize="@dimen/textsize"></TextView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

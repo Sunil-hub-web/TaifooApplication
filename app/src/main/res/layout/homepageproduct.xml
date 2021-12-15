@@ -7,7 +7,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/two_hundred_fifty"
+                android:layout_height="wrap_content"
                 android:layout_margin="@dimen/five"
                 android:layout_weight="1"
                 android:gravity="center"
@@ -16,14 +16,14 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
                     <ImageView
                         android:id="@+id/productImage"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/hundred_fifty"
                         android:scaleType="fitXY"
-                        android:src="@drawable/save"></ImageView>
+                        android:src="@drawable/chikencutpice"></ImageView>
 
                     <TextView
                         android:id="@+id/productName"
@@ -36,7 +36,7 @@
                         android:layout_weight="1"
                         android:text="Chicken Legs"
                         android:textColor="#1D4759"
-                        android:textSize="@dimen/edittextsize"
+                        android:textSize="@dimen/twelve_size"
                         android:textStyle="bold"></TextView>
 
                     <TextView
@@ -49,13 +49,13 @@
                         android:layout_marginRight="@dimen/fifty"
                         android:layout_weight="1"
                         android:text="LOGIN"
-                        android:textSize="@dimen/textsize"
+                        android:textSize="@dimen/twelve_size"
                         android:textStyle="bold"></TextView>
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/addToCart"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/forty_five"
+                        android:layout_height="wrap_content"
                         android:layout_below="@id/productprice"
                         android:layout_marginLeft="@dimen/ten"
                         android:layout_marginTop="@dimen/three"
@@ -66,22 +66,24 @@
                         android:textSize="@dimen/twelve_size"
                         android:textStyle="bold"
                         app:backgroundTint="#1D4759"
-                        android:visibility="visible"></com.google.android.material.button.MaterialButton>
+                        android:visibility="visible"
+                        ></com.google.android.material.button.MaterialButton>
 
                     <RelativeLayout
                         android:id="@+id/showProduct"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/productprice"
-                        android:layout_marginTop="@dimen/fifteen"
-                        android:layout_marginBottom="@dimen/fifteen"
-                        android:visibility="gone">
+                        android:layout_marginTop="@dimen/five"
+                        android:layout_marginBottom="@dimen/seven"
+                        android:visibility="visible">
 
                         <TextView
                             android:id="@+id/text_Unit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/fifteen"
                             android:background="@drawable/box"
                             android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
@@ -95,15 +97,16 @@
                         <LinearLayout
                             android:id="@+id/inc"
                             android:layout_width="@dimen/seventy"
-                            android:layout_height="@dimen/forty"
+                            android:layout_height="@dimen/thirty"
                             android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
                             android:layout_marginRight="@dimen/ten"
                             android:weightSum="3">
 
                             <TextView
                                 android:id="@+id/t3"
                                 android:layout_width="0dp"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@drawable/addback"
                                 android:gravity="center"
@@ -125,7 +128,7 @@
                             <TextView
                                 android:id="@+id/t1"
                                 android:layout_width="0dp"
-                                android:layout_height="match_parent"
+                                android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:background="@drawable/addback"
                                 android:gravity="center"

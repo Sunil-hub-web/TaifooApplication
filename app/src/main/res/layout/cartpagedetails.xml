@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/five"
-            android:text="ShopNmae"
+            android:text=""
             android:layout_below="@id/product_Name"
             android:layout_toRightOf="@id/productImage"
             android:textColor="@color/black"
@@ -74,6 +74,7 @@
 
 
         <RelativeLayout
+            android:id="@+id/img_Delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -82,11 +83,11 @@
             android:background="@drawable/homecard_back">
 
             <ImageView
+
                 android:layout_width="@dimen/twelve"
                 android:layout_height="@dimen/twelve"
                 android:src="@drawable/wrong"
-                android:layout_margin="@dimen/eight"
-                android:id="@+id/img_Delete"></ImageView>
+                android:layout_margin="@dimen/eight"></ImageView>
 
         </RelativeLayout>
 

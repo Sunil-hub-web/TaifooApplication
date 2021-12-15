@@ -17,29 +17,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/sliderViewPager2"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/two_hundred"
-                    android:paddingStart="40dp"
-                    android:paddingEnd="40dp">
-
-                </androidx.viewpager2.widget.ViewPager2>
-
-                <LinearLayout
-                    android:id="@+id/dots_container"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="@dimen/hundred"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:orientation="horizontal"></LinearLayout>
+                    android:id="@+id/viewpager">
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/sliderViewPager2"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/two_hundred">
+
+                    </androidx.viewpager2.widget.ViewPager2>
+
+                    <LinearLayout
+                        android:id="@+id/dots_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="@dimen/hundred"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:orientation="horizontal"></LinearLayout>
+
+
+                </RelativeLayout>
 
                 <LinearLayout
                     android:id="@+id/details"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/sliderViewPager2"
+                    android:layout_below="@id/viewpager"
                     android:layout_marginTop="@dimen/twenty"
                     android:orientation="horizontal"
                     android:weightSum="4">

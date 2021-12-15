@@ -68,6 +68,8 @@
             android:background="@drawable/serachback"
             android:layout_margin="15dp"
             android:padding="12dp"
+            android:drawablePadding="@dimen/fifteen"
+            android:hint="Serach Location"
             android:drawableLeft="@drawable/loupe">
 
         </EditText>
@@ -87,8 +89,9 @@
     </TextView>
 
     <TextView
-        android:layout_width="@dimen/two_hundred"
-        android:layout_height="@dimen/fifty"
+        android:id="@+id/text_CurrentLocation"
+        android:layout_width="@dimen/hundred_fifty"
+        android:layout_height="@dimen/thirty_five"
         android:text="Use My Location"
         android:layout_below="@id/or"
         android:layout_marginTop="15dp"
@@ -96,10 +99,22 @@
         android:gravity="center"
         android:drawableLeft="@drawable/cursor"
         android:paddingLeft="15dp"
-        android:textSize="15dp"
+        android:textSize="@dimen/twelve_size"
         android:textColor="#ED1A0A"
         android:background="@drawable/locationback">
 
     </TextView>
+
+    <TextView
+        android:id="@+id/text_AddressDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:text="Show your Curent Location"
+        android:textSize="@dimen/edittextsize"
+        android:textColor="#1F4A5B"
+        android:layout_below="@id/text_CurrentLocation"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/thirty"></TextView>
 
 </RelativeLayout>

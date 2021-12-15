@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -19,7 +20,7 @@
             android:src="@drawable/save"></ImageView>
 
         <TextView
-            android:id="@+id/text"
+            android:id="@+id/text_ProdectName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/ten"
@@ -33,7 +34,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/text"
+            android:layout_below="@id/text_ProdectName"
             android:layout_marginTop="@dimen/five"
             android:layout_toRightOf="@id/productImage"
             android:orientation="vertical">

@@ -24,7 +24,7 @@
             android:id="@+id/image_NoResult"
             android:layout_width="@dimen/two_hundred"
             android:layout_height="@dimen/two_hundred"
-            android:src="@drawable/no_result"></ImageView>
+            android:src="@drawable/thank_you_icon"></ImageView>
 
         <TextView
             android:layout_width="wrap_content"

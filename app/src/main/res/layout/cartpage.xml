@@ -49,14 +49,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/ten"
-                android:layout_toLeftOf="@+id/subTotalPrice"
+                android:layout_toLeftOf="@+id/text_subTotalPrice"
                 android:text="₹"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/edittextsize"
                 android:textStyle="bold"></TextView>
 
             <TextView
-                android:id="@+id/subTotalPrice"
+                android:id="@+id/text_subTotalPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -90,18 +90,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/ten"
-                android:layout_toLeftOf="@+id/shippingCharges"
+                android:layout_toLeftOf="@+id/text_taxandfee"
                 android:text="₹"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/edittextsize"
                 android:textStyle="bold"></TextView>
 
             <TextView
-                android:id="@+id/shippingCharges"
+                android:id="@+id/text_taxandfee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="5.0"
+                android:text="5.00"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/textsize"
                 android:textStyle="bold"></TextView>
@@ -118,31 +118,36 @@
 
             <TextView
                 android:id="@+id/delivery"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/hundred"
+                android:layout_height="@dimen/thirty"
+                android:layout_gravity="center"
+                android:background="@drawable/box"
+                android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
+                android:gravity="center"
+                android:paddingLeft="@dimen/ten"
                 android:text="Delivery"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/textsize"
                 android:textStyle="bold"></TextView>
 
-          <!--  <TextView
+            <TextView
                 android:id="@+id/priceSymbol3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/ten"
-                android:layout_toLeftOf="@+id/totalPrice"
+                android:layout_toLeftOf="@+id/text_deliveryPrice"
                 android:text="₹"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/edittextsize"
-                android:textStyle="bold"></TextView>-->
+                android:textStyle="bold"></TextView>
 
 
             <TextView
-                android:id="@+id/deliveryPrice"
+                android:id="@+id/text_deliveryPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="Fee"
+                android:text="0"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/edittextsize"
                 android:textStyle="bold"></TextView>
@@ -153,37 +158,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/fifteen"
+            android:layout_marginTop="@dimen/fifteen"
+            android:layout_marginRight="@dimen/fifteen"
             android:text="You Have No promo code"
             android:textColor="@color/some_color1"
             android:textSize="@dimen/textsize"
-            android:textStyle="bold"
-            android:layout_marginLeft="@dimen/fifteen"
-            android:layout_marginTop="@dimen/fifteen"
-            android:layout_marginRight="@dimen/fifteen"></TextView>
+            android:textStyle="bold"></TextView>
 
 
     </LinearLayout>
 
 
     <RelativeLayout
+        android:id="@+id/totalprice"
         android:layout_width="match_parent"
         android:layout_height="@dimen/fifty"
-        android:background="#DA291C"
         android:layout_below="@id/amount"
-        android:layout_marginTop="@dimen/hundred"
         android:layout_marginLeft="@dimen/twenty"
-        android:layout_marginRight="@dimen/twenty">
+        android:layout_marginTop="@dimen/hundred"
+        android:layout_marginRight="@dimen/twenty"
+        android:background="#DA291C">
 
         <TextView
             android:id="@+id/text_gotoCheckout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/thirty"
             android:text="Go To Checkout"
             android:textColor="@color/white"
             android:textSize="@dimen/textsize"
-            android:textStyle="bold"
-            android:layout_marginLeft="@dimen/thirty"
-            android:layout_centerVertical="true"></TextView>
+            android:textStyle="bold"></TextView>
 
 
         <RelativeLayout
@@ -194,29 +200,57 @@
             android:layout_marginRight="@dimen/thirty">
 
             <TextView
-                android:id="@+id/totalPrice"
+                android:id="@+id/text_totalPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
+                android:layout_marginLeft="@dimen/twenty_five"
                 android:layout_marginTop="@dimen/five"
-                android:textSize="@dimen/textsize"
                 android:text="500.00"
-                android:textStyle="bold"
-                android:layout_marginLeft="@dimen/twenty_five"></TextView>
+                android:textColor="@color/white"
+                android:textSize="@dimen/textsize"
+                android:textStyle="bold"></TextView>
 
             <TextView
                 android:id="@+id/priceSymbol5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/five"
                 android:text="Rs."
                 android:textColor="@color/white"
                 android:textSize="@dimen/textsize"
-                android:textStyle="bold"
-                android:layout_marginTop="@dimen/five"></TextView>
+                android:textStyle="bold"></TextView>
 
         </RelativeLayout>
 
-
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/cartempty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/image_NoResult"
+            android:layout_width="@dimen/two_hundred"
+            android:layout_height="@dimen/two_hundred"
+            android:layout_centerInParent="true"
+            android:src="@drawable/items"></ImageView>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/five"
+            android:text="Your Cart In Empty"
+            android:textColor="#DA291C"
+            android:textSize="@dimen/twenty_size"
+            android:textStyle="bold"></TextView>
+
+    </LinearLayout>
+
 
 </RelativeLayout>

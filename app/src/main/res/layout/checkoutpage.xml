@@ -12,6 +12,7 @@
         android:orientation="vertical">
 
         <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fifteen"
@@ -19,19 +20,18 @@
             android:weightSum="2">
 
             <RadioButton
-                android:id="@+id/payonline"
+                android:id="@+id/radio_payonline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:background="@null"
-                android:checked="true"
                 android:paddingLeft="@dimen/fifteen"
                 android:text="Pay Online"
                 android:textColor="#686666"
                 android:textSize="@dimen/edittextsize" />
 
             <RadioButton
-                android:id="@+id/cashondelivery"
+                android:id="@+id/radio_cashondelivery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -40,6 +40,7 @@
                 android:text="Cash On Delivery"
                 android:textColor="#686666"
                 android:textSize="@dimen/edittextsize" />
+
         </RadioGroup>
 
         <TextView
@@ -51,10 +52,10 @@
             android:textSize="@dimen/edittextsize"></TextView>
 
         <TextView
+            android:id="@+id/text_ShowAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/ten"
-            android:text="Nayapalli Road, N3, Block N2, IRC Village, Bhubaneswar, Odisha 751015"
             android:textColor="#787B7C"
             android:textSize="@dimen/edittextsize"></TextView>
 
@@ -167,7 +168,7 @@
         android:id="@+id/amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/btn_Checkout"
+        android:layout_above="@id/btn_ProceedCheckout"
         android:layout_marginTop="@dimen/thirty"
         android:layout_marginBottom="@dimen/thirty"
         android:orientation="vertical">
@@ -194,14 +195,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/ten"
-                android:layout_toLeftOf="@+id/subTotalPrice"
+                android:layout_toLeftOf="@+id/text_subTotalPrice"
                 android:text="₹"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/edittextsize"
                 android:textStyle="bold"></TextView>
 
             <TextView
-                android:id="@+id/subTotalPrice"
+                android:id="@+id/text_subTotalPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -235,14 +236,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/ten"
-                android:layout_toLeftOf="@+id/shippingCharges"
+                android:layout_toLeftOf="@+id/text_shippingCharges"
                 android:text="₹"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/edittextsize"
                 android:textStyle="bold"></TextView>
 
             <TextView
-                android:id="@+id/shippingCharges"
+                android:id="@+id/text_shippingCharges"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -283,7 +284,7 @@
 
 
             <TextView
-                android:id="@+id/deliveryPrice"
+                android:id="@+id/text_TotalPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -297,7 +298,7 @@
 
     <com.google.android.material.button.MaterialButton
 
-        android:id="@+id/btn_Checkout"
+        android:id="@+id/btn_ProceedCheckout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

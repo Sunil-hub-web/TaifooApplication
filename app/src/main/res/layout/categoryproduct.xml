@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/fifty"
+        android:background="@drawable/homecard_back"
+        android:elevation="@dimen/fifteen">
+
+        <ImageView
+            android:id="@+id/image_Arrow"
+            android:layout_width="@dimen/twenty_five"
+            android:layout_height="@dimen/twenty_five"
+            android:src="@drawable/left_arrow"
+            android:layout_margin="@dimen/ten"></ImageView>
+
+        <TextView
+            android:id="@+id/product_Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/image_Arrow"
+            android:layout_margin="@dimen/ten"
+            android:text="Chicken Leg"
+            android:textSize="@dimen/twenty"
+            android:textColor="#22647E">
+
+        </TextView>
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/categoryProductRecycler"
+        android:layout_marginTop="@dimen/fifteen"
+        android:layout_below="@id/text">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</RelativeLayout>

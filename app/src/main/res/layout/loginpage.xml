@@ -45,6 +45,7 @@
             android:layout_marginRight="@dimen/ten">
 
             <EditText
+                android:id="@+id/edit_UserName"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fifty"
                 android:textSize="@dimen/edittextsize"
@@ -68,6 +69,7 @@
             android:layout_marginRight="@dimen/ten">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_Password"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fifty"
                 android:padding="@dimen/ten"
@@ -139,7 +141,7 @@
             android:textSize="@dimen/textsize"/>
 
         <TextView
-            android:id="@+id/login3"
+            android:id="@+id/text_ClickHere"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text=" Click Here"

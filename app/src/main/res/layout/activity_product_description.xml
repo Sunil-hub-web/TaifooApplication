@@ -22,6 +22,7 @@
             android:layout_margin="@dimen/ten"></ImageView>
 
         <TextView
+            android:id="@+id/product_Name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/image_Arrow"
@@ -49,6 +50,7 @@
             android:scaleType="centerInside"></ImageView>
 
         <TextView
+            android:id="@+id/productname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/ten"
@@ -138,7 +140,7 @@
             android:layout_marginBottom="@dimen/fifteen">
 
             <TextView
-                android:id="@+id/text_Unit"
+                android:id="@+id/textUnit"
                 android:layout_width="@dimen/hundred"
                 android:layout_height="@dimen/forty"
                 android:layout_gravity="center"
@@ -201,7 +203,7 @@
 
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/addToCart"
+            android:id="@+id/btn_addToCart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/thirteen"

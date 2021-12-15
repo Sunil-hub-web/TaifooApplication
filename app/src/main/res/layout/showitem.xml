@@ -5,10 +5,9 @@
     android:layout_margin="@dimen/ten">
 
     <RelativeLayout
-        android:id="@+id/img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:id="@+id/rel_view"
+        android:layout_width="@dimen/hundred_fifty"
+        android:layout_height="@dimen/ninety">
 
         <ImageView
             android:id="@+id/itemImage"
@@ -24,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/itemImage"
             android:layout_centerHorizontal="true"
-            android:layout_margin="@dimen/eight"
+            android:layout_marginTop="@dimen/twelve"
             android:text="Home&amp;Furniture"
             android:textColor="#000000"
             android:textSize="@dimen/twelve_size"

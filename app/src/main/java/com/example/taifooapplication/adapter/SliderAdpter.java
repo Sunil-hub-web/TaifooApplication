@@ -13,6 +13,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.taifooapplication.R;
 import com.example.taifooapplication.modelclas.ShowImage_ModelClass;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -47,7 +48,8 @@ public class SliderAdpter extends RecyclerView.Adapter<SliderAdpter.ViewHOlder> 
        /* int image = slideImage.getImage();
         int strImage = Integer.valueOf(image);*/
 
-        holder.img_showImage.setImageResource(slideImage.getImage());
+        String image = "https://"+slideImage.getImage();
+        Picasso.with(context).load(image).into(holder.img_showImage);
 
         if(position == show_Image.size() - 2){
 
