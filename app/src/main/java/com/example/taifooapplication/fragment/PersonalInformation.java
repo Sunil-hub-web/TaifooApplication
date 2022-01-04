@@ -54,6 +54,7 @@ public class PersonalInformation extends Fragment {
     CircleImageView profile_image;
     public static final int IMAGE_CODE = 1;
     Uri imageUri;
+    TextView text_editOption;
 
     @Nullable
     @Override
@@ -67,11 +68,28 @@ public class PersonalInformation extends Fragment {
         edit_EmailId = view.findViewById(R.id.edit_EmailId);
         profile_image = view.findViewById(R.id.profile_image);
         btn_Update = view.findViewById(R.id.btn_Update);
-
+        text_editOption = view.findViewById(R.id.text_editOption);
 
         userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
 
         getProfileDetails(userId);
+
+        text_editOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                edit_fillname.requestFocus();
+                edit_fillname.setEnabled(true);
+
+                edit_mobileNo.requestFocus();
+                edit_mobileNo.setEnabled(true);
+
+                edit_EmailId.requestFocus();
+                edit_EmailId.setEnabled(true);
+
+                Toast.makeText(getContext(), "Edit", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         profile_image.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -165,6 +183,15 @@ public class PersonalInformation extends Fragment {
                             edit_EmailId.setText(email);
                             edit_mobileNo.setText(mobile);
 
+                            //edit_fillname.setFocusable(false);
+                            edit_fillname.setEnabled(false);
+
+                            //edit_EmailId.setFocusable(false);
+                            edit_EmailId.setEnabled(false);
+
+                            //edit_mobileNo.setFocusable(false);
+                            edit_mobileNo.setEnabled(false);
+
                         } else {
 
                             Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
@@ -186,6 +213,15 @@ public class PersonalInformation extends Fragment {
                             edit_fillname.setText(name);
                             edit_EmailId.setText(email);
                             edit_mobileNo.setText(mobile);
+
+                            //edit_fillname.setFocusable(false);
+                            edit_fillname.setEnabled(false);
+
+                            //edit_EmailId.setFocusable(false);
+                            edit_EmailId.setEnabled(false);
+
+                            //edit_mobileNo.setFocusable(false);
+                            edit_mobileNo.setEnabled(false);
                         }
 
 

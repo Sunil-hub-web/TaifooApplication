@@ -1,6 +1,5 @@
 package com.example.taifooapplication.adapter;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -79,7 +78,7 @@ public class SelectAddressAdapter extends RecyclerView.Adapter<SelectAddressAdap
 
         }
         else {
-            holder.rel_Click.setBackgroundResource(R.drawable.homecard_back);
+            holder.rel_Click.setBackgroundResource(R.drawable.homecard_back1);
             holder.rel_Click.setElevation(5);
         }
 

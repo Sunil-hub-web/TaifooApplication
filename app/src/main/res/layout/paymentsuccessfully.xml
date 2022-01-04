@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_centerInParent="true">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/json"
+            android:layout_width="@dimen/hundred_fifty"
+            android:layout_height="@dimen/hundred_fifty"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/fifteen"
+            android:scaleType="centerCrop"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="rightor_correct_in_circle.json"
+            app:lottie_loop="true">
+
+        </com.airbnb.lottie.LottieAnimationView>
+
+        <TextView
+            android:id="@+id/signup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/json"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/fifty"
+            android:text="Payment SuccessFully"
+            android:textColor="#068BF4"
+            android:textSize="@dimen/twenty_size"
+            android:textStyle="bold">
+
+        </TextView>
+
+      <!--  <Button
+            android:id="@+id/view"
+            android:layout_width="@dimen/two_hundred_fifty"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/signup"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/fifty"
+            android:layout_marginBottom="@dimen/fifteen"
+            android:background="@drawable/button_back"
+            android:text="View Order Details"
+            android:textColor="@color/white"
+            android:textSize="@dimen/edittextsize"
+            android:textStyle="bold">
+
+        </Button>-->
+
+        <TextView
+            android:id="@+id/shopping"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/json"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/fifty"
+            android:text="Continue Shopping"
+            android:textColor="@color/some_color"
+            android:textSize="@dimen/twenty_size"
+            android:textStyle="bold">
+
+        </TextView>
+
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>

@@ -107,42 +107,52 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
                 String productid = cartItem.getProduct_id();
                 String quantity = holder.t2.getText().toString().trim();
 
-                String price1 = holder.totalPrice.getText().toString().trim();
-                String price = cartItem.getSale_price();
+                if(quantity.equals("1")){
 
-                int qun = Integer.valueOf(quantity);
-                int tot = Integer.valueOf(price);
-                int total = qun * tot;
-                String tot_al = String.valueOf(total);
-                holder.totalPrice.setText(tot_al);
+                    Toast.makeText(context, "Do You want To delete Please click Delete", Toast.LENGTH_SHORT).show();
 
-                total_price = holder.totalPrice.getText().toString().trim();
+                }else{
 
-                salesPrice = Integer.valueOf(price);
+                    holder.unit_Name.setText("Q :"+quantity);
+                    String price1 = holder.totalPrice.getText().toString().trim();
+                    String price = cartItem.getSale_price();
 
-                sum = CartPage.text_subTotalPrice.getText().toString().trim();
-                d_totPrice = Double.valueOf(price);
-                d_Sum = Double.valueOf(sum);
-                sumOfTotal = d_Sum - d_totPrice;
-                str_SumTotal = String.valueOf(sumOfTotal);
+                    int qun = Integer.valueOf(quantity);
+                    int tot = Integer.valueOf(price);
+                    int total = qun * tot;
+                    String tot_al = String.valueOf(total);
+                    holder.totalPrice.setText(tot_al);
 
-                CartPage.text_subTotalPrice.setText(str_SumTotal);
+                    total_price = holder.totalPrice.getText().toString().trim();
 
-                str_Shpping = CartPage.text_deliveryPrice.getText().toString().trim();
+                    salesPrice = Integer.valueOf(price);
 
-                d_ShppingCharges = Double.valueOf(str_Shpping);
+                    sum = CartPage.text_subTotalPrice.getText().toString().trim();
+                    d_totPrice = Double.valueOf(price);
+                    d_Sum = Double.valueOf(sum);
+                    sumOfTotal = d_Sum - d_totPrice;
+                    str_SumTotal = String.valueOf(sumOfTotal);
 
-                tax = CartPage.text_taxandfee.getText().toString().trim();
-                taxCharge = Double.valueOf(tax);
+                    CartPage.text_subTotalPrice.setText(str_SumTotal);
 
-                d_TotlAmount  = sumOfTotal + d_ShppingCharges + taxCharge;
+                    str_Shpping = CartPage.text_deliveryPrice.getText().toString().trim();
 
-                str_TotalPrice = String.valueOf(d_TotlAmount);
+                    d_ShppingCharges = Double.valueOf(str_Shpping);
 
-                CartPage.text_totalPrice.setText(str_TotalPrice);
+                    tax = CartPage.text_taxandfee.getText().toString().trim();
+                    taxCharge = Double.valueOf(tax);
+
+                    d_TotlAmount  = sumOfTotal + d_ShppingCharges + taxCharge;
+
+                    str_TotalPrice = String.valueOf(d_TotlAmount);
+
+                    CartPage.text_totalPrice.setText(str_TotalPrice);
 
 
-                updateToCart(userid,productid,quantity);
+                    updateToCart(userid,productid,quantity);
+
+                }
+
 
             }
         });
@@ -156,41 +166,43 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
                 String productid = cartItem.getProduct_id();
                 String quantity = holder.t2.getText().toString().trim();
 
-                String price1 = holder.totalPrice.getText().toString().trim();
-                String price = cartItem.getSale_price();
+                    holder.unit_Name.setText("Q :"+quantity);
 
-                int qun = Integer.valueOf(quantity);
-                int tot = Integer.valueOf(price);
-                int total = qun * tot;
-                String tot_al = String.valueOf(total);
-                holder.totalPrice.setText(tot_al);
+                    String price1 = holder.totalPrice.getText().toString().trim();
+                    String price = cartItem.getSale_price();
 
-                total_price = holder.totalPrice.getText().toString().trim();
+                    int qun = Integer.valueOf(quantity);
+                    int tot = Integer.valueOf(price);
+                    int total = qun * tot;
+                    String tot_al = String.valueOf(total);
+                    holder.totalPrice.setText(tot_al);
 
-                salesPrice = Integer.valueOf(price);
+                    total_price = holder.totalPrice.getText().toString().trim();
 
-                sum = CartPage.text_subTotalPrice.getText().toString().trim();
-                d_totPrice = Double.valueOf(price);
-                d_Sum = Double.valueOf(sum);
-                sumOfTotal = d_Sum + d_totPrice;
-                str_SumTotal = String.valueOf(sumOfTotal);
+                    salesPrice = Integer.valueOf(price);
 
-                CartPage.text_subTotalPrice.setText(str_SumTotal);
+                    sum = CartPage.text_subTotalPrice.getText().toString().trim();
+                    d_totPrice = Double.valueOf(price);
+                    d_Sum = Double.valueOf(sum);
+                    sumOfTotal = d_Sum + d_totPrice;
+                    str_SumTotal = String.valueOf(sumOfTotal);
 
-                str_Shpping = CartPage.text_deliveryPrice.getText().toString().trim();
+                    CartPage.text_subTotalPrice.setText(str_SumTotal);
 
-                d_ShppingCharges = Double.valueOf(str_Shpping);
+                    str_Shpping = CartPage.text_deliveryPrice.getText().toString().trim();
 
-                tax = CartPage.text_taxandfee.getText().toString().trim();
-                taxCharge = Double.valueOf(tax);
+                    d_ShppingCharges = Double.valueOf(str_Shpping);
 
-                d_TotlAmount  = sumOfTotal + d_ShppingCharges + taxCharge;
+                    tax = CartPage.text_taxandfee.getText().toString().trim();
+                    taxCharge = Double.valueOf(tax);
 
-                str_TotalPrice = String.valueOf(d_TotlAmount);
+                    d_TotlAmount  = sumOfTotal + d_ShppingCharges + taxCharge;
 
-                CartPage.text_totalPrice.setText(str_TotalPrice);
+                    str_TotalPrice = String.valueOf(d_TotlAmount);
 
-                updateToCart(userid,productid,quantity);
+                    CartPage.text_totalPrice.setText(str_TotalPrice);
+
+                    updateToCart(userid,productid,quantity);
 
             }
         });

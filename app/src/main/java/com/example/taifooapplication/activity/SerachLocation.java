@@ -52,10 +52,10 @@ public class SerachLocation extends AppCompatActivity {
         text_AddressDetails = findViewById(R.id.text_AddressDetails);
         text_CurrentLocation = findViewById(R.id.text_CurrentLocation);
 
-        Window window = SerachLocation.this.getWindow();
+        /*Window window = SerachLocation.this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(ContextCompat.getColor(SerachLocation.this, R.color.white));
+        window.setStatusBarColor(ContextCompat.getColor(SerachLocation.this, R.color.white));*/
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -128,7 +128,7 @@ public class SerachLocation extends AppCompatActivity {
                         longitude = addresses.get(0).getLongitude();
 
                         //set address On Text View
-                        text_AddressDetails.setText(addresses.get(0).getAddressLine(0));
+                        //text_AddressDetails.setText(addresses.get(0).getAddressLine(0));
 
 
                     } catch (IOException e) {

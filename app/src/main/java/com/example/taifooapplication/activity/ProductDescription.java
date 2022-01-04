@@ -54,10 +54,10 @@ public class ProductDescription extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_description);
 
-        Window window = ProductDescription.this.getWindow();
+       /* Window window = ProductDescription.this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(ContextCompat.getColor(ProductDescription.this, R.color.white));
+        window.setStatusBarColor(ContextCompat.getColor(ProductDescription.this, R.color.white));*/
 
         totalPrice1 = findViewById(R.id.totalPrice1);
         totalPrice = findViewById(R.id.totalPrice);

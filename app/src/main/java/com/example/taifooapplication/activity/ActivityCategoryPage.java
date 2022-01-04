@@ -55,10 +55,10 @@ public class ActivityCategoryPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.categoryproduct);
 
-        Window window = ActivityCategoryPage.this.getWindow();
+       /* Window window = ActivityCategoryPage.this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(ContextCompat.getColor(ActivityCategoryPage.this, R.color.white));
+        window.setStatusBarColor(ContextCompat.getColor(ActivityCategoryPage.this, R.color.white));*/
 
 
         categoryProductRecycler = findViewById(R.id.categoryProductRecycler);

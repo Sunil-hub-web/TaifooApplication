@@ -125,7 +125,8 @@ public class CartPage extends Fragment {
         getShippingCharges();
         getCartItem(userId);
 
-        delivery.setOnClickListener(new View.OnClickListener() {
+
+       /* delivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -180,7 +181,7 @@ public class CartPage extends Fragment {
                 dialogMenu.show();
 
             }
-        });
+        });*/
 
         return view;
 
@@ -265,7 +266,23 @@ public class CartPage extends Fragment {
                             Double amount = taxCharge + totalAmount;
                             String str_Amount = String.valueOf(amount);
 
-                            text_totalPrice.setText(str_Amount);
+                            //text_totalPrice.setText(str_Amount);
+
+                            String shippingPrice = text_deliveryPrice.getText().toString().trim();
+
+                            //delivery.setText(shippingName);
+                            //text_deliveryPrice.setText(shippingPrice);
+
+                            shipCharge = Double.valueOf(shippingPrice);
+
+                           /* String tax1 = text_taxandfee.getText().toString().trim();
+                            taxCharge = Double.valueOf(tax1);*/
+
+                            Double AmountTotal = totalAmount + shipCharge + taxCharge;
+
+                            String tot_Amount = String.valueOf(AmountTotal);
+
+                            text_totalPrice.setText(tot_Amount);
 
 
                             linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);

@@ -19,9 +19,9 @@ public class OrderSuccessFully extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_success_fully);
 
-        Window window = OrderSuccessFully.this.getWindow();
+       /* Window window = OrderSuccessFully.this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(ContextCompat.getColor(OrderSuccessFully.this, R.color.white));
+        window.setStatusBarColor(ContextCompat.getColor(OrderSuccessFully.this, R.color.white));*/
     }
 }

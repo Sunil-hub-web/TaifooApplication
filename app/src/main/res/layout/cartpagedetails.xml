@@ -8,7 +8,7 @@
         android:layout_height="@dimen/hundred"
         android:id="@+id/first"
         android:layout_margin="@dimen/ten"
-        android:background="@drawable/homecard_back"
+        android:background="@drawable/homecard_back1"
         android:elevation="@dimen/ten">
 
         <ImageView
@@ -80,7 +80,7 @@
             android:layout_alignParentRight="true"
             android:orientation="vertical"
             android:elevation="@dimen/fifteen"
-            android:background="@drawable/homecard_back">
+            android:background="@drawable/homecard_back1">
 
             <ImageView
 

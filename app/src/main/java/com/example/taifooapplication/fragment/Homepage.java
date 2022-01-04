@@ -252,6 +252,7 @@ public class Homepage extends Fragment {
                         bestSellingAdapter = new BestSellingAdapter (getContext(),bestselling);
                         bestsellingRecycler.setLayoutManager(gridLayoutManager1);
                         bestsellingRecycler.setHasFixedSize(true);
+                        bestsellingRecycler.setNestedScrollingEnabled(false);
                         bestsellingRecycler.setAdapter(bestSellingAdapter);
 
                     }

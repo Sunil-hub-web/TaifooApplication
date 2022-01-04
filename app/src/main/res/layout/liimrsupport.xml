@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/sixty">
+
+        <TextView
+            android:id="@+id/t1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/edittextsize"
+            android:layout_gravity="center_horizontal"
+            android:text="We are here to support you for all your">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/edittextsize"
+            android:text="queries/Doubts"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@id/t1">
+
+        </TextView>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fifty"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/call"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="@dimen/edittextsize"
+                android:text="Call Us :"
+                android:layout_gravity="center_horizontal">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#01A5EF"
+                android:textSize="@dimen/edittextsize"
+                android:text="9339334933"
+                android:layout_gravity="center_horizontal"
+                android:layout_toRightOf="@id/call"
+                android:layout_marginLeft="@dimen/twenty"
+                android:drawablePadding="@dimen/twelve">
+
+            </TextView>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/edittextsize"
+            android:layout_marginTop="@dimen/thirty"
+            android:text="or"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@id/t1">
+
+        </TextView>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/forty"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="@dimen/edittextsize"
+                android:text="Email Us :"
+                android:layout_gravity="center_horizontal">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#01A5EF"
+                android:textSize="@dimen/edittextsize"
+                android:text="support@liimr.com"
+                android:layout_gravity="center_horizontal"
+                android:layout_toRightOf="@id/email"
+                android:layout_marginLeft="@dimen/twenty"
+                android:drawablePadding="@dimen/twelve">
+
+            </TextView>
+
+        </RelativeLayout>
+
+      <!--  <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/edittextsize"
+            android:layout_marginTop="@dimen/thirty"
+            android:text="or"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@id/t1">
+
+        </TextView>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="@dimen/hundred_twenty"
+            android:layout_height="@dimen/forty"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/thirty"
+            android:text="Live Chart"
+            android:textAllCaps="false"
+            android:textSize="@dimen/textsize"
+            android:textColor="@color/white"
+            app:backgroundTint="#DA291C">
+
+        </com.google.android.material.button.MaterialButton>-->
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

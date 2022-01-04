@@ -27,6 +27,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.taifooapplication.AppURL;
 import com.example.taifooapplication.R;
 import com.example.taifooapplication.SharedPrefManager;
+import com.example.taifooapplication.activity.HomePageActivity;
 import com.example.taifooapplication.activity.ProductDescription;
 import com.example.taifooapplication.modelclas.BestSelling_modelClass;
 import com.example.taifooapplication.modelclas.ShowItem_ModelClass;
@@ -116,13 +117,30 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
                 holder.linearLayout(false);
 
                 quantity = holder.t2.getText().toString().trim();
-                count_value = Integer.valueOf(holder.t2.getText().toString());
+                //-
 
-                countvalue = String.valueOf(count_value);
+                String producy_id = bestSell.getProduct_id();
 
-                productid = bestSell.getProduct_id();
+                if(quantity.equals("0")){
 
-                updateToCart(userid,productid,quantity);
+                    deleteCartItem(userid,producy_id);
+
+                    holder.showProduct.setVisibility (View.GONE);
+                    holder.addToCart.setVisibility (View.VISIBLE);
+
+                }else{
+
+                    quantity = holder.t2.getText().toString().trim();
+                    count_value = Integer.valueOf(holder.t2.getText().toString());
+
+                    countvalue = String.valueOf(count_value);
+
+                    productid = bestSell.getProduct_id();
+
+                    updateToCart(userid,productid,quantity);
+
+                }
+
 
             }
         });
@@ -132,10 +150,9 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
             public void onClick(View view) {
                 holder.linearLayout(true);
 
+                //+
                 quantity = holder.t2.getText().toString().trim();
-
                 productid = bestSell.getProduct_id();
-
                 updateToCart(userid,productid,quantity);
 
 
@@ -192,7 +209,7 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
             } else {
                 y--;
                 if (y <= 0) {
-                    t2.setText("1");
+                    t2.setText("0");
                 } else {
                     t2.setText(String.valueOf(y));
                 }
@@ -309,6 +326,55 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
 
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,3,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+
+    }
+
+    public void deleteCartItem(String userId,String productId){
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.deleteFormCart, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    //String message = jsonObject.getString("success");
+                    String cart_count = jsonObject.getString("cart_count");
+                    HomePageActivity.text_ItemCount.setText(cart_count);
+
+                    /*if(message.equals("true")){
+
+                        String msg = jsonObject.getString("msg");
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                    }*/
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                error.printStackTrace();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String,String> params = new HashMap<>();
+
+                params.put("user_id",userId);
+                params.put("product_id",productId);
+
+                return params;
+            }
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.getCache().clear();
         requestQueue.add(stringRequest);
 
     }

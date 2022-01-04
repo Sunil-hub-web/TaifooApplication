@@ -40,6 +40,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.taifooapplication.AppURL;
 import com.example.taifooapplication.R;
 import com.example.taifooapplication.SharedPrefManager;
+import com.example.taifooapplication.activity.HomePageActivity;
 import com.example.taifooapplication.adapter.CartPageAdapter;
 import com.example.taifooapplication.adapter.CitySpinerAdapter;
 import com.example.taifooapplication.adapter.OrderSummaryAdapter;
@@ -275,7 +276,7 @@ public class CheckOutPage extends Fragment {
 
         dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.addressdetails);
-        dialog.setCancelable(false);
+        //dialog.setCancelable(false);
         spinner_City = dialog.findViewById(R.id.spinner_City);
         spinner_Pincode = dialog.findViewById(R.id.spinner_Pincode);
 
@@ -287,6 +288,15 @@ public class CheckOutPage extends Fragment {
         EditText edit_Areas = dialog.findViewById(R.id.edit_Ares);
         EditText edit_Address = dialog.findViewById(R.id.edit_Address);
         Button btn_Save = dialog.findViewById(R.id.btn_Save);
+        Button btn_cancle = dialog.findViewById(R.id.btn_cancle);
+
+        btn_cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+            }
+        });
 
         btn_Save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -732,6 +742,8 @@ public class CheckOutPage extends Fragment {
                         String msg = jsonObject.getString("msg");
 
                         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+
+                        vieworder();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -771,6 +783,42 @@ public class CheckOutPage extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
 
+
+    }
+
+    public void vieworder() {
+
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.paymentsuccessfully);
+        dialog.setCancelable(false);
+
+        TextView text_shopping = dialog.findViewById(R.id.shopping);
+        Button button = dialog.findViewById(R.id.view);
+
+       /* button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getContext(), HomePageActivity.class);
+                startActivity(intent);
+
+                dialog.dismiss();
+            }
+        });*/
+
+        text_shopping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getContext(), HomePageActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        dialog.show();
+        Window window = dialog.getWindow();
+        window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        //window.setBackgroundDrawableResource(R.drawable.dialogback);
 
     }
 }

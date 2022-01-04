@@ -13,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,10 +36,11 @@ import java.util.Map;
 
 public class ForGotPassword extends AppCompatActivity {
 
-    EditText edit_MobileNumber;
-    String str_MobileNumber;
+    EditText edit_Emailid;
+    String str_Emailid;
     Button btn_Verifay;
     TextView text_btnBack;
+    ImageView img_back;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -47,27 +49,37 @@ public class ForGotPassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_for_got_password);
 
-        edit_MobileNumber = findViewById(R.id.edit_MobileNumber);
+        edit_Emailid = findViewById(R.id.edit_Emailid);
         btn_Verifay = findViewById(R.id.btn_Verifay);
         text_btnBack = findViewById(R.id.text_btnBack);
+        img_back = findViewById(R.id.img_back);
 
-        Window window = ForGotPassword.this.getWindow();
+        /*Window window = ForGotPassword.this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(ContextCompat.getColor(ForGotPassword.this, R.color.white));
+        window.setStatusBarColor(ContextCompat.getColor(ForGotPassword.this, R.color.white));*/
 
         btn_Verifay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                str_MobileNumber = edit_MobileNumber.getText().toString().trim();
+                str_Emailid = edit_Emailid.getText().toString().trim();
 
-                forgotPassword(str_MobileNumber);
+                forgotPassword(str_Emailid);
 
             }
         });
 
         text_btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(ForGotPassword.this,MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -94,10 +106,18 @@ public class ForGotPassword extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
 
                     String message = jsonObject.getString("success");
+                    String msg = jsonObject.getString("msg");
 
                     if(message.equals("true")){
 
                         Toast.makeText(ForGotPassword.this, "Check Your Email to get UserId and Password", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(ForGotPassword.this,MainActivity.class);
+                        startActivity(intent);
+
+                    }else if(message.equals("false")){
+
+                        Toast.makeText(ForGotPassword.this, msg, Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {
@@ -127,6 +147,11 @@ public class ForGotPassword extends AppCompatActivity {
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,3,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(ForGotPassword.this);
         requestQueue.add(stringRequest);
+
+    }
+
+    @Override
+    public void onBackPressed() {
 
     }
 }

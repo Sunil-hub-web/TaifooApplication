@@ -97,7 +97,7 @@ public class AddressDetails extends Fragment {
 
         dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.addressdetails);
-        dialog.setCancelable(false);
+        //dialog.setCancelable(false);
         spinner_City = dialog.findViewById(R.id.spinner_City);
         spinner_Pincode = dialog.findViewById(R.id.spinner_Pincode);
 
@@ -109,6 +109,15 @@ public class AddressDetails extends Fragment {
         EditText edit_Areas = dialog.findViewById(R.id.edit_Ares);
         EditText edit_Address = dialog.findViewById(R.id.edit_Address);
         Button btn_Save = dialog.findViewById(R.id.btn_Save);
+        Button btn_cancle = dialog.findViewById(R.id.btn_cancle);
+
+        btn_cancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+            }
+        });
 
         btn_Save.setOnClickListener(new View.OnClickListener() {
             @Override

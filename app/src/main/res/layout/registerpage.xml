@@ -31,7 +31,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Fullname"
+            android:hint="Full Name"
             app:hintTextColor="#94979A"
             app:boxStrokeColor="#94979A"
             android:layout_marginTop="10dp"
@@ -53,14 +53,14 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="ContactNo"
+            android:hint="Contact No"
             app:hintTextColor="#94979A"
             app:boxStrokeColor="#94979A"
             android:layout_marginLeft="@dimen/ten"
             android:layout_marginRight="@dimen/ten"
             android:layout_marginTop="@dimen/ten">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/edit_MobileNumber"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fifty"
@@ -75,14 +75,14 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="EmailId"
+            android:hint="Email Id"
             app:hintTextColor="#94979A"
             app:boxStrokeColor="#94979A"
             android:layout_marginLeft="@dimen/ten"
             android:layout_marginRight="@dimen/ten"
             android:layout_marginTop="@dimen/ten">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/edit_EmailId"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fifty"
@@ -97,14 +97,14 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="UserName"
+            android:hint="User Name"
             app:hintTextColor="#94979A"
             app:boxStrokeColor="#94979A"
             android:layout_marginLeft="@dimen/ten"
             android:layout_marginRight="@dimen/ten"
             android:layout_marginTop="@dimen/ten">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/edit_UserName"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fifty"
@@ -128,7 +128,7 @@
             android:layout_marginRight="@dimen/ten"
             android:layout_marginTop="@dimen/ten">
 
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
                 android:id="@+id/edit_Password"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fifty"

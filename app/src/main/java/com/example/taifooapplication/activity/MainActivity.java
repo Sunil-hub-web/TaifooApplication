@@ -28,10 +28,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Window window = MainActivity.this.getWindow();
+       /* Window window = MainActivity.this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(ContextCompat.getColor(MainActivity.this, R.color.white));
+        window.setStatusBarColor(ContextCompat.getColor(MainActivity.this, R.color.white));*/
 
         text_Login = findViewById(R.id.login);
         text_SignUp = findViewById(R.id.signup);

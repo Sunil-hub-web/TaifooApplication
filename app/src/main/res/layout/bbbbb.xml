@@ -1,52 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/profile">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-
-            android:id="@+id/nav_profile_image"
-            android:layout_width="@dimen/hundred"
-            android:layout_height="@dimen/hundred"
-            android:src="@drawable/profileimage"
-            android:layout_margin="@dimen/ten"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/nav_profile_image"
-            android:layout_centerVertical="true"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/nav_Name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Sunil Kumar Dash"
-                android:textSize="@dimen/twenty_five"
-                android:textColor="@color/black">
-
-            </TextView>
-
-            <TextView
-                android:id="@+id/nav_MobileNo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="+91-9178 888 455"
-                android:textSize="@dimen/edittextsize">
-
-            </TextView>
-
-        </LinearLayout>
-
-    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,7 +9,6 @@
         android:orientation="vertical"
         android:layout_marginLeft="@dimen/thirty"
         android:layout_marginRight="@dimen/twenty"
-        android:layout_below="@id/profile"
         android:layout_marginTop="@dimen/forty">
 
         <TextView
@@ -62,45 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Home"
-            android:textSize="@dimen/edittextsize"
+            android:textSize="@dimen/twenty_size"
             android:textColor="@color/black">
-
-        </TextView>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@+id/text1"
-            android:layout_marginTop="@dimen/ten"
-            android:background="#AEA8A8" />
-
-        <TextView
-            android:id="@+id/nav_Categogry"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Categogry"
-            android:textSize="@dimen/edittextsize"
-            android:textColor="@color/black"
-            android:layout_marginTop="@dimen/twenty">
-
-        </TextView>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_below="@+id/text1"
-            android:layout_marginTop="@dimen/ten"
-            android:background="#AEA8A8" />
-
-
-        <TextView
-            android:id="@+id/nav_MyOrder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="My Order"
-            android:textSize="@dimen/edittextsize"
-            android:textColor="@color/black"
-            android:layout_marginTop="@dimen/twenty">
 
         </TextView>
 
@@ -116,7 +33,60 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="My Profile"
-            android:textSize="@dimen/edittextsize"
+            android:textSize="@dimen/twenty_size"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/twenty">
+
+        </TextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/text1"
+            android:layout_marginTop="@dimen/ten"
+            android:background="#AEA8A8" />
+
+        <TextView
+            android:id="@+id/nav_ChangePassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Change Password"
+            android:textSize="@dimen/twenty_size"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/twenty">
+
+        </TextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/text1"
+            android:layout_marginTop="@dimen/ten"
+            android:background="#AEA8A8" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="My Rewards"
+            android:textSize="@dimen/twenty_size"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/twenty">
+
+        </TextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/text1"
+            android:layout_marginTop="@dimen/ten"
+            android:background="#AEA8A8" />
+
+        <TextView
+            android:id="@+id/nav_MyOrder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="My Order"
+            android:textSize="@dimen/twenty_size"
             android:textColor="@color/black"
             android:layout_marginTop="@dimen/twenty">
 
@@ -134,7 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="My Address"
-            android:textSize="@dimen/edittextsize"
+            android:textSize="@dimen/twenty_size"
             android:textColor="@color/black"
             android:layout_marginTop="@dimen/twenty">
 
@@ -150,8 +120,25 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="My Rewards"
-            android:textSize="@dimen/edittextsize"
+            android:text="My Wallet"
+            android:textSize="@dimen/twenty_size"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/twenty">
+
+        </TextView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/text1"
+            android:layout_marginTop="@dimen/ten"
+            android:background="#AEA8A8" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="My Notifications"
+            android:textSize="@dimen/twenty_size"
             android:textColor="@color/black"
             android:layout_marginTop="@dimen/twenty">
 
@@ -170,7 +157,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Contact us"
-            android:textSize="@dimen/edittextsize"
+            android:textSize="@dimen/twenty_size"
             android:textColor="@color/black"
             android:layout_marginTop="@dimen/twenty">
 
@@ -188,13 +175,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Logout"
-            android:textSize="@dimen/edittextsize"
+            android:textSize="@dimen/twenty_size"
             android:textColor="@color/black"
             android:layout_marginTop="@dimen/twenty">
 
         </TextView>
 
     </LinearLayout>
-
 
 </RelativeLayout>

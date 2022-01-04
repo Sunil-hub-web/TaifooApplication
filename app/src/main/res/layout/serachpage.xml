@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/serach"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/forty_five"
+        android:background="@drawable/serachback"
+        android:padding="9dp"
+        android:layout_margin="@dimen/fifteen"
+        android:layout_centerHorizontal="true"
+        android:drawablePadding="@dimen/fifteen"
+        android:drawableLeft="@drawable/loupe"
+        android:hint="Serach For restaurants and food"></EditText>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/serachRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/serach"
+        android:layout_marginTop="@dimen/ten"></androidx.recyclerview.widget.RecyclerView>
+
+</RelativeLayout>

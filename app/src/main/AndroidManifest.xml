@@ -35,7 +35,7 @@
             android:theme="@style/Theme.TaifooApplication.NoActionBar" />
         <activity
             android:name=".activity.HomePageActivity"
-            android:theme="@style/Theme.TaifooApplication.NoActionBar" />
+            android:theme="@style/Theme.TaifooApplication.NoActionBar"/>
         <activity
             android:name=".activity.SplashScreen"
             android:theme="@style/Theme.TaifooApplication.NoActionBar">

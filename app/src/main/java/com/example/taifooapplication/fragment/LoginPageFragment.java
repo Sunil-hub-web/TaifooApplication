@@ -116,7 +116,14 @@ public class LoginPageFragment extends Fragment {
 
                         Intent intent = new Intent(getContext(), HomePageActivity.class);
                         startActivity(intent);
+
+                    }else if(message.equals("false")){
+
+                        Toast.makeText(getContext(), "Incorrect UserName and Password", Toast.LENGTH_SHORT).show();
+
+                        Toast.makeText(getContext(), "Login" + msg, Toast.LENGTH_SHORT).show();
                     }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

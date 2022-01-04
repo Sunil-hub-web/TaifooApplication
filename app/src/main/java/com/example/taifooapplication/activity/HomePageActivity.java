@@ -9,9 +9,11 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -23,13 +25,16 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,9 +51,11 @@ import com.example.taifooapplication.R;
 import com.example.taifooapplication.SharedPrefManager;
 import com.example.taifooapplication.fragment.AddressDetails;
 import com.example.taifooapplication.fragment.CartPage;
+import com.example.taifooapplication.fragment.ContactSupport;
 import com.example.taifooapplication.fragment.Homepage;
 import com.example.taifooapplication.fragment.MyOrder;
 import com.example.taifooapplication.fragment.PersonalInformation;
+import com.example.taifooapplication.fragment.SerachFoodPage;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
@@ -76,10 +83,12 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
     BottomNavigationView bottomNavigation;
 
-    public static TextView nav_MyOrder,text_name,nav_Profile,nav_MyAddress,nav_Home,
-            nav_Logout,nav_Name,nav_MobileNo,text_ItemCount;
+    private Boolean exit = false;
 
-    public static ImageView loc,logo,search,img_Cart;
+    public static TextView nav_MyOrder,text_name,nav_Profile,nav_MyAddress,nav_Home,
+            nav_Logout,nav_Name,nav_MobileNo,text_ItemCount,nav_ContactUs,text_address;
+
+    public static ImageView loc,search,img_Cart;
 
     CircleImageView profile_image;
 
@@ -91,6 +100,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     String name,mobileNo,image,userid,addressDetails;
     Homepage test;
 
+    public static FragmentManager fragmentManager;
+    RelativeLayout rle_click;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -99,10 +110,10 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        Window window = HomePageActivity.this.getWindow();
+       /* Window window = HomePageActivity.this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(ContextCompat.getColor(HomePageActivity.this, R.color.white));
+        window.setStatusBarColor(ContextCompat.getColor(HomePageActivity.this, R.color.white));*/
 
         userid = SharedPrefManager.getInstance(HomePageActivity.this).getUser().getId();
         getProfileDetails(userid);
@@ -129,13 +140,15 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
         bottomNavigation = findViewById(R.id.bottomNavigation);
         loc = findViewById(R.id.loc);
-        logo = findViewById(R.id.logo);
+        //logo = findViewById(R.id.logo);
         search = findViewById(R.id.image_search);
         img_Cart = findViewById(R.id.img_Cart);
         text_ItemCount = findViewById(R.id.text_ItemCount);
+        text_address = findViewById(R.id.text_address);
+        rle_click = findViewById(R.id.rle_click);
 
         loc.setVisibility(View.VISIBLE);
-        logo.setVisibility(View.VISIBLE);
+        //logo.setVisibility(View.VISIBLE);
         search.setVisibility(View.VISIBLE);
 
         navigationView.setNavigationItemSelectedListener(this);
@@ -147,6 +160,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         profile_image = header.findViewById(R.id.nav_profile_image);
         nav_Name = header.findViewById(R.id.nav_Name);
         nav_MobileNo = header.findViewById(R.id.nav_MobileNo);
+        nav_ContactUs = header.findViewById(R.id.nav_ContactUs);
         nav_Home = header.findViewById(R.id.nav_Home);
         text_name = findViewById(R.id.text_addressName);
 
@@ -157,7 +171,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
                 drawerLayout.closeDrawer(GravityCompat.START);
                 loc.setVisibility(View.GONE);
-                logo.setVisibility(View.GONE);
+                //logo.setVisibility(View.GONE);
                 search.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 MyOrder myOrder = new MyOrder();
@@ -174,7 +188,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
                 drawerLayout.closeDrawer(GravityCompat.START);
                 loc.setVisibility(View.GONE);
-                logo.setVisibility(View.GONE);
+                //logo.setVisibility(View.GONE);
                 search.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 PersonalInformation personalInformation = new PersonalInformation();
@@ -194,7 +208,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
                 drawerLayout.closeDrawer(GravityCompat.START);
                 loc.setVisibility(View.GONE);
-                logo.setVisibility(View.GONE);
+                //logo.setVisibility(View.GONE);
                 search.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 AddressDetails addressDetails = new AddressDetails();
@@ -210,7 +224,9 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             @Override
             public void onClick(View v) {
 
-                SharedPrefManager.getInstance(HomePageActivity.this).logout();
+                //SharedPrefManager.getInstance(HomePageActivity.this).logout();
+
+                logout_Condition();
             }
         });
 
@@ -226,11 +242,13 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
                     drawerLayout.closeDrawer(GravityCompat.START);
                     loc.setVisibility(View.VISIBLE);
-                    logo.setVisibility(View.VISIBLE);
+                    //logo.setVisibility(View.VISIBLE);
                     search.setVisibility(View.VISIBLE);
+                    text_address.setVisibility(View.VISIBLE);
+                    text_name.setVisibility(View.VISIBLE);
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                     Homepage homepage = new Homepage();
-                    ft.replace(R.id.framLayout, homepage);
+                    ft.replace(R.id.framLayout, homepage,"HomeFragment");
                     ft.commit();
                     text_name.setTextSize(15);
                     text_name.setText(addressDetails);
@@ -244,8 +262,18 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(HomePageActivity.this,SerachLocation.class);
-                startActivity(intent);
+
+                loc.setVisibility(View.GONE);
+                //logo.setVisibility(View.VISIBLE);
+                search.setVisibility(View.GONE);
+                text_address.setVisibility(View.GONE);
+                text_name.setVisibility(View.GONE);
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                SerachFoodPage serachFoodPage = new SerachFoodPage();
+                ft.replace(R.id.framLayout, serachFoodPage,"serachFoodPage");
+                ft.commit();
+                text_name.setTextSize(15);
+                text_name.setText(addressDetails);
 
             }
         });
@@ -254,8 +282,9 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             @Override
             public void onClick(View v) {
 
+                drawerLayout.closeDrawer(GravityCompat.START);
                 loc.setVisibility(View.GONE);
-                logo.setVisibility(View.GONE);
+                //logo.setVisibility(View.GONE);
                 search.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 CartPage cartPage = new CartPage();
@@ -264,6 +293,32 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 text_name.setTextSize(18);
                 text_name.setText("My Cart");
 
+
+            }
+        });
+
+        nav_ContactUs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                loc.setVisibility(View.GONE);
+                //logo.setVisibility(View.GONE);
+                search.setVisibility(View.GONE);
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ContactSupport contactSupport = new ContactSupport();
+                ft.replace(R.id.framLayout, contactSupport);
+                ft.commit();
+                text_name.setTextSize(18);
+                text_name.setText("Contact Us");
+            }
+        });
+
+        rle_click.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(HomePageActivity.this,SerachLocation.class);
+                startActivity(intent);
 
             }
         });
@@ -283,7 +338,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                         selectedFragment = new PersonalInformation();
 
                         loc.setVisibility(View.GONE);
-                        logo.setVisibility(View.GONE);
+                        //logo.setVisibility(View.GONE);
                         search.setVisibility(View.GONE);
                         text_name.setTextSize(18);
                         text_name.setText("PersonalInformation");
@@ -294,10 +349,12 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
                         selectedFragment = new Homepage();
                         loc.setVisibility(View.VISIBLE);
-                        logo.setVisibility(View.VISIBLE);
+                        //logo.setVisibility(View.VISIBLE);
                         search.setVisibility(View.VISIBLE);
                         text_name.setTextSize(15);
                         text_name.setText(addressDetails);
+                        text_address.setVisibility(View.VISIBLE);
+                        text_name.setVisibility(View.VISIBLE);
 
                         break;
 
@@ -305,7 +362,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
                         selectedFragment = new CartPage();
                         loc.setVisibility(View.GONE);
-                        logo.setVisibility(View.GONE);
+                        //logo.setVisibility(View.GONE);
                         search.setVisibility(View.GONE);
                         text_name.setTextSize(18);
                         text_name.setText("My Cart");
@@ -325,6 +382,44 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         });
 
         //location();
+
+    }
+
+    public void logout_Condition() {
+
+        //Show Your Another AlertDialog
+        final Dialog dialog = new Dialog(HomePageActivity.this);
+        dialog.setContentView(R.layout.condition_logout);
+        dialog.setCancelable(false);
+        Button btn_No = dialog.findViewById(R.id.no);
+        TextView textView = dialog.findViewById(R.id.editText);
+        Button btn_Yes = dialog.findViewById(R.id.yes);
+
+        btn_Yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPrefManager.getInstance(HomePageActivity.this).logout();
+
+                dialog.dismiss();
+
+                finish();
+                //System.exit(1);
+
+            }
+        });
+        btn_No.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+        Window window = dialog.getWindow();
+        window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        window.setBackgroundDrawableResource(R.drawable.homecard_back1);
 
     }
     public void Clickmenu(View view){
@@ -393,10 +488,11 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                         //set Longitude On Text View
                         longitude = addresses.get(0).getLongitude();
 
-                        addressDetails = addresses.get(0).getSubLocality()+","+addresses.get(0).getLocality();
+                        addressDetails = addresses.get(0).getAdminArea();
 
                         //set address On Text View
-                        text_name.setText(addresses.get(0).getSubLocality()+","+addresses.get(0).getLocality());
+                        text_address.setText(addresses.get(0).getSubLocality()+","+addresses.get(0).getLocality());
+                        text_name.setText(addresses.get(0).getAdminArea());
 
 
                     } catch (IOException e) {
@@ -581,4 +677,42 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             getLocation();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+
+        test = (Homepage) getSupportFragmentManager().findFragmentByTag("HomeFragment");
+
+        if (test != null && test.isVisible()) {
+
+            if (exit) {
+                finish(); // finish activity
+            } else {
+                Toast.makeText(this, "Press Back again to Exit.",
+                        Toast.LENGTH_SHORT).show();
+                exit = true;
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        Intent a = new Intent(Intent.ACTION_MAIN);
+                        a.addCategory(Intent.CATEGORY_HOME);
+                        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(a);
+                    }
+                }, 4 * 1000);
+            }
+        }
+       /* else {
+
+            text_name.setText("Home Page");
+
+            MainActivity.fragmentManager.beginTransaction()
+                    .replace(R.id.framLayout,new Homepage(),"testID").addToBackStack(null).commit();
+
+        }*/
+    }
+
 }

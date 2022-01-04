@@ -23,10 +23,10 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        Window window = SplashScreen.this.getWindow();
+        /*Window window = SplashScreen.this.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(ContextCompat.getColor(SplashScreen.this, R.color.white));
+        window.setStatusBarColor(ContextCompat.getColor(SplashScreen.this, R.color.white));*/
 
         handler = new Handler();
 

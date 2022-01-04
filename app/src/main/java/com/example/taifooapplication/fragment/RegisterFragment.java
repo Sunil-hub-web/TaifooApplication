@@ -45,6 +45,7 @@ public class RegisterFragment extends Fragment {
     Button btn_signup;
     EditText edit_UserFullName,edit_MobileNumber,edit_EmailId,edit_UserName,edit_Password;
     String str_UserFullName,str_MobileNumber,str_EmailId,str_UserName,str_Password;
+    private AwesomeValidation awesomeValidation;
 
     @Nullable
     @Override
@@ -62,9 +63,11 @@ public class RegisterFragment extends Fragment {
 
         btn_signup = view.findViewById(R.id.btn_signup);
 
+
         btn_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
                 if(TextUtils.isEmpty(edit_UserFullName.getText())){
 
@@ -72,19 +75,28 @@ public class RegisterFragment extends Fragment {
 
                 }else if(TextUtils.isEmpty(edit_MobileNumber.getText())){
 
-                    edit_MobileNumber.setError("Please Enter User Name");
+                    edit_MobileNumber.setError("Please Enter Mobile No");
 
-                }else if(TextUtils.isEmpty(edit_EmailId.getText())){
+                }else if(edit_MobileNumber.getText().toString().trim().length() != 10){
 
-                    edit_EmailId.setError("Please Enter User Name");
+                    edit_MobileNumber.setError("Enter Your 10 Digit Mobile Number");
 
-                }else if(TextUtils.isEmpty(edit_UserName.getText())){
+                } else if(TextUtils.isEmpty(edit_EmailId.getText())){
+
+                    edit_EmailId.setError("Please Enter EmailId");
+
+                }else if(!isValidEmail(edit_EmailId.getText().toString().trim())){
+
+                    edit_EmailId.requestFocus();
+                    edit_EmailId.setError("Please Enter Valide Email id");
+
+                } else if(TextUtils.isEmpty(edit_UserName.getText())){
 
                     edit_UserName.setError("Please Enter User Name");
 
                 }else if(TextUtils.isEmpty(edit_Password.getText())){
 
-                    edit_Password.setError("Please Enter User Name");
+                    edit_Password.setError("Please EnterYour password");
 
                 } else{
 
@@ -136,6 +148,8 @@ public class RegisterFragment extends Fragment {
                         edit_Password.setText("");
                         edit_UserName.setText("");
 
+
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -174,6 +188,22 @@ public class RegisterFragment extends Fragment {
 
     }
 
+    public boolean isValidEmail(final String email) {
+
+        Pattern pattern;
+        Matcher matcher;
+
+        //final String PASSWORD_PATTERN = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$";
+
+        pattern =  Patterns.EMAIL_ADDRESS;
+        matcher = pattern.matcher (email);
+
+        return matcher.matches ( );
+
+            //return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        }
+
+
    /* public boolean isValidPassword(final String password) {
 
         Pattern pattern;
@@ -188,19 +218,6 @@ public class RegisterFragment extends Fragment {
 
     }
 
-    public boolean isValidEmail(final String email) {
-
-        Pattern pattern;
-        Matcher matcher;
-
-        //final String PASSWORD_PATTERN = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$";
-
-        pattern =  Patterns.EMAIL_ADDRESS;
-        matcher = pattern.matcher (email);
-
-        return matcher.matches ( );
-
-    }
 
     public boolean isValidUserName(final String userName) {
 
