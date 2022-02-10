@@ -3,6 +3,7 @@ package com.example.taifooapplication.fragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,10 +62,23 @@ public class LoginPageFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                str_UserName = edit_UserName.getText().toString().trim();
-                str_Password = edit_Password.getText().toString().trim();
+                if(TextUtils.isEmpty(edit_UserName.getText())){
 
-                userLogin(str_UserName, str_Password);
+                    edit_UserName.setText("Fill The Details");
+
+                }else if(TextUtils.isEmpty(edit_Password.getText())){
+
+                    edit_Password.setText("Fill The Details");
+
+                }else{
+
+                    str_UserName = edit_UserName.getText().toString().trim();
+                    str_Password = edit_Password.getText().toString().trim();
+
+                    userLogin(str_UserName, str_Password);
+                }
+
+
             }
         });
 

@@ -39,24 +39,67 @@
                         android:textSize="@dimen/twelve_size"
                         android:textStyle="bold"></TextView>
 
-                    <TextView
-                        android:id="@+id/productprice"
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:id="@+id/price"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/productName"
                         android:layout_marginLeft="@dimen/fifteen"
-                        android:layout_marginTop="@dimen/three"
-                        android:layout_marginRight="@dimen/fifty"
-                        android:layout_weight="1"
-                        android:text="LOGIN"
-                        android:textSize="@dimen/twelve_size"
-                        android:textStyle="bold"></TextView>
+                        android:layout_marginRight="@dimen/ten"
+                        android:layout_marginBottom="@dimen/five"
+                        android:layout_marginTop="@dimen/ten">
+
+                        <TextView
+                            android:id="@+id/rs"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Rs."
+                            android:textSize="@dimen/twelve_size"
+                            android:textStyle="bold"></TextView>
+
+                        <TextView
+                            android:id="@+id/text_salesPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/ten"
+                            android:layout_toRightOf="@+id/rs"
+                            android:layout_weight="1"
+                            android:text="LOGIN"
+                            android:textSize="@dimen/twelve_size"
+                            android:textStyle="bold"></TextView>
+
+                        <TextView
+                            android:id="@+id/rs1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/ten"
+                            android:layout_toLeftOf="@id/text_Regularprice"
+                            android:layout_weight="1"
+                            android:text="Rs."
+                            android:textSize="@dimen/twelve_size"
+                            android:textStyle="bold"></TextView>
+
+                        <TextView
+                            android:id="@+id/text_Regularprice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginLeft="@dimen/ten"
+                            android:layout_marginRight="@dimen/ten"
+                            android:layout_weight="1"
+                            android:text="LOGIN"
+                            android:textSize="@dimen/twelve_size"
+                            android:textStyle="bold"></TextView>
+
+
+                    </RelativeLayout>
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/addToCart"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/productprice"
+                        android:layout_below="@id/price"
                         android:layout_marginLeft="@dimen/ten"
                         android:layout_marginTop="@dimen/three"
                         android:layout_marginRight="@dimen/ten"
@@ -73,10 +116,10 @@
                         android:id="@+id/showProduct"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/productprice"
+                        android:layout_below="@id/price"
                         android:layout_marginTop="@dimen/five"
                         android:layout_marginBottom="@dimen/seven"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/text_Unit"

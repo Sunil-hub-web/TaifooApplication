@@ -1,9 +1,7 @@
 <resources>
     <string name="app_name">TaifooApplication</string>
-
     <string name="read">Read our   </string>
     <string name="condition">Terms &amp; Conditions</string>
-
     <string name="home">HOME</string>
     <string name="myAccount">MY ACCOUNT</string>
     <string name="wishlist">WISHLIST</string>
@@ -12,5 +10,6 @@
     <string name="entercontact">Enter Mobile No</string>
     <string name="enteremail">Enter You Email</string>
     <string name="enterpassword">Enter Your Password</string>
-    <string name="api_key">AIzaSyDj4B_Ypul5OBpqiaCPMCqzKNRbqsh8r4E</string>
+    <string name="api_key">AIzaSyCR_aBNUSFX_aX_F48yYx2ZXQ2uc84PhrA</string>
+
 </resources>

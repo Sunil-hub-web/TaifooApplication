@@ -215,7 +215,7 @@ public class Homepage extends Fragment {
 
                         }
 
-                        gridLayoutManager = new GridLayoutManager(getContext(),4,GridLayoutManager.VERTICAL,false);
+                        gridLayoutManager = new GridLayoutManager(getContext(),3,GridLayoutManager.VERTICAL,false);
                         showItemAdapter = new ShowItemAdapter(getContext(),showItem);
                         showitemRecycler.setLayoutManager(gridLayoutManager);
                         showitemRecycler.setHasFixedSize(true);
@@ -249,7 +249,7 @@ public class Homepage extends Fragment {
                         }
 
                         gridLayoutManager1 = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
-                        bestSellingAdapter = new BestSellingAdapter (getContext(),bestselling);
+                        bestSellingAdapter = new BestSellingAdapter (getContext(),bestselling,cart_count);
                         bestsellingRecycler.setLayoutManager(gridLayoutManager1);
                         bestsellingRecycler.setHasFixedSize(true);
                         bestsellingRecycler.setNestedScrollingEnabled(false);

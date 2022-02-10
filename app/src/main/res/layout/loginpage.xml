@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,48 +9,48 @@
         android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This is mamdatary in order to complete and stand a"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/ten"
+        android:text="This is mamdatary in order to complete and stand a"
         android:textSize="15dp"></TextView>
 
     <TextView
         android:id="@+id/text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="chance to get rewarded"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
+        android:text="chance to get rewarded"
         android:textSize="15dp"></TextView>
 
     <LinearLayout
         android:id="@+id/card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_margin="10dp"
         android:background="@drawable/layoutback"
-        android:elevation="5dp">
+        android:elevation="5dp"
+        android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="UserName"
-            app:hintTextColor="#94979A"
-            app:boxStrokeColor="#94979A"
-            android:layout_marginTop="10dp"
             android:layout_marginLeft="@dimen/ten"
-            android:layout_marginRight="@dimen/ten">
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="@dimen/ten"
+            android:hint="Enter Username"
+            app:boxStrokeColor="#94979A"
+            app:hintTextColor="#94979A">
 
             <EditText
                 android:id="@+id/edit_UserName"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fifty"
-                android:textSize="@dimen/edittextsize"
-                android:textColor="#4C92D8"
                 android:inputType="text"
-                android:padding="@dimen/ten"/>
+                android:padding="@dimen/ten"
+                android:textColor="#4C92D8"
+                android:textSize="@dimen/edittextsize" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,23 +58,23 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ten"
+            android:layout_marginTop="@dimen/ten"
+            android:layout_marginRight="@dimen/ten"
             android:hint="Enter password"
-            app:hintTextColor="#94979A"
             app:boxStrokeColor="#94979A"
             app:endIconMode="password_toggle"
             app:endIconTint="@color/black"
-            android:layout_marginTop="@dimen/ten"
-            android:layout_marginLeft="@dimen/ten"
-            android:layout_marginRight="@dimen/ten">
+            app:hintTextColor="#94979A">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edit_Password"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/fifty"
-                android:padding="@dimen/ten"
                 android:inputType="textPassword"
-                android:textSize="@dimen/edittextsize"
-                android:textColor="#4C92D8"/>
+                android:padding="@dimen/ten"
+                android:textColor="#4C92D8"
+                android:textSize="@dimen/edittextsize" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -84,51 +83,52 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/ten"
-            android:layout_marginRight="@dimen/ten"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="@dimen/ten"
             android:layout_marginBottom="10dp"
             android:padding="10dp"
             android:text="Sign in"
-            app:backgroundTint="#DA291C"
             android:textColor="@color/white"
+            android:textSize="15dp"
             android:textStyle="bold"
-            android:textSize="15dp"></com.google.android.material.button.MaterialButton>
+            app:backgroundTint="#DA291C"></com.google.android.material.button.MaterialButton>
 
     </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/r"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:id="@+id/r"
         android:layout_marginBottom="10dp">
 
-        <TextView
-            android:id="@+id/login1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="By signing in you agree to our "
-            android:textStyle="bold"
-            android:textColor="#817F7F"
-            android:textSize="@dimen/textsize"/>
+        <!-- <TextView
+             android:id="@+id/login1"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="By signing in you agree to our "
+             android:textStyle="bold"
+             android:textColor="#817F7F"
+             android:textSize="@dimen/textsize"/>
 
-        <TextView
-            android:id="@+id/login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/condition"
-            android:textStyle="bold"
-            android:textColor="#F44336"
-            android:textSize="@dimen/textsize"
-            android:layout_toRightOf="@id/login1"/>
+         <TextView
+             android:id="@+id/login"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:text="@string/condition"
+             android:textStyle="bold"
+             android:textColor="#F44336"
+             android:textSize="@dimen/textsize"
+             android:layout_toRightOf="@id/login1"/>-->
 
 
     </RelativeLayout>
+
     <RelativeLayout
+        android:id="@+id/r1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:id="@+id/r1"
         android:layout_marginBottom="10dp">
 
         <TextView
@@ -136,19 +136,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Forgot Your Password"
-            android:textStyle="bold"
             android:textColor="#817F7F"
-            android:textSize="@dimen/textsize"/>
+            android:textSize="@dimen/textsize"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/text_ClickHere"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/login2"
             android:text=" Click Here"
-            android:textStyle="bold"
             android:textColor="#F44336"
             android:textSize="@dimen/textsize"
-            android:layout_toRightOf="@id/login2"/>
+            android:textStyle="bold" />
 
 
     </RelativeLayout>

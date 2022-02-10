@@ -8,6 +8,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -33,6 +35,8 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ForGotPassword extends AppCompatActivity {
 
@@ -63,9 +67,22 @@ public class ForGotPassword extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                str_Emailid = edit_Emailid.getText().toString().trim();
+                if(TextUtils.isEmpty(edit_Emailid.getText())){
 
-                forgotPassword(str_Emailid);
+                    edit_Emailid.setText("Fill The Details");
+
+                }else if(!isValidEmail(edit_Emailid.getText().toString().trim())){
+
+                    edit_Emailid.requestFocus();
+                    edit_Emailid.setError("Please Enter Valide Email id");
+
+                }else{
+
+                    str_Emailid = edit_Emailid.getText().toString().trim();
+                    forgotPassword(str_Emailid);
+                }
+
+
 
             }
         });
@@ -153,5 +170,22 @@ public class ForGotPassword extends AppCompatActivity {
     @Override
     public void onBackPressed() {
 
+        Intent intent = new Intent(ForGotPassword.this,MainActivity.class);
+        startActivity(intent);
+    }
+
+    public boolean isValidEmail(final String email) {
+
+        Pattern pattern;
+        Matcher matcher;
+
+        //final String PASSWORD_PATTERN = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$";
+
+        pattern =  Patterns.EMAIL_ADDRESS;
+        matcher = pattern.matcher (email);
+
+        return matcher.matches ( );
+
+        //return Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 }

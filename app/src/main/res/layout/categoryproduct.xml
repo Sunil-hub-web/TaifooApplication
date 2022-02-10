@@ -32,12 +32,12 @@
 
     </RelativeLayout>
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/categoryProductRecycler"
-        android:layout_marginTop="@dimen/fifteen"
-        android:layout_below="@id/text">
+        android:layout_marginTop="@dimen/fifteen">
 
     </androidx.recyclerview.widget.RecyclerView>
 

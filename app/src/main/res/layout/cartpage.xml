@@ -3,28 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/recycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="@dimen/ten">
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerCartPage"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/three_hundred_fifty">
+            android:layout_height="@dimen/three_hundred_fifty"
+            android:layout_alignParentTop="true"
+            android:layout_above="@id/amount"
+            android:layout_marginBottom="@dimen/twenty">
 
         </androidx.recyclerview.widget.RecyclerView>
-
-
-    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/amount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/recycler"
-        android:layout_marginTop="@dimen/thirty"
+        android:layout_above="@+id/totalprice"
+        android:layout_marginBottom="@dimen/fifty"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -103,8 +97,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/priceSymbol2"
-
-                android:text="5.00"
+                android:text="0"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/textsize"
                 android:textStyle="bold"></TextView>
@@ -136,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:text="₹"
                 android:layout_toRightOf="@+id/delivery"
-                android:layout_marginLeft="265dp"
+                android:layout_marginLeft="260dp"
                 android:layout_marginRight="@dimen/ten"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/edittextsize"
@@ -147,14 +140,14 @@
                 android:id="@+id/text_deliveryPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="50"
+                android:text="1"
                 android:layout_toRightOf="@+id/priceSymbol3"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/textsize"
                 android:textStyle="bold"></TextView>
         </RelativeLayout>
 
-        <TextView
+       <!-- <TextView
             android:id="@+id/promoCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -165,21 +158,20 @@
             android:text="You Have No promo code"
             android:textColor="@color/some_color1"
             android:textSize="@dimen/textsize"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold"></TextView>-->
 
 
     </LinearLayout>
-
 
     <RelativeLayout
         android:id="@+id/totalprice"
         android:layout_width="match_parent"
         android:layout_height="@dimen/fifty"
-        android:layout_below="@id/amount"
         android:layout_marginLeft="@dimen/twenty"
-        android:layout_marginTop="@dimen/hundred"
         android:layout_marginRight="@dimen/twenty"
-        android:background="#DA291C">
+        android:background="#DA291C"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/fifty">
 
         <TextView
             android:id="@+id/text_gotoCheckout"
@@ -252,6 +244,5 @@
             android:textStyle="bold"></TextView>
 
     </LinearLayout>
-
 
 </RelativeLayout>

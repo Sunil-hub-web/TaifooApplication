@@ -41,9 +41,11 @@ import java.util.Map;
 
 public class ProductDescription extends AppCompatActivity {
 
-    TextView totalPrice1,priceSymbol1,product_Name,textUnit,productname,t1, t2, t3,totalPrice;
+    TextView totalPrice1,priceSymbol1,product_Name,textUnit,productname,t1, t2, t3,totalPrice,
+            text_ItemCount;
     ImageView image_Arrow,productImage;
-    String productName,productprice,text_Unit,Regular_price,product_Image,t,countvalue,productId,userId,quantity;
+    String productName,productprice,text_Unit,Regular_price,product_Image,t,countvalue,productId,userId,
+            quantity,cartCount;
     LinearLayout linearLayout;
     int count_value;
     Button btn_addToCart;
@@ -83,6 +85,7 @@ public class ProductDescription extends AppCompatActivity {
         Regular_price = intent.getStringExtra("Regular_price");
         product_Image = intent.getStringExtra("productImage");
         productId = intent.getStringExtra("productId");
+        cartCount = intent.getStringExtra("cartCount");
         userId = SharedPrefManager.getInstance(ProductDescription.this).getUser().getId();
 
         String image = "https://"+product_Image;
@@ -90,6 +93,8 @@ public class ProductDescription extends AppCompatActivity {
 
         String tt_1 = Regular_price;
         String tt_2 = "Rs.";
+
+        text_ItemCount.setText(cartCount);
 
         SpannableString ss = new SpannableString(tt_1);
         SpannableString ss1 = new SpannableString(tt_2);

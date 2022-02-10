@@ -17,9 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.taifooapplication.R;
 import com.example.taifooapplication.activity.ActivityCategoryPage;
-import com.example.taifooapplication.activity.HomePageActivity;
-import com.example.taifooapplication.fragment.CategoryPage;
-import com.example.taifooapplication.fragment.MyOrder;
 import com.example.taifooapplication.modelclas.ShowItem_ModelClass;
 import com.squareup.picasso.Picasso;
 

@@ -3,12 +3,14 @@ package com.example.taifooapplication.adapter;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -53,6 +55,9 @@ public class MyOrderadapter extends RecyclerView.Adapter<MyOrderadapter.ViewHold
 
         holder.text_orderId.setText(myorder.getOrderId());
         holder.text_OrderDate.setText(myorder.getOrderDate());
+        holder.totalPrice.setText(myorder.getTotal());
+
+        holder.btn_ViewOrderDetails.setPaintFlags(holder.btn_ViewOrderDetails.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
         holder.btn_ViewOrderDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,7 +85,8 @@ public class MyOrderadapter extends RecyclerView.Adapter<MyOrderadapter.ViewHold
                 addressdetails.setText(myorder.getAddressName()+", "+myorder.getCity()+", "+
                         myorder.getAddress()+", "+myorder.getPhoneNumber()+", "+myorder.getPincode());
 
-                Button btn_dismiss = dialogMenu.findViewById(R.id.btn_dismiss);
+                RelativeLayout btn_dismiss = dialogMenu.findViewById(R.id.btn_dismiss);
+                ImageView image_Arrow = dialogMenu.findViewById(R.id.image_Arrow);
 
                 subTotalPrice.setText(myorder.getSubtotal());
                 shippingCharges.setText(myorder.getShipping_charge());
@@ -94,6 +100,15 @@ public class MyOrderadapter extends RecyclerView.Adapter<MyOrderadapter.ViewHold
                 rv_vars.setAdapter(varad);
 
                 btn_dismiss.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        dialogMenu.dismiss();
+
+                    }
+                });
+
+                image_Arrow.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
@@ -117,8 +132,7 @@ public class MyOrderadapter extends RecyclerView.Adapter<MyOrderadapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView text_orderId,text_OrderDate;
-        Button btn_ViewOrderDetails;
+        TextView text_orderId,text_OrderDate,totalPrice,btn_ViewOrderDetails;
 
         public ViewHolder(@NonNull  View itemView) {
             super(itemView);
@@ -126,6 +140,7 @@ public class MyOrderadapter extends RecyclerView.Adapter<MyOrderadapter.ViewHold
             text_orderId = itemView.findViewById(R.id.text_orderId);
             text_OrderDate = itemView.findViewById(R.id.text_OrderDate);
             btn_ViewOrderDetails = itemView.findViewById(R.id.btn_ViewOrderDetails);
+            totalPrice = itemView.findViewById(R.id.totalPrice);
 
 
         }

@@ -3,6 +3,7 @@ package com.example.taifooapplication.adapter;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,12 +46,13 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
     Context context;
     ArrayList<BestSelling_modelClass> sellProduct;
     int count_value;
-    String countvalue,userid,productid,quantity;
+    String countvalue,userid,productid,quantity,cartCount;
 
-    public BestSellingAdapter(Context context, ArrayList<BestSelling_modelClass> showItem) {
+    public BestSellingAdapter(Context context, ArrayList<BestSelling_modelClass> showItem, String cart_count) {
 
         this.context = context;
         this.sellProduct = showItem;
+        this.cartCount = cart_count;
     }
 
     @NonNull
@@ -70,16 +72,26 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
         Picasso.with(context).load(image).into(holder.productImage);
 
         holder.productName.setText (bestSell.getProduct_name ());
-        holder.productprice.setText (bestSell.getSale_price ());
+        holder.text_salesPrice.setText (bestSell.getSale_price ());
+        holder.text_Regularprice.setText (bestSell.getRegular_price ());
         holder.text_Unit.setText (bestSell.getProduct_weight ());
 
         String str_quantity_item = bestSell.getQuantity();
+
+        holder.text_Regularprice.setPaintFlags(holder.text_Regularprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        holder.rs1.setPaintFlags(holder.rs1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
         int quantity_item = Integer.valueOf(str_quantity_item);
 
         if(quantity_item != 0){
 
             holder.addToCart.setVisibility(View.GONE);
+            holder.showProduct.setVisibility(View.VISIBLE);
+
+        }else{
+
+            holder.addToCart.setVisibility(View.VISIBLE);
+            holder.showProduct.setVisibility(View.GONE);
         }
 
         userid = SharedPrefManager.getInstance(context).getUser().getId();
@@ -107,7 +119,9 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
                 intent.putExtra("Regular_price",bestSell.getRegular_price ());
                 intent.putExtra("productImage",bestSell.getProduct_img ());
                 intent.putExtra("productId",bestSell.getProduct_id ());
+                intent.putExtra("cartCount",cartCount);
                 context.startActivity(intent);
+
             }
         });
 
@@ -129,6 +143,9 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
                     holder.addToCart.setVisibility (View.VISIBLE);
 
                 }else{
+
+                    holder.showProduct.setVisibility (View.VISIBLE);
+                    holder.addToCart.setVisibility (View.GONE);
 
                     quantity = holder.t2.getText().toString().trim();
                     count_value = Integer.valueOf(holder.t2.getText().toString());
@@ -163,11 +180,13 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
             @Override
             public void onClick(View v) {
 
+                holder.t2.setText("1");
                 productid = bestSell.getProduct_id();
                 quantity = holder.t2.getText().toString().trim();
 
                 btnAddToCart(userid,productid,quantity);
                 holder.addToCart.setVisibility (View.GONE);
+                holder.showProduct.setVisibility(View.VISIBLE);
             }
         });
 
@@ -181,7 +200,7 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView productImage;
-        TextView productName,productprice,text_Unit,t1, t2, t3;
+        TextView productName,text_salesPrice,text_Unit,t1, t2, t3,text_Regularprice,rs1;
         RelativeLayout showProduct;
         Button addToCart;
         LinearLayout linearLayout;
@@ -190,7 +209,8 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
 
             productImage = itemView.findViewById (R.id.productImage);
             productName = itemView.findViewById (R.id.productName);
-            productprice = itemView.findViewById (R.id.productprice);
+            text_salesPrice = itemView.findViewById (R.id.text_salesPrice);
+            text_Regularprice = itemView.findViewById (R.id.text_Regularprice);
             text_Unit = itemView.findViewById (R.id.text_Unit);
             showProduct = itemView.findViewById (R.id.showProduct);
             addToCart = itemView.findViewById (R.id.addToCart);
@@ -198,6 +218,7 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
             t1 = itemView.findViewById(R.id.t1);
             t2 = itemView.findViewById(R.id.t2);
             t3 = itemView.findViewById(R.id.t3);
+            rs1 = itemView.findViewById(R.id.rs1);
 
         }
 

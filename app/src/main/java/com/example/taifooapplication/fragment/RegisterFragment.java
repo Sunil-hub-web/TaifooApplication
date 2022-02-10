@@ -5,12 +5,14 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -43,25 +45,31 @@ import java.util.regex.Pattern;
 public class RegisterFragment extends Fragment {
 
     Button btn_signup;
-    EditText edit_UserFullName,edit_MobileNumber,edit_EmailId,edit_UserName,edit_Password;
-    String str_UserFullName,str_MobileNumber,str_EmailId,str_UserName,str_Password;
+    EditText edit_UserFullName, edit_MobileNumber, edit_EmailId, edit_UserName, edit_Password;
+    String str_UserFullName, str_MobileNumber, str_EmailId, str_UserName, str_Password;
     private AwesomeValidation awesomeValidation;
+    CheckBox termsconditions;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull  LayoutInflater inflater,
-                             @Nullable  ViewGroup container,
-                             @Nullable  Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.registerpage,container,false);
+        View view = inflater.inflate(R.layout.registerpage, container, false);
 
         edit_UserFullName = view.findViewById(R.id.edit_UserFullName);
         edit_MobileNumber = view.findViewById(R.id.edit_MobileNumber);
         edit_EmailId = view.findViewById(R.id.edit_EmailId);
         edit_UserName = view.findViewById(R.id.edit_UserName);
         edit_Password = view.findViewById(R.id.edit_Password);
+        termsconditions = view.findViewById(R.id.termsconditions);
 
         btn_signup = view.findViewById(R.id.btn_signup);
+
+        String checkBox_html = "<font color=#817F7F>Read our   </font> <font color=#F44336><b><u>Terms &amp; Conditions</u></b></font>";
+
+        termsconditions.setText(Html.fromHtml(checkBox_html));
 
 
         btn_signup.setOnClickListener(new View.OnClickListener() {
@@ -69,36 +77,40 @@ public class RegisterFragment extends Fragment {
             public void onClick(View v) {
 
 
-                if(TextUtils.isEmpty(edit_UserFullName.getText())){
+                if (TextUtils.isEmpty(edit_UserFullName.getText())) {
 
                     edit_UserFullName.setError("Please Enter User Name");
 
-                }else if(TextUtils.isEmpty(edit_MobileNumber.getText())){
+                } else if (TextUtils.isEmpty(edit_MobileNumber.getText())) {
 
                     edit_MobileNumber.setError("Please Enter Mobile No");
 
-                }else if(edit_MobileNumber.getText().toString().trim().length() != 10){
+                } else if (edit_MobileNumber.getText().toString().trim().length() != 10) {
 
                     edit_MobileNumber.setError("Enter Your 10 Digit Mobile Number");
 
-                } else if(TextUtils.isEmpty(edit_EmailId.getText())){
+                } else if (TextUtils.isEmpty(edit_EmailId.getText())) {
 
                     edit_EmailId.setError("Please Enter EmailId");
 
-                }else if(!isValidEmail(edit_EmailId.getText().toString().trim())){
+                } else if (!isValidEmail(edit_EmailId.getText().toString().trim())) {
 
                     edit_EmailId.requestFocus();
                     edit_EmailId.setError("Please Enter Valide Email id");
 
-                } else if(TextUtils.isEmpty(edit_UserName.getText())){
+                } else if (TextUtils.isEmpty(edit_UserName.getText())) {
 
                     edit_UserName.setError("Please Enter User Name");
 
-                }else if(TextUtils.isEmpty(edit_Password.getText())){
+                } else if (TextUtils.isEmpty(edit_Password.getText())) {
 
                     edit_Password.setError("Please EnterYour password");
 
-                } else{
+                } else if (!termsconditions.isChecked()) {
+
+                    Toast.makeText(getActivity(), "Please Click Terms & Conditions", Toast.LENGTH_SHORT).show();
+
+                } else {
 
                     str_UserFullName = edit_UserFullName.getText().toString().trim();
                     str_MobileNumber = edit_MobileNumber.getText().toString().trim();
@@ -107,9 +119,9 @@ public class RegisterFragment extends Fragment {
                     str_Password = edit_Password.getText().toString().trim();
 
 
-                    userRegister(str_UserFullName,str_MobileNumber,str_EmailId,str_UserName,str_Password);
+                    userRegister(str_UserFullName, str_MobileNumber, str_EmailId, str_UserName, str_Password);
 
-                    Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
                 }
 
                /* Intent intent = new Intent(getContext(), HomePageActivity.class);
@@ -120,11 +132,11 @@ public class RegisterFragment extends Fragment {
         return view;
     }
 
-    public void userRegister(String userName,String mobileNo,String emailId,String name,String password){
+    public void userRegister(String userName, String mobileNo, String emailId, String name, String password) {
 
-        ProgressDialog dialog = new ProgressDialog (getContext());
-        dialog.setMessage ("Register Your Data Please Wait....");
-        dialog.show ();
+        ProgressDialog dialog = new ProgressDialog(getContext());
+        dialog.setMessage("Register Your Data Please Wait....");
+        dialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.userRegister, new Response.Listener<String>() {
             @Override
@@ -138,7 +150,7 @@ public class RegisterFragment extends Fragment {
                     String message = jsonObject.getString("success");
                     String msg = jsonObject.getString("msg");
 
-                    if(message.equals("true")){
+                    if (message.equals("true")) {
 
                         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
 
@@ -147,7 +159,6 @@ public class RegisterFragment extends Fragment {
                         edit_EmailId.setText("");
                         edit_Password.setText("");
                         edit_UserName.setText("");
-
 
 
                     }
@@ -161,27 +172,27 @@ public class RegisterFragment extends Fragment {
             public void onErrorResponse(VolleyError error) {
 
                 dialog.dismiss();
-                error.printStackTrace ();
-                Toast.makeText (getContext(), "Register not Successfully", Toast.LENGTH_SHORT).show ( );
+                error.printStackTrace();
+                Toast.makeText(getContext(), "Register not Successfully", Toast.LENGTH_SHORT).show();
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
-                Map<String,String> params = new HashMap<>();
+                Map<String, String> params = new HashMap<>();
 
-                params.put("fullname",userName);
-                params.put("contact",mobileNo);
-                params.put("email",emailId);
-                params.put("username",name);
-                params.put("password",password);
+                params.put("fullname", userName);
+                params.put("contact", mobileNo);
+                params.put("email", emailId);
+                params.put("username", name);
+                params.put("password", password);
 
                 return params;
             }
         };
 
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,3,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
 
@@ -195,13 +206,13 @@ public class RegisterFragment extends Fragment {
 
         //final String PASSWORD_PATTERN = "^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$";
 
-        pattern =  Patterns.EMAIL_ADDRESS;
-        matcher = pattern.matcher (email);
+        pattern = Patterns.EMAIL_ADDRESS;
+        matcher = pattern.matcher(email);
 
-        return matcher.matches ( );
+        return matcher.matches();
 
-            //return Patterns.EMAIL_ADDRESS.matcher(email).matches()
-        }
+        //return Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
 
 
    /* public boolean isValidPassword(final String password) {

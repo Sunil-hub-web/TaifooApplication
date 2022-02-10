@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,11 +24,16 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.taifooapplication.AppURL;
 import com.example.taifooapplication.R;
-import com.example.taifooapplication.activity.ProductDescription;
+import com.example.taifooapplication.SharedPrefManager;
+import com.example.taifooapplication.activity.HomePageActivity;
 import com.example.taifooapplication.adapter.BestSellingAdapter;
 import com.example.taifooapplication.adapter.ProductCateGoryAdapter;
+import com.example.taifooapplication.adapter.ShowItemAdapter;
+import com.example.taifooapplication.adapter.SliderAdpter;
 import com.example.taifooapplication.modelclas.BestSelling_modelClass;
 import com.example.taifooapplication.modelclas.Category_ModelClass;
+import com.example.taifooapplication.modelclas.ShowImage_ModelClass;
+import com.example.taifooapplication.modelclas.ShowItem_ModelClass;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -39,10 +45,11 @@ import java.util.Map;
 
 public class CategoryPage extends Fragment {
 
-    RecyclerView categoryProductRecycler;
-    ArrayList<Category_ModelClass> category = new ArrayList<>();
-    ProductCateGoryAdapter productCateGoryAdapter;
+    RecyclerView categoryPageRecycler;
+    ArrayList<ShowItem_ModelClass> category = new ArrayList<>();
+    ShowItemAdapter showItemAdapter;
     GridLayoutManager gridLayoutManager;
+    String userId;
 
     @Nullable
     @Override
@@ -50,67 +57,64 @@ public class CategoryPage extends Fragment {
                              @Nullable  ViewGroup container,
                              @Nullable  Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.categoryproduct,container,false);
+        View view = inflater.inflate(R.layout.categorypage,container,false);
 
 
-        categoryProductRecycler = view.findViewById(R.id.categoryProductRecycler);
+        categoryPageRecycler = view.findViewById(R.id.categoryPageRecycler);
 
-        String categoryId = getTag();
+        userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
 
-        getcategoryProduct(categoryId);
+        getHomePageDetails(userId);
 
         return view;
     }
 
-    public void getcategoryProduct(String categoryId){
+    public void getHomePageDetails(String userid){
 
-        ProgressDialog progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Show You Product Please Wait...");
+        ProgressDialog progressDialog  = new ProgressDialog(getContext());
+        progressDialog.setMessage("Show Your HomePage Details");
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.getProductCategory, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.getHomePageDetails, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
                 progressDialog.dismiss();
 
                 try {
+
                     JSONObject jsonObject = new JSONObject(response);
 
                     String message = jsonObject.getString("success");
+                    String cart_count = jsonObject.getString("cart_count");
+                    String All_category = jsonObject.getString("All_category");
+
                     if(message.equals("true")){
 
-                        String All_shop = jsonObject.getString("All_shop");
+                        HomePageActivity.text_ItemCount.setText(cart_count);
 
-                        JSONArray jsonArray_Category = new JSONArray(All_shop);
-                        for (int i=0;i<jsonArray_Category.length();i++) {
+                        //Retrive All_category For Home
 
-                            JSONObject jsonObject_Category = jsonArray_Category.getJSONObject(i);
+                        JSONArray jsonArray_Categary = new JSONArray(All_category);
+                        for(int j=0;j<jsonArray_Categary.length();j++){
 
-                            String quantity = jsonObject_Category.getString("quantity");
-                            String product_id = jsonObject_Category.getString("product_id");
-                            String product_img = jsonObject_Category.getString("product_img");
-                            String product_name = jsonObject_Category.getString("product_name");
-                            String product_weight = jsonObject_Category.getString("product_weight");
-                            String product_grossweight = jsonObject_Category.getString("product_grossweight");
-                            String plate = jsonObject_Category.getString("plate");
-                            String regular_price = jsonObject_Category.getString("regular_price");
-                            String sale_price = jsonObject_Category.getString("sale_price");
+                            JSONObject jsonObject_Category = jsonArray_Categary.getJSONObject(j);
 
-                            Category_ModelClass category_modelClass = new Category_ModelClass(
-                                    product_id, product_img, product_name, product_weight, product_grossweight,
-                                    plate, regular_price, sale_price, quantity
-                            );
+                            String category_id = jsonObject_Category.getString("category_id");
+                            String category_name = jsonObject_Category.getString("category_name");
+                            String category_image = jsonObject_Category.getString("img");
 
-                            category.add(category_modelClass);
+                            ShowItem_ModelClass showItem_modelClass = new ShowItem_ModelClass(category_image,category_id,category_name);
+                            category.add(showItem_modelClass);
 
                         }
 
                         gridLayoutManager = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
-                        productCateGoryAdapter = new ProductCateGoryAdapter(getContext(),category);
-                        categoryProductRecycler.setLayoutManager(gridLayoutManager);
-                        categoryProductRecycler.setHasFixedSize(true);
-                        categoryProductRecycler.setAdapter(productCateGoryAdapter);
+                        showItemAdapter = new ShowItemAdapter(getContext(),category);
+                        categoryPageRecycler.setLayoutManager(gridLayoutManager);
+                        categoryPageRecycler.setHasFixedSize(true);
+                        categoryPageRecycler.setAdapter(showItemAdapter);
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -123,7 +127,7 @@ public class CategoryPage extends Fragment {
 
                 progressDialog.dismiss();
                 error.printStackTrace();
-                Toast.makeText(getContext(), "No Product Found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Some Error Found Data Not Featch", Toast.LENGTH_SHORT).show();
 
             }
         }){
@@ -132,13 +136,14 @@ public class CategoryPage extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
 
                 Map<String,String> params = new HashMap<>();
-                params.put("category_id",categoryId);
+                params.put("user_id",userid);
                 return params;
             }
         };
 
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,3,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,3,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.getCache().clear();
         requestQueue.add(stringRequest);
 
 

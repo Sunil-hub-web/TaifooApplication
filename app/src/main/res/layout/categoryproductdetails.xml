@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -27,7 +26,7 @@
 
             <TextView
                 android:id="@+id/productName"
-                android:layout_width="70dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/productImage"
                 android:layout_marginLeft="@dimen/fifteen"
@@ -39,7 +38,7 @@
                 android:textSize="@dimen/twelve_size"
                 android:textStyle="bold"></TextView>
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/weight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -47,54 +46,70 @@
                 android:layout_marginLeft="@dimen/fifteen"
                 android:layout_marginTop="@dimen/three"
                 android:layout_marginRight="@dimen/ten"
-                android:layout_marginBottom="@dimen/five">
+                android:layout_marginBottom="@dimen/five"
+                android:weightSum="2">
 
-                <TextView
-                    android:id="@+id/NetWt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <RelativeLayout
+                    android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:text="NetWt."
-                    android:textSize="@dimen/twelve_size"
-                    android:textStyle="bold"></TextView>
-
-                <TextView
-                    android:id="@+id/text_NetWt"
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="LOGIN"
-                    android:textSize="@dimen/twelve_size"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="@dimen/ten"
-                    android:layout_toRightOf="@+id/NetWt"></TextView>
+                    android:id="@+id/rel_NetWt">
 
-                <TextView
-                    android:id="@+id/GrossWt"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/NetWt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="NetWt."
+                        android:textSize="@dimen/twelve_size"
+                        android:textStyle="bold"></TextView>
+
+                    <TextView
+                        android:id="@+id/text_NetWt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/ten"
+                        android:layout_toRightOf="@+id/NetWt"
+                        android:layout_weight="1"
+                        android:text="LOGIN"
+                        android:textSize="@dimen/twelve_size"
+                        android:textStyle="bold"></TextView>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="GrossWt."
-                    android:textSize="@dimen/twelve_size"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="@dimen/ten"
-                    android:layout_toLeftOf="@id/text_GrossWt"></TextView>
+                    android:id="@+id/rel_GrossWt">
 
-                <TextView
-                    android:id="@+id/text_GrossWt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="LOGIN"
-                    android:layout_alignParentRight="true"
-                    android:textSize="@dimen/twelve_size"
-                    android:textStyle="bold"
-                    android:layout_marginRight="@dimen/ten"
-                    android:layout_marginLeft="@dimen/ten"></TextView>
+                    <TextView
+                        android:id="@+id/GrossWt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/ten"
+                        android:layout_toLeftOf="@id/text_GrossWt"
+                        android:layout_weight="1"
+                        android:text="GrossWt."
+                        android:textSize="@dimen/twelve_size"
+                        android:textStyle="bold"></TextView>
+
+                    <TextView
+                        android:id="@+id/text_GrossWt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginLeft="@dimen/ten"
+                        android:layout_marginRight="@dimen/ten"
+                        android:layout_weight="1"
+                        android:text="LOGIN"
+                        android:textSize="@dimen/twelve_size"
+                        android:textStyle="bold"></TextView>
+
+                </RelativeLayout>
 
 
-
-            </RelativeLayout>
+            </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/price"
@@ -118,36 +133,35 @@
                     android:id="@+id/text_salesPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ten"
+                    android:layout_toRightOf="@+id/rs"
                     android:layout_weight="1"
                     android:text="LOGIN"
                     android:textSize="@dimen/twelve_size"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="@dimen/ten"
-                    android:layout_toRightOf="@+id/rs"></TextView>
+                    android:textStyle="bold"></TextView>
 
                 <TextView
                     android:id="@+id/rs1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text=""
-                    android:textSize="@dimen/twelve_size"
-                    android:textStyle="bold"
                     android:layout_marginLeft="@dimen/ten"
-                    android:layout_toLeftOf="@id/text_Regularprice"></TextView>
+                    android:layout_toLeftOf="@id/text_Regularprice"
+                    android:layout_weight="1"
+                    android:text="Rs."
+                    android:textSize="@dimen/twelve_size"
+                    android:textStyle="bold"></TextView>
 
                 <TextView
                     android:id="@+id/text_Regularprice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/ten"
+                    android:layout_marginRight="@dimen/ten"
                     android:layout_weight="1"
                     android:text="LOGIN"
-                    android:layout_alignParentRight="true"
                     android:textSize="@dimen/twelve_size"
-                    android:textStyle="bold"
-                    android:layout_marginRight="@dimen/ten"
-                    android:layout_marginLeft="@dimen/ten"></TextView>
-
+                    android:textStyle="bold"></TextView>
 
 
             </RelativeLayout>
@@ -165,9 +179,8 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/twelve_size"
                 android:textStyle="bold"
-                app:backgroundTint="#1D4759"
                 android:visibility="visible"
-                ></com.google.android.material.button.MaterialButton>
+                app:backgroundTint="#1D4759"></com.google.android.material.button.MaterialButton>
 
             <RelativeLayout
                 android:id="@+id/showProduct"
@@ -176,23 +189,23 @@
                 android:layout_below="@id/price"
                 android:layout_marginTop="@dimen/five"
                 android:layout_marginBottom="@dimen/seven"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/text_Unit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_centerVertical="true"
+                    android:layout_gravity="center"
                     android:layout_marginLeft="@dimen/fifteen"
                     android:background="@drawable/box"
                     android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
                     android:gravity="center"
                     android:paddingLeft="@dimen/ten"
                     android:text="Select"
+                    android:textColor="#1D4759"
                     android:textSize="@dimen/twelve_size"
-                    android:textStyle="bold"
-                    android:textColor="#1D4759"></TextView>
+                    android:textStyle="bold"></TextView>
 
                 <LinearLayout
                     android:id="@+id/inc"

@@ -51,6 +51,7 @@ import com.example.taifooapplication.R;
 import com.example.taifooapplication.SharedPrefManager;
 import com.example.taifooapplication.fragment.AddressDetails;
 import com.example.taifooapplication.fragment.CartPage;
+import com.example.taifooapplication.fragment.CategoryPage;
 import com.example.taifooapplication.fragment.ContactSupport;
 import com.example.taifooapplication.fragment.Homepage;
 import com.example.taifooapplication.fragment.MyOrder;
@@ -83,10 +84,11 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
     BottomNavigationView bottomNavigation;
 
-    private Boolean exit = false;
+
 
     public static TextView nav_MyOrder,text_name,nav_Profile,nav_MyAddress,nav_Home,
-            nav_Logout,nav_Name,nav_MobileNo,text_ItemCount,nav_ContactUs,text_address;
+            nav_Logout,nav_Name,nav_MobileNo,text_ItemCount,nav_ContactUs,text_address,
+            text_addressName,nav_Categogry;
 
     public static ImageView loc,search,img_Cart;
 
@@ -99,7 +101,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     GoogleMap mMap;
     String name,mobileNo,image,userid,addressDetails;
     Homepage test;
-
+    private Boolean exit = false;
     public static FragmentManager fragmentManager;
     RelativeLayout rle_click;
 
@@ -146,10 +148,15 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         text_ItemCount = findViewById(R.id.text_ItemCount);
         text_address = findViewById(R.id.text_address);
         rle_click = findViewById(R.id.rle_click);
+        text_name = findViewById(R.id.text_addressName);
+
 
         loc.setVisibility(View.VISIBLE);
+        text_address.setVisibility(View.VISIBLE);
         //logo.setVisibility(View.VISIBLE);
         search.setVisibility(View.VISIBLE);
+        //text_name.setVisibility(View.VISIBLE);
+
 
         navigationView.setNavigationItemSelectedListener(this);
         View header = navigationView.getHeaderView(0);
@@ -162,7 +169,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         nav_MobileNo = header.findViewById(R.id.nav_MobileNo);
         nav_ContactUs = header.findViewById(R.id.nav_ContactUs);
         nav_Home = header.findViewById(R.id.nav_Home);
-        text_name = findViewById(R.id.text_addressName);
+        nav_Categogry = header.findViewById(R.id.nav_Categogry);
 
 
         nav_MyOrder.setOnClickListener(new View.OnClickListener() {
@@ -171,6 +178,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
                 drawerLayout.closeDrawer(GravityCompat.START);
                 loc.setVisibility(View.GONE);
+                text_address.setVisibility(View.GONE);
                 //logo.setVisibility(View.GONE);
                 search.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -188,7 +196,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
                 drawerLayout.closeDrawer(GravityCompat.START);
                 loc.setVisibility(View.GONE);
-                //logo.setVisibility(View.GONE);
+                text_address.setVisibility(View.GONE);
                 search.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 PersonalInformation personalInformation = new PersonalInformation();
@@ -208,6 +216,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
                 drawerLayout.closeDrawer(GravityCompat.START);
                 loc.setVisibility(View.GONE);
+                text_address.setVisibility(View.GONE);
                 //logo.setVisibility(View.GONE);
                 search.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -237,6 +246,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 if(test != null && test.isVisible()){
 
                     drawerLayout.closeDrawer(GravityCompat.START);
+                    text_name.setVisibility(View.VISIBLE);
 
                 }else{
 
@@ -284,6 +294,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
                 drawerLayout.closeDrawer(GravityCompat.START);
                 loc.setVisibility(View.GONE);
+                text_address.setVisibility(View.GONE);
                 //logo.setVisibility(View.GONE);
                 search.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -301,7 +312,9 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             @Override
             public void onClick(View v) {
 
+                drawerLayout.closeDrawer(GravityCompat.START);
                 loc.setVisibility(View.GONE);
+                text_address.setVisibility(View.GONE);
                 //logo.setVisibility(View.GONE);
                 search.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -310,6 +323,25 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 ft.commit();
                 text_name.setTextSize(18);
                 text_name.setText("Contact Us");
+            }
+        });
+
+        nav_Categogry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                drawerLayout.closeDrawer(GravityCompat.START);
+                loc.setVisibility(View.GONE);
+                text_address.setVisibility(View.GONE);
+                //logo.setVisibility(View.GONE);
+                search.setVisibility(View.GONE);
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                CategoryPage categoryPage = new CategoryPage();
+                ft.replace(R.id.framLayout, categoryPage);
+                ft.commit();
+                text_name.setTextSize(18);
+                text_name.setText(" Category Page");
+
             }
         });
 
@@ -342,6 +374,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                         search.setVisibility(View.GONE);
                         text_name.setTextSize(18);
                         text_name.setText("PersonalInformation");
+                        text_address.setVisibility(View.GONE);
 
                         break;
 
@@ -349,12 +382,13 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
                         selectedFragment = new Homepage();
                         loc.setVisibility(View.VISIBLE);
+                        text_name.setVisibility(View.VISIBLE);
+                        text_address.setVisibility(View.VISIBLE);
                         //logo.setVisibility(View.VISIBLE);
                         search.setVisibility(View.VISIBLE);
                         text_name.setTextSize(15);
                         text_name.setText(addressDetails);
-                        text_address.setVisibility(View.VISIBLE);
-                        text_name.setVisibility(View.VISIBLE);
+
 
                         break;
 
@@ -366,6 +400,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                         search.setVisibility(View.GONE);
                         text_name.setTextSize(18);
                         text_name.setText("My Cart");
+                        text_address.setVisibility(View.GONE);
 
                         break;
 

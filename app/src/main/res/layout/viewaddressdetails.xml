@@ -10,19 +10,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/homecard_back1"
-        android:layout_margin="@dimen/fifteen"
+        android:layout_margin="@dimen/ten"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/addressdetails"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/ten"
-            android:layout_margin="@dimen/twenty"
+            android:layout_margin="@dimen/fifteen"
+            android:layout_toLeftOf="@+id/btn_Delete"
             android:textColor="@color/black"
             android:textSize="@dimen/edittextsize"></TextView>
 
-        <TextView
+        <ImageView
+            android:id="@+id/btn_Delete"
+            android:layout_alignParentRight="true"
+            android:layout_width="@dimen/twenty_five"
+            android:layout_height="@dimen/twenty_five"
+            android:src="@drawable/delete_button"
+            android:layout_margin="@dimen/seven"
+            android:layout_marginRight="@dimen/ten"></ImageView>
+
+       <!-- <TextView
             android:id="@+id/addressId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -30,9 +39,9 @@
             android:layout_margin="@dimen/twenty"
             android:textColor="@color/black"
             android:layout_below="@id/addressdetails"
-            android:textSize="@dimen/edittextsize"></TextView>
+            android:textSize="@dimen/edittextsize"></TextView>-->
 
-        <com.google.android.material.button.MaterialButton
+       <!-- <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_Delete"
             android:layout_width="@dimen/hundred"
             android:layout_height="wrap_content"
@@ -45,7 +54,7 @@
             android:layout_below="@id/addressdetails"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/ten"
-            android:layout_marginBottom="@dimen/twenty"></com.google.android.material.button.MaterialButton>
+            android:layout_marginBottom="@dimen/twenty"></com.google.android.material.button.MaterialButton>-->
 
     </RelativeLayout>
 

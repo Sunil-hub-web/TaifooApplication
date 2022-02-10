@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -69,6 +70,8 @@ public class ActivityCategoryPage extends AppCompatActivity {
         CategoryId = intent.getStringExtra("categoryId");
         CategoryName = intent.getStringExtra("categoryName");
 
+        Log.d("categoryName",CategoryId + CategoryName);
+
         product_Name.setText(CategoryName);
 
         getcategoryProduct(CategoryId);
@@ -130,7 +133,7 @@ public class ActivityCategoryPage extends AppCompatActivity {
                         }
 
                         gridLayoutManager = new GridLayoutManager(ActivityCategoryPage.this,2,GridLayoutManager.VERTICAL,false);
-                        productCateGoryAdapter = new ProductCateGoryAdapter(ActivityCategoryPage.this,category);
+                        productCateGoryAdapter = new ProductCateGoryAdapter(ActivityCategoryPage.this,category,CategoryName);
                         categoryProductRecycler.setLayoutManager(gridLayoutManager);
                         categoryProductRecycler.setHasFixedSize(true);
                         categoryProductRecycler.setAdapter(productCateGoryAdapter);

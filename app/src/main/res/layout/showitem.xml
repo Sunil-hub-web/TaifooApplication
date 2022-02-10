@@ -6,7 +6,7 @@
     <RelativeLayout
         android:id="@+id/rel_view"
         android:layout_width="@dimen/two_hundred"
-        android:layout_height="@dimen/hundred_twenty"
+        android:layout_height="wrap_content"
         android:background="@drawable/homecard_back"
         android:layout_margin="@dimen/five">
 
@@ -21,11 +21,10 @@
 
         <TextView
             android:id="@+id/itemName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/itemImage"
-            android:gravity="center"
-            android:layout_marginTop="@dimen/twelve"
+            android:layout_margin="@dimen/fifteen"
             android:text="Home&amp;Furniture"
             android:textColor="#000000"
             android:layout_centerHorizontal="true"

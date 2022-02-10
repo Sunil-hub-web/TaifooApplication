@@ -3,10 +3,12 @@ package com.example.taifooapplication.adapter;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -77,11 +79,14 @@ public class ViewaddressDetailsAdapter extends RecyclerView.Adapter<ViewaddressD
                                     +", "+viewAddress.getEmail()+", "+viewAddress.getCityName()
                                     +", "+viewAddress.getArea()+", "+viewAddress.getAddress()+", "+viewAddress.getPincode());
 
-        holder.addressId.setText(viewAddress.getAddressId());
+        //holder.addressId.setText(viewAddress.getAddressId());
+
 
         holder.btn_Delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                addressId = viewAddress.getAddressId();
 
                 ProgressDialog progressDialog = new ProgressDialog(context);
                 progressDialog.setMessage("Delete Address Details");
@@ -126,7 +131,9 @@ public class ViewaddressDetailsAdapter extends RecyclerView.Adapter<ViewaddressD
 
                         Map<String,String> params = new HashMap<>();
 
-                        params.put("address_id",addressId);
+                        params.put("address_id",viewAddress.getAddressId());
+
+                        Log.d("address_id",viewAddress.getAddressId());
 
                         return params;
                     }
@@ -148,7 +155,7 @@ public class ViewaddressDetailsAdapter extends RecyclerView.Adapter<ViewaddressD
                 index = position;
                 notifyDataSetChanged();
                 String all_values = holder.text_Address.getText().toString().trim();
-                Toast.makeText(context, addressId, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, addressId, Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -158,8 +165,8 @@ public class ViewaddressDetailsAdapter extends RecyclerView.Adapter<ViewaddressD
             holder.rel_Click.setBackgroundResource(R.drawable.selectaddressback);
             holder.rel_Click.setElevation(15);
 
-            addressId = holder.addressId.getText().toString().trim();
-            Toast.makeText(context, addressId, Toast.LENGTH_SHORT).show();
+           /* //addressId = holder.addressId.getText().toString().trim();
+            Toast.makeText(context, addressId, Toast.LENGTH_SHORT).show();*/
 
         }
         else {
@@ -169,10 +176,10 @@ public class ViewaddressDetailsAdapter extends RecyclerView.Adapter<ViewaddressD
 
     }
 
-    public String addressId(){
+   /* public String addressId(){
 
         return addressId;
-    }
+    }*/
 
     @Override
     public int getItemCount() {
@@ -181,7 +188,7 @@ public class ViewaddressDetailsAdapter extends RecyclerView.Adapter<ViewaddressD
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView text_Address,addressId;
-        Button btn_Delete;
+        ImageView btn_Delete;
         RelativeLayout rel_Click;
 
         public ViewHolder(@NonNull  View itemView,final OnItemClickListener listener) {

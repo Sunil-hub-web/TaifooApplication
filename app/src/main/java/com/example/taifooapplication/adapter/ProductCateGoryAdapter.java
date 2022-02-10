@@ -2,9 +2,8 @@ package com.example.taifooapplication.adapter;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.StrikethroughSpan;
+import android.graphics.Paint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,6 @@ import com.android.volley.toolbox.Volley;
 import com.example.taifooapplication.AppURL;
 import com.example.taifooapplication.R;
 import com.example.taifooapplication.SharedPrefManager;
-import com.example.taifooapplication.modelclas.BestSelling_modelClass;
 import com.example.taifooapplication.modelclas.Category_ModelClass;
 import com.squareup.picasso.Picasso;
 
@@ -45,12 +43,13 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
     Context context;
     ArrayList<Category_ModelClass> category;
     int count_value;
-    String countvalue,userid,productid,quantity;
+    String countvalue,userid,productid,quantity,categoryName;
 
-    public ProductCateGoryAdapter(Context context, ArrayList<Category_ModelClass> category) {
+    public ProductCateGoryAdapter(Context context, ArrayList<Category_ModelClass> category, String categoryName) {
 
         this.context = context;
         this.category = category;
+        this.categoryName = categoryName;
     }
 
     @NonNull
@@ -77,6 +76,39 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
 
         String Regular_price = productCategory.getRegular_price();
 
+        holder.text_Regularprice.setText(Regular_price);
+        holder.text_Regularprice.setPaintFlags(holder.text_Regularprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        holder.rs1.setPaintFlags(holder.rs1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+        String str_quantity_item = productCategory.getQuantity();
+
+        //int quantity_item = Integer.valueOf(str_quantity_item);
+
+        Log.d("getQuantity",str_quantity_item);
+
+        if(str_quantity_item.equals("null")){
+
+            holder.btn_addToCart.setVisibility(View.VISIBLE);
+            holder.showProduct.setVisibility(View.GONE);
+
+        }else{
+
+            holder.btn_addToCart.setVisibility(View.GONE);
+            holder.showProduct.setVisibility(View.VISIBLE);
+        }
+
+        if(categoryName.equals("Ready To Cook     ")){
+
+            holder.rel_NetWt.setVisibility(View.GONE);
+            holder.rel_GrossWt.setVisibility(View.GONE);
+
+        }else if(categoryName.equals("Restaurant  ")){
+
+            holder.rel_NetWt.setVisibility(View.GONE);
+            holder.rel_GrossWt.setVisibility(View.GONE);
+        }
+
+
         /*String tt_2 = "Rs.";
 
         SpannableString Regular_price_ss = new SpannableString(Regular_price);
@@ -86,8 +118,7 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
         Regular_price_ss.setSpan(strikethroughSpan,0,3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         ss1.setSpan(strikethroughSpan,0,2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 */
-        holder.text_Regularprice.setText(Regular_price);
-        holder.rs1.setText("Rs.");
+
 
         /*String str_quantity_item = productCategory.getQuantity();
 
@@ -110,6 +141,9 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
                 productid = productCategory.getProduct_id();
 
                 btnAddToCart(userid,productid,quantity);
+
+                holder.btn_addToCart.setVisibility(View.GONE);
+                holder.showProduct.setVisibility(View.VISIBLE);
 
             }
         });
@@ -142,6 +176,9 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
 
                 updateToCart(userid,productid,quantity);
 
+                holder.btn_addToCart.setVisibility(View.GONE);
+                holder.showProduct.setVisibility(View.VISIBLE);
+
 
             }
         });
@@ -159,7 +196,7 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
         TextView productName,text_NetWt,text_GrossWt,text_salesPrice,text_Regularprice,text_Unit,rs,rs1,t1, t2, t3;
         Button btn_addToCart;
         LinearLayout linearLayout;
-        RelativeLayout showProduct;
+        RelativeLayout showProduct,rel_NetWt,rel_GrossWt;
 
         public ViewHolder(@NonNull  View itemView) {
             super(itemView);
@@ -179,6 +216,8 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
             t2 = itemView.findViewById(R.id.t2);
             t3 = itemView.findViewById(R.id.t3);
             showProduct = itemView.findViewById(R.id.showProduct);
+            rel_GrossWt = itemView.findViewById(R.id.rel_GrossWt);
+            rel_NetWt = itemView.findViewById(R.id.rel_NetWt);
 
         }
 
@@ -218,6 +257,7 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
                     if(message.equals("true")){
 
                         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+
 
                     }
 

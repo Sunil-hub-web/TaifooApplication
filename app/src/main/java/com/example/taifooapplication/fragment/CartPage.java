@@ -56,7 +56,7 @@ import java.util.Map;
 
 public class CartPage extends Fragment {
 
-    RecyclerView recyclerCartPage,rv_vars;;
+    public static RecyclerView recyclerCartPage,rv_vars;;
     LinearLayoutManager linearLayoutManager;
     CartPageAdapter cartPageAdapter;
     ArrayList<CartPage_ModelClass> itemList = new ArrayList<>();
@@ -66,8 +66,8 @@ public class CartPage extends Fragment {
     String userId;
     Dialog dialogMenu;
     double totalprice, sales_Price, quanTity, totalAmount = 0, shipCharge,taxCharge;
-    LinearLayout cartempty,lin_amount;
-    RelativeLayout recycler,rel_totalprice;
+    public static LinearLayout cartempty,lin_amount;
+    public static RelativeLayout rel_totalprice;
 
     @Nullable
     @Override
@@ -86,7 +86,6 @@ public class CartPage extends Fragment {
         text_totalPrice = view.findViewById(R.id.text_totalPrice);
         cartempty = view.findViewById(R.id.cartempty);
         rel_totalprice = view.findViewById(R.id.totalprice);
-        recycler = view.findViewById(R.id.recycler);
         lin_amount = view.findViewById(R.id.amount);
 
         userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
@@ -240,14 +239,14 @@ public class CartPage extends Fragment {
 
                             cartempty.setVisibility(View.VISIBLE);
                             lin_amount.setVisibility(View.GONE);
-                            recycler.setVisibility(View.GONE);
+                            recyclerCartPage.setVisibility(View.GONE);
                             rel_totalprice.setVisibility(View.GONE);
 
                         }else{
 
                             cartempty.setVisibility(View.GONE);
                             lin_amount.setVisibility(View.VISIBLE);
-                            recycler.setVisibility(View.VISIBLE);
+                            recyclerCartPage.setVisibility(View.VISIBLE);
                             rel_totalprice.setVisibility(View.VISIBLE);
 
                             int size =  itemList.size();

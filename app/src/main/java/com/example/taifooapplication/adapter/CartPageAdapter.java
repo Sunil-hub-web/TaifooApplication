@@ -95,6 +95,47 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
                deleteCartItem(userid,productid);
                itemlist.remove(position);
                notifyDataSetChanged();
+
+                 int arraySize = itemlist.size();
+                String str_ArraySize = String.valueOf(arraySize);
+                //CartPage.text_ItemCount.setText(str_ArraySize);
+
+                sum = CartPage.text_subTotalPrice.getText().toString().trim();
+
+                String totPrice = holder.totalPrice.getText().toString().trim();
+
+                double d_sumTotal = Double.valueOf(totPrice);
+                d_Sum = Double.valueOf(sum);
+
+                double d_deletePrice = d_Sum - d_sumTotal;
+
+                String str_DeletePrice = String.valueOf(d_deletePrice);
+
+                CartPage.text_subTotalPrice.setText(str_DeletePrice);
+
+                str_Shpping = CartPage.text_deliveryPrice.getText().toString().trim();
+
+                d_ShppingCharges = Double.valueOf(str_Shpping);
+
+                tax = CartPage.text_taxandfee.getText().toString().trim();
+                taxCharge = Double.valueOf(tax);
+
+                d_TotlAmount  = d_deletePrice + d_ShppingCharges + taxCharge;
+
+                str_TotalPrice = String.valueOf(d_TotlAmount);
+
+                CartPage.text_totalPrice.setText(str_TotalPrice);
+
+                CartPage.text_totalPrice.setText(str_TotalPrice);
+
+                if(itemlist.size() == 0){
+
+                    CartPage.cartempty.setVisibility(View.VISIBLE);
+                    CartPage.lin_amount.setVisibility(View.GONE);
+                    CartPage.recyclerCartPage.setVisibility(View.GONE);
+                    CartPage.rel_totalprice.setVisibility(View.GONE);
+                }
+
             }
         });
 
