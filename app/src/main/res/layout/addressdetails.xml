@@ -38,33 +38,21 @@
             android:hint="email id"
             android:layout_margin="@dimen/ten"></EditText>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="@dimen/fifteen"
-            android:background="@drawable/textfieldback">
             <Spinner
                 android:id="@+id/spinner_City"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_margin="@dimen/ten"
                 android:spinnerMode="dropdown"
-                android:backgroundTint="@color/black"></Spinner>
-        </LinearLayout>
+                android:background="@drawable/textfieldback"></Spinner>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_margin="@dimen/fifteen"
-            android:background="@drawable/textfieldback">
             <Spinner
                 android:id="@+id/spinner_Pincode"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/forty_five"
+                android:layout_margin="@dimen/ten"
                 android:spinnerMode="dropdown"
-                android:backgroundTint="@color/black"></Spinner>
-        </LinearLayout>
+                android:background="@drawable/textfieldback"></Spinner>
 
         <EditText
             android:id="@+id/edit_Ares"

@@ -64,7 +64,7 @@
             android:layout_centerVertical="true"
             android:id="@+id/rle_click">
 
-            <ImageView
+           <!-- <ImageView
                 android:id="@+id/loc"
                 android:layout_width="@dimen/thirty"
                 android:layout_height="@dimen/thirty"
@@ -73,7 +73,7 @@
                 android:layout_marginRight="@dimen/ten"
                 android:layout_centerVertical="true">
 
-            </ImageView>
+            </ImageView>-->
 
             <TextView
                 android:id="@+id/text_addressName"
@@ -86,7 +86,7 @@
                 android:textStyle="bold"
                 android:layout_marginTop="@dimen/ten"></TextView>
 
-            <TextView
+          <!--  <TextView
                 android:id="@+id/text_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                 android:layout_below="@+id/text_addressName"
                 android:textStyle="bold"
                 android:drawableRight="@drawable/arrow_drop_down"></TextView>
-
+-->
         </RelativeLayout>
 
 

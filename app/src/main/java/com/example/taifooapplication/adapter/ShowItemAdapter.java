@@ -10,9 +10,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.taifooapplication.R;
@@ -26,11 +23,13 @@ public class ShowItemAdapter extends RecyclerView.Adapter<ShowItemAdapter.ViewHo
 
     Context context;
     ArrayList<ShowItem_ModelClass> showItem;
+    String cartCount;
 
-    public ShowItemAdapter(Context context, ArrayList<ShowItem_ModelClass> showItem) {
+    public ShowItemAdapter(Context context, ArrayList<ShowItem_ModelClass> showItem, String cart_count) {
 
         this.context = context;
         this.showItem = showItem;
+        this.cartCount = cart_count;
 
     }
 
@@ -73,6 +72,7 @@ public class ShowItemAdapter extends RecyclerView.Adapter<ShowItemAdapter.ViewHo
                 Intent intent = new Intent(context, ActivityCategoryPage.class);
                 intent.putExtra("categoryId",show_item.getCategory_id());
                 intent.putExtra("categoryName",show_item.getCategory_name());
+                intent.putExtra("cartCount",cartCount);
                 context.startActivity(intent);
 
             }

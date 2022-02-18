@@ -67,7 +67,7 @@ public class ProductDescription extends AppCompatActivity {
         image_Arrow = findViewById(R.id.image_Arrow);
         product_Name = findViewById(R.id.product_Name);
         productname = findViewById(R.id.productname);
-        textUnit = findViewById(R.id.textUnit);
+        //textUnit = findViewById(R.id.textUnit);
         productImage = findViewById(R.id.productImage);
         btn_addToCart = findViewById(R.id.btn_addToCart);
 
@@ -80,7 +80,7 @@ public class ProductDescription extends AppCompatActivity {
 
         productName = intent.getStringExtra("productName");
         productprice = intent.getStringExtra("productprice");
-        text_Unit = intent.getStringExtra("text_Unit");
+        //text_Unit = intent.getStringExtra("text_Unit");
         quantity = intent.getStringExtra("quantity");
         Regular_price = intent.getStringExtra("Regular_price");
         product_Image = intent.getStringExtra("productImage");
@@ -105,7 +105,7 @@ public class ProductDescription extends AppCompatActivity {
 
         totalPrice1.setText(ss);
         priceSymbol1.setText(ss1);
-        textUnit.setText(text_Unit);
+        //textUnit.setText(text_Unit);
         product_Name.setText(productName);
         totalPrice.setText(productprice);
 

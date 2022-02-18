@@ -163,7 +163,7 @@
             android:layout_marginTop="@dimen/twenty"
             android:layout_marginBottom="@dimen/fifteen">
 
-            <TextView
+           <!-- <TextView
                 android:id="@+id/textUnit"
                 android:layout_width="@dimen/hundred"
                 android:layout_height="@dimen/forty"
@@ -176,7 +176,7 @@
                 android:text="Select"
                 android:textSize="@dimen/edittextsize"
                 android:textStyle="bold"
-                android:textColor="#1D4759"></TextView>
+                android:textColor="#1D4759"></TextView>-->
 
             <LinearLayout
                 android:id="@+id/inc"

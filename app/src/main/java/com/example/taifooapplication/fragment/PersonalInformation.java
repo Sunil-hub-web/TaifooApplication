@@ -173,7 +173,7 @@ public class PersonalInformation extends Fragment {
 
                         if (img.equals("")) {
 
-                            Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
 
                             String name = jsonObject.getString("name");
                             String mobile = jsonObject.getString("contact_no");

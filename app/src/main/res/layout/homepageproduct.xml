@@ -73,10 +73,10 @@
                             android:id="@+id/rs1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/ten"
-                            android:layout_toLeftOf="@id/text_Regularprice"
+                            android:layout_marginLeft="@dimen/five"
+                            android:layout_toRightOf="@id/text_salesPrice"
                             android:layout_weight="1"
-                            android:text="Rs."
+                            android:text="/"
                             android:textSize="@dimen/twelve_size"
                             android:textStyle="bold"></TextView>
 
@@ -84,9 +84,9 @@
                             android:id="@+id/text_Regularprice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginLeft="@dimen/ten"
-                            android:layout_marginRight="@dimen/ten"
+                            android:layout_toRightOf="@id/rs1"
+                            android:layout_marginLeft="@dimen/five"
+                            android:layout_marginRight="@dimen/five"
                             android:layout_weight="1"
                             android:text="LOGIN"
                             android:textSize="@dimen/twelve_size"
@@ -121,7 +121,7 @@
                         android:layout_marginBottom="@dimen/seven"
                         android:visibility="gone">
 
-                        <TextView
+                       <!-- <TextView
                             android:id="@+id/text_Unit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -136,7 +136,7 @@
                             android:textSize="@dimen/twelve_size"
                             android:textStyle="bold"
                             android:textColor="#1D4759"></TextView>
-
+-->
                         <LinearLayout
                             android:id="@+id/inc"
                             android:layout_width="@dimen/seventy"

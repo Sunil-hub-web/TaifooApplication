@@ -11,10 +11,15 @@
         android:background="@drawable/serachback"
         android:padding="9dp"
         android:layout_margin="@dimen/fifteen"
+        android:imeOptions="actionDone"
         android:layout_centerHorizontal="true"
         android:drawablePadding="@dimen/fifteen"
         android:drawableLeft="@drawable/loupe"
-        android:hint="Serach For restaurants and food"></EditText>
+        android:hint="Serach For restaurants and food"
+        android:scrollHorizontally="true"
+        android:ellipsize="end"
+        android:layout_weight="1"
+        android:maxLines="1"></EditText>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/serachRecycler"

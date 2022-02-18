@@ -74,12 +74,12 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
         holder.productName.setText (bestSell.getProduct_name ());
         holder.text_salesPrice.setText (bestSell.getSale_price ());
         holder.text_Regularprice.setText (bestSell.getRegular_price ());
-        holder.text_Unit.setText (bestSell.getProduct_weight ());
+        //holder.text_Unit.setText (bestSell.getProduct_weight ());
 
         String str_quantity_item = bestSell.getQuantity();
 
         holder.text_Regularprice.setPaintFlags(holder.text_Regularprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        holder.rs1.setPaintFlags(holder.rs1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        //holder.rs1.setPaintFlags(holder.rs1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
         int quantity_item = Integer.valueOf(str_quantity_item);
 
@@ -114,7 +114,7 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
                 Intent intent = new Intent(context, ProductDescription.class);
                 intent.putExtra("productName",bestSell.getProduct_name ());
                 intent.putExtra("productprice",bestSell.getSale_price ());
-                intent.putExtra("text_Unit",bestSell.getProduct_weight());
+                //intent.putExtra("text_Unit",bestSell.getProduct_weight());
                 intent.putExtra("quantity",quantity);
                 intent.putExtra("Regular_price",bestSell.getRegular_price ());
                 intent.putExtra("productImage",bestSell.getProduct_img ());
@@ -211,7 +211,7 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
             productName = itemView.findViewById (R.id.productName);
             text_salesPrice = itemView.findViewById (R.id.text_salesPrice);
             text_Regularprice = itemView.findViewById (R.id.text_Regularprice);
-            text_Unit = itemView.findViewById (R.id.text_Unit);
+            //text_Unit = itemView.findViewById (R.id.text_Unit);
             showProduct = itemView.findViewById (R.id.showProduct);
             addToCart = itemView.findViewById (R.id.addToCart);
             linearLayout = itemView.findViewById(R.id.inc);

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,13 +25,7 @@ import com.example.taifooapplication.AppURL;
 import com.example.taifooapplication.R;
 import com.example.taifooapplication.SharedPrefManager;
 import com.example.taifooapplication.activity.HomePageActivity;
-import com.example.taifooapplication.adapter.BestSellingAdapter;
-import com.example.taifooapplication.adapter.ProductCateGoryAdapter;
 import com.example.taifooapplication.adapter.ShowItemAdapter;
-import com.example.taifooapplication.adapter.SliderAdpter;
-import com.example.taifooapplication.modelclas.BestSelling_modelClass;
-import com.example.taifooapplication.modelclas.Category_ModelClass;
-import com.example.taifooapplication.modelclas.ShowImage_ModelClass;
 import com.example.taifooapplication.modelclas.ShowItem_ModelClass;
 
 import org.json.JSONArray;
@@ -110,7 +103,7 @@ public class CategoryPage extends Fragment {
                         }
 
                         gridLayoutManager = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
-                        showItemAdapter = new ShowItemAdapter(getContext(),category);
+                        showItemAdapter = new ShowItemAdapter(getContext(),category, cart_count);
                         categoryPageRecycler.setLayoutManager(gridLayoutManager);
                         categoryPageRecycler.setHasFixedSize(true);
                         categoryPageRecycler.setAdapter(showItemAdapter);

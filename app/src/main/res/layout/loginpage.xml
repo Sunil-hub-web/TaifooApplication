@@ -95,14 +95,14 @@
 
     </LinearLayout>
 
-    <RelativeLayout
+    <!--<RelativeLayout
         android:id="@+id/r"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp">
 
-        <!-- <TextView
+        &lt;!&ndash; <TextView
              android:id="@+id/login1"
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
@@ -119,10 +119,10 @@
              android:textStyle="bold"
              android:textColor="#F44336"
              android:textSize="@dimen/textsize"
-             android:layout_toRightOf="@id/login1"/>-->
+             android:layout_toRightOf="@id/login1"/>&ndash;&gt;
 
 
-    </RelativeLayout>
+    </RelativeLayout>-->
 
     <RelativeLayout
         android:id="@+id/r1"

@@ -210,13 +210,15 @@ public class Homepage extends Fragment {
                             String category_name = jsonObject_Category.getString("category_name");
                             String category_image = jsonObject_Category.getString("img");
 
-                            ShowItem_ModelClass showItem_modelClass = new ShowItem_ModelClass(category_image,category_id,category_name);
+                            String category_name_replace = category_name.replace("&amp;","");
+
+                            ShowItem_ModelClass showItem_modelClass = new ShowItem_ModelClass(category_image,category_id,category_name_replace);
                             showItem.add(showItem_modelClass);
 
                         }
 
                         gridLayoutManager = new GridLayoutManager(getContext(),3,GridLayoutManager.VERTICAL,false);
-                        showItemAdapter = new ShowItemAdapter(getContext(),showItem);
+                        showItemAdapter = new ShowItemAdapter(getContext(),showItem,cart_count);
                         showitemRecycler.setLayoutManager(gridLayoutManager);
                         showitemRecycler.setHasFixedSize(true);
                         showitemRecycler.setAdapter(showItemAdapter);

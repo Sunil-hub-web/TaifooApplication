@@ -46,8 +46,8 @@ public class ActivityCategoryPage extends AppCompatActivity {
     ArrayList<Category_ModelClass> category = new ArrayList<>();
     ProductCateGoryAdapter productCateGoryAdapter;
     GridLayoutManager gridLayoutManager;
-    String CategoryId,CategoryName;
-    TextView product_Name;
+    String CategoryId,CategoryName,cartCount;
+    TextView product_Name,text_ItemCount;
     ImageView image_Arrow;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -65,14 +65,17 @@ public class ActivityCategoryPage extends AppCompatActivity {
         categoryProductRecycler = findViewById(R.id.categoryProductRecycler);
         product_Name = findViewById(R.id.product_Name);
         image_Arrow = findViewById(R.id.image_Arrow);
+        text_ItemCount = findViewById(R.id.text_ItemCount);
 
         Intent intent = getIntent();
         CategoryId = intent.getStringExtra("categoryId");
         CategoryName = intent.getStringExtra("categoryName");
+        cartCount = intent.getStringExtra("cartCount");
 
         Log.d("categoryName",CategoryId + CategoryName);
 
         product_Name.setText(CategoryName);
+        text_ItemCount.setText(cartCount);
 
         getcategoryProduct(CategoryId);
 

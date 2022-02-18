@@ -87,10 +87,10 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
 
     public static TextView nav_MyOrder,text_name,nav_Profile,nav_MyAddress,nav_Home,
-            nav_Logout,nav_Name,nav_MobileNo,text_ItemCount,nav_ContactUs,text_address,
+            nav_Logout,nav_Name,nav_MobileNo,text_ItemCount,nav_ContactUs,
             text_addressName,nav_Categogry;
 
-    public static ImageView loc,search,img_Cart;
+    public static ImageView search,img_Cart;
 
     CircleImageView profile_image;
 
@@ -122,6 +122,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
         getSupportFragmentManager().beginTransaction().replace(R.id.framLayout,new Homepage(),"HomeFragment").commit();
         test = (Homepage) getSupportFragmentManager().findFragmentByTag("HomeFragment");
+/*
 
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -135,24 +136,25 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 //GPS is already On then
                 getLocation();
             }
+*/
 
 
         drawerLayout = findViewById(R.id.drawer);
         navigationView = findViewById(R.id.navigationview);
 
         bottomNavigation = findViewById(R.id.bottomNavigation);
-        loc = findViewById(R.id.loc);
+        //loc = findViewById(R.id.loc);
         //logo = findViewById(R.id.logo);
         search = findViewById(R.id.image_search);
         img_Cart = findViewById(R.id.img_Cart);
         text_ItemCount = findViewById(R.id.text_ItemCount);
-        text_address = findViewById(R.id.text_address);
+        //text_address = findViewById(R.id.text_address);
         rle_click = findViewById(R.id.rle_click);
         text_name = findViewById(R.id.text_addressName);
 
 
-        loc.setVisibility(View.VISIBLE);
-        text_address.setVisibility(View.VISIBLE);
+        //loc.setVisibility(View.VISIBLE);
+        //text_address.setVisibility(View.VISIBLE);
         //logo.setVisibility(View.VISIBLE);
         search.setVisibility(View.VISIBLE);
         //text_name.setVisibility(View.VISIBLE);
@@ -177,8 +179,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             public void onClick(View v) {
 
                 drawerLayout.closeDrawer(GravityCompat.START);
-                loc.setVisibility(View.GONE);
-                text_address.setVisibility(View.GONE);
+                //loc.setVisibility(View.GONE);
+                //text_address.setVisibility(View.GONE);
                 //logo.setVisibility(View.GONE);
                 search.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -195,8 +197,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             public void onClick(View v) {
 
                 drawerLayout.closeDrawer(GravityCompat.START);
-                loc.setVisibility(View.GONE);
-                text_address.setVisibility(View.GONE);
+                //loc.setVisibility(View.GONE);
+                //text_address.setVisibility(View.GONE);
                 search.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 PersonalInformation personalInformation = new PersonalInformation();
@@ -215,8 +217,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             public void onClick(View v) {
 
                 drawerLayout.closeDrawer(GravityCompat.START);
-                loc.setVisibility(View.GONE);
-                text_address.setVisibility(View.GONE);
+                //loc.setVisibility(View.GONE);
+                //text_address.setVisibility(View.GONE);
                 //logo.setVisibility(View.GONE);
                 search.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -251,10 +253,10 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 }else{
 
                     drawerLayout.closeDrawer(GravityCompat.START);
-                    loc.setVisibility(View.VISIBLE);
+                    //loc.setVisibility(View.VISIBLE);
                     //logo.setVisibility(View.VISIBLE);
                     search.setVisibility(View.VISIBLE);
-                    text_address.setVisibility(View.VISIBLE);
+                    //text_address.setVisibility(View.VISIBLE);
                     text_name.setVisibility(View.VISIBLE);
                     FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                     Homepage homepage = new Homepage();
@@ -273,10 +275,10 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             public void onClick(View v) {
 
 
-                loc.setVisibility(View.GONE);
+                //loc.setVisibility(View.GONE);
                 //logo.setVisibility(View.VISIBLE);
                 search.setVisibility(View.GONE);
-                text_address.setVisibility(View.GONE);
+                //text_address.setVisibility(View.GONE);
                 text_name.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 SerachFoodPage serachFoodPage = new SerachFoodPage();
@@ -293,8 +295,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             public void onClick(View v) {
 
                 drawerLayout.closeDrawer(GravityCompat.START);
-                loc.setVisibility(View.GONE);
-                text_address.setVisibility(View.GONE);
+                //loc.setVisibility(View.GONE);
+                //text_address.setVisibility(View.GONE);
                 //logo.setVisibility(View.GONE);
                 search.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -313,8 +315,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             public void onClick(View v) {
 
                 drawerLayout.closeDrawer(GravityCompat.START);
-                loc.setVisibility(View.GONE);
-                text_address.setVisibility(View.GONE);
+                //loc.setVisibility(View.GONE);
+                //text_address.setVisibility(View.GONE);
                 //logo.setVisibility(View.GONE);
                 search.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -331,8 +333,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             public void onClick(View v) {
 
                 drawerLayout.closeDrawer(GravityCompat.START);
-                loc.setVisibility(View.GONE);
-                text_address.setVisibility(View.GONE);
+                //loc.setVisibility(View.GONE);
+                //text_address.setVisibility(View.GONE);
                 //logo.setVisibility(View.GONE);
                 search.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -369,21 +371,21 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
                         selectedFragment = new PersonalInformation();
 
-                        loc.setVisibility(View.GONE);
+                        //loc.setVisibility(View.GONE);
                         //logo.setVisibility(View.GONE);
                         search.setVisibility(View.GONE);
                         text_name.setTextSize(18);
                         text_name.setText("PersonalInformation");
-                        text_address.setVisibility(View.GONE);
+                        //text_address.setVisibility(View.GONE);
 
                         break;
 
                     case R.id.home:
 
                         selectedFragment = new Homepage();
-                        loc.setVisibility(View.VISIBLE);
+                        //loc.setVisibility(View.VISIBLE);
                         text_name.setVisibility(View.VISIBLE);
-                        text_address.setVisibility(View.VISIBLE);
+                        //text_address.setVisibility(View.VISIBLE);
                         //logo.setVisibility(View.VISIBLE);
                         search.setVisibility(View.VISIBLE);
                         text_name.setTextSize(15);
@@ -395,12 +397,12 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                     case R.id.cart:
 
                         selectedFragment = new CartPage();
-                        loc.setVisibility(View.GONE);
+                        //loc.setVisibility(View.GONE);
                         //logo.setVisibility(View.GONE);
                         search.setVisibility(View.GONE);
                         text_name.setTextSize(18);
                         text_name.setText("My Cart");
-                        text_address.setVisibility(View.GONE);
+                        //text_address.setVisibility(View.GONE);
 
                         break;
 
@@ -526,7 +528,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                         addressDetails = addresses.get(0).getAdminArea();
 
                         //set address On Text View
-                        text_address.setText(addresses.get(0).getSubLocality()+","+addresses.get(0).getLocality());
+                        //text_address.setText(addresses.get(0).getSubLocality()+","+addresses.get(0).getLocality());
                         text_name.setText(addresses.get(0).getAdminArea());
 
 

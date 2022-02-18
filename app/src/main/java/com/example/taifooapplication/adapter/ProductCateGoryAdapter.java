@@ -72,13 +72,13 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
         holder.text_NetWt.setText(productCategory.getProduct_weight());
         holder.text_GrossWt.setText(productCategory.getProduct_grossweight());
         holder.text_salesPrice.setText(productCategory.getSale_price());
-        holder.text_Unit.setText(productCategory.getProduct_weight());
+       // holder.text_Unit.setText(productCategory.getProduct_weight());
 
         String Regular_price = productCategory.getRegular_price();
 
         holder.text_Regularprice.setText(Regular_price);
         holder.text_Regularprice.setPaintFlags(holder.text_Regularprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        holder.rs1.setPaintFlags(holder.rs1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        //holder.rs1.setPaintFlags(holder.rs1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
         String str_quantity_item = productCategory.getQuantity();
 
@@ -101,11 +101,13 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
 
             holder.rel_NetWt.setVisibility(View.GONE);
             holder.rel_GrossWt.setVisibility(View.GONE);
+            holder.weight.setVisibility(View.GONE);
 
         }else if(categoryName.equals("Restaurant  ")){
 
             holder.rel_NetWt.setVisibility(View.GONE);
             holder.rel_GrossWt.setVisibility(View.GONE);
+            holder.weight.setVisibility(View.GONE);
         }
 
 
@@ -195,7 +197,7 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
         ImageView productImage;
         TextView productName,text_NetWt,text_GrossWt,text_salesPrice,text_Regularprice,text_Unit,rs,rs1,t1, t2, t3;
         Button btn_addToCart;
-        LinearLayout linearLayout;
+        LinearLayout linearLayout,weight;
         RelativeLayout showProduct,rel_NetWt,rel_GrossWt;
 
         public ViewHolder(@NonNull  View itemView) {
@@ -207,7 +209,7 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
             text_GrossWt = itemView.findViewById(R.id.text_GrossWt);
             text_salesPrice = itemView.findViewById(R.id.text_salesPrice);
             text_Regularprice = itemView.findViewById(R.id.text_Regularprice);
-            text_Unit = itemView.findViewById(R.id.text_Unit);
+            //text_Unit = itemView.findViewById(R.id.text_Unit);
             rs = itemView.findViewById(R.id.rs);
             rs1 = itemView.findViewById(R.id.rs1);
             btn_addToCart = itemView.findViewById(R.id.btn_addToCart);
@@ -218,6 +220,7 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
             showProduct = itemView.findViewById(R.id.showProduct);
             rel_GrossWt = itemView.findViewById(R.id.rel_GrossWt);
             rel_NetWt = itemView.findViewById(R.id.rel_NetWt);
+            weight = itemView.findViewById(R.id.weight);
 
         }
 

@@ -78,7 +78,7 @@
             android:id="@+id/nav_Categogry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Categogry"
+            android:text="Category"
             android:textSize="@dimen/edittextsize"
             android:textColor="@color/black"
             android:layout_marginTop="@dimen/twenty">
