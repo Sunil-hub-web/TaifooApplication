@@ -59,7 +59,6 @@ import com.example.taifooapplication.fragment.PersonalInformation;
 import com.example.taifooapplication.fragment.SerachFoodPage;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -84,8 +83,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
     BottomNavigationView bottomNavigation;
 
-
-
     public static TextView nav_MyOrder,text_name,nav_Profile,nav_MyAddress,nav_Home,
             nav_Logout,nav_Name,nav_MobileNo,text_ItemCount,nav_ContactUs,
             text_addressName,nav_Categogry;
@@ -98,7 +95,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     LocationManager locationManager;
     FusedLocationProviderClient fusedLocationProviderClient;
     Double latitude,longitude;
-    GoogleMap mMap;
     String name,mobileNo,image,userid,addressDetails;
     Homepage test;
     private Boolean exit = false;
@@ -545,7 +541,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     private void enableUserLocation() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            mMap.setMyLocationEnabled(true);
+            //mMap.setMyLocationEnabled(true);
         } else {
             //Ask for permission
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
@@ -570,7 +566,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                         (this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
-                mMap.setMyLocationEnabled(true);
+               // mMap.setMyLocationEnabled(true);
             } else {
                 //We do not have the permission..
             }

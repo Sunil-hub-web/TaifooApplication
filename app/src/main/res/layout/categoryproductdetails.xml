@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/productImage"
-                android:layout_marginLeft="@dimen/fifteen"
+                android:layout_marginLeft="@dimen/ten"
                 android:layout_marginTop="@dimen/five"
                 android:layout_marginRight="@dimen/fifty"
                 android:layout_weight="1"
@@ -39,83 +39,129 @@
                 android:textStyle="bold"></TextView>
 
             <LinearLayout
-                android:id="@+id/weight"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/productName"
-                android:layout_marginLeft="@dimen/fifteen"
-                android:layout_marginTop="@dimen/five"
-                android:layout_marginRight="@dimen/ten"
-                android:weightSum="2">
+                android:id="@+id/lin1">
 
                 <RelativeLayout
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:id="@+id/rel_NetWt">
+                    android:id="@+id/rel_QTY"
+                    android:layout_marginLeft="@dimen/ten"
+                    android:layout_marginTop="@dimen/five"
+                    android:visibility="gone">
 
                     <TextView
-                        android:id="@+id/NetWt"
+                        android:id="@+id/qty"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="NetWt."
-                        android:textSize="@dimen/twelve_size"
+                        android:text="QTY."
+                        android:textSize="@dimen/ten"
+                        android:textColor="#03A9F4"
                         android:textStyle="bold"></TextView>
 
                     <TextView
-                        android:id="@+id/text_NetWt"
+                        android:id="@+id/text_QTY"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/ten"
-                        android:layout_toRightOf="@+id/NetWt"
+                        android:layout_marginLeft="@dimen/five"
+                        android:layout_toRightOf="@+id/qty"
                         android:layout_weight="1"
-                        android:text="LOGIN"
-                        android:textSize="@dimen/twelve_size"
+                        android:text="250"
+                        android:textColor="#03A9F4"
+                        android:textSize="@dimen/ten"
                         android:textStyle="bold"></TextView>
 
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                <LinearLayout
+                    android:id="@+id/weight"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/rel_GrossWt">
+                    android:layout_marginLeft="@dimen/ten"
+                    android:layout_marginTop="@dimen/five"
+                    android:layout_marginRight="@dimen/ten"
+                    android:weightSum="2">
 
-                    <TextView
-                        android:id="@+id/GrossWt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/ten"
-                        android:layout_toLeftOf="@id/text_GrossWt"
+                    <RelativeLayout
+                        android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:text="GrossWt."
-                        android:textSize="@dimen/twelve_size"
-                        android:textStyle="bold"></TextView>
-
-                    <TextView
-                        android:id="@+id/text_GrossWt"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="@dimen/ten"
-                        android:layout_marginRight="@dimen/ten"
+                        android:id="@+id/rel_NetWt">
+
+                        <TextView
+                            android:id="@+id/NetWt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="NetWt."
+                            android:textSize="@dimen/ten"
+                            android:textColor="#03A9F4"
+                            android:textStyle="bold"></TextView>
+
+                        <TextView
+                            android:id="@+id/text_NetWt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/five"
+                            android:layout_toRightOf="@+id/NetWt"
+                            android:layout_weight="1"
+                            android:text="250"
+                            android:textColor="#03A9F4"
+                            android:textSize="@dimen/ten"
+                            android:textStyle="bold"></TextView>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:text="LOGIN"
-                        android:textSize="@dimen/twelve_size"
-                        android:textStyle="bold"></TextView>
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rel_GrossWt">
 
-                </RelativeLayout>
+                        <TextView
+                            android:id="@+id/GrossWt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/five"
+                            android:layout_toLeftOf="@id/text_GrossWt"
+                            android:layout_weight="1"
+                            android:text="GrossWt."
+                            android:textColor="#F44336"
+                            android:textSize="@dimen/ten"
+                            android:textStyle="bold"></TextView>
 
+                        <TextView
+                            android:id="@+id/text_GrossWt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginLeft="@dimen/five"
+                            android:layout_marginRight="@dimen/five"
+                            android:layout_weight="1"
+                            android:text="250"
+                            android:textColor="#F44336"
+                            android:textSize="@dimen/ten"
+                            android:textStyle="bold"></TextView>
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
 
             </LinearLayout>
+
+
 
             <RelativeLayout
                 android:id="@+id/price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/weight"
-                android:layout_marginLeft="@dimen/fifteen"
+                android:layout_below="@id/lin1"
+                android:layout_marginLeft="@dimen/ten"
                 android:layout_marginRight="@dimen/ten"
                 android:layout_marginBottom="@dimen/five"
                 android:layout_marginTop="@dimen/five">
@@ -160,6 +206,7 @@
                     android:layout_weight="1"
                     android:layout_toRightOf="@+id/rs1"
                     android:text="LOGIN"
+                    android:textColor="#DD1D0F"
                     android:textSize="@dimen/twelve_size"
                     android:textStyle="bold"></TextView>
 

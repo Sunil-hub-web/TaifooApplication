@@ -72,6 +72,7 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
         holder.text_NetWt.setText(productCategory.getProduct_weight());
         holder.text_GrossWt.setText(productCategory.getProduct_grossweight());
         holder.text_salesPrice.setText(productCategory.getSale_price());
+        holder.text_QTY.setText(productCategory.getPlate());
        // holder.text_Unit.setText(productCategory.getProduct_weight());
 
         String Regular_price = productCategory.getRegular_price();
@@ -102,12 +103,14 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
             holder.rel_NetWt.setVisibility(View.GONE);
             holder.rel_GrossWt.setVisibility(View.GONE);
             holder.weight.setVisibility(View.GONE);
+            holder.rel_QTY.setVisibility(View.VISIBLE);
 
         }else if(categoryName.equals("Restaurant  ")){
 
             holder.rel_NetWt.setVisibility(View.GONE);
             holder.rel_GrossWt.setVisibility(View.GONE);
             holder.weight.setVisibility(View.GONE);
+            holder.rel_QTY.setVisibility(View.VISIBLE);
         }
 
 
@@ -195,10 +198,10 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView productImage;
-        TextView productName,text_NetWt,text_GrossWt,text_salesPrice,text_Regularprice,text_Unit,rs,rs1,t1, t2, t3;
+        TextView productName,text_NetWt,text_GrossWt,text_salesPrice,text_Regularprice,text_Unit,rs,rs1,t1, t2, t3,text_QTY;
         Button btn_addToCart;
         LinearLayout linearLayout,weight;
-        RelativeLayout showProduct,rel_NetWt,rel_GrossWt;
+        RelativeLayout showProduct,rel_NetWt,rel_GrossWt,rel_QTY;
 
         public ViewHolder(@NonNull  View itemView) {
             super(itemView);
@@ -221,6 +224,8 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
             rel_GrossWt = itemView.findViewById(R.id.rel_GrossWt);
             rel_NetWt = itemView.findViewById(R.id.rel_NetWt);
             weight = itemView.findViewById(R.id.weight);
+            rel_QTY = itemView.findViewById(R.id.rel_QTY);
+            text_QTY = itemView.findViewById(R.id.text_QTY);
 
         }
 

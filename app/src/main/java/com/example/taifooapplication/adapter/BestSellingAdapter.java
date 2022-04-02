@@ -120,6 +120,7 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
                 intent.putExtra("productImage",bestSell.getProduct_img ());
                 intent.putExtra("productId",bestSell.getProduct_id ());
                 intent.putExtra("cartCount",cartCount);
+
                 context.startActivity(intent);
 
             }

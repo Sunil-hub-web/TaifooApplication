@@ -70,6 +70,7 @@ public class ProductDescription extends AppCompatActivity {
         //textUnit = findViewById(R.id.textUnit);
         productImage = findViewById(R.id.productImage);
         btn_addToCart = findViewById(R.id.btn_addToCart);
+        text_ItemCount = findViewById(R.id.text_ItemCount);
 
         linearLayout = findViewById(R.id.inc);
         t1 = findViewById(R.id.t1);
@@ -86,6 +87,8 @@ public class ProductDescription extends AppCompatActivity {
         product_Image = intent.getStringExtra("productImage");
         productId = intent.getStringExtra("productId");
         cartCount = intent.getStringExtra("cartCount");
+        text_ItemCount.setText(cartCount);
+
         userId = SharedPrefManager.getInstance(ProductDescription.this).getUser().getId();
 
         String image = "https://"+product_Image;
@@ -94,7 +97,8 @@ public class ProductDescription extends AppCompatActivity {
         String tt_1 = Regular_price;
         String tt_2 = "Rs.";
 
-        text_ItemCount.setText(cartCount);
+
+
 
         SpannableString ss = new SpannableString(tt_1);
         SpannableString ss1 = new SpannableString(tt_2);

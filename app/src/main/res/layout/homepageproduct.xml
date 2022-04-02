@@ -89,6 +89,7 @@
                             android:layout_marginRight="@dimen/five"
                             android:layout_weight="1"
                             android:text="LOGIN"
+                            android:textColor="#DD1D0F"
                             android:textSize="@dimen/twelve_size"
                             android:textStyle="bold"></TextView>
 
