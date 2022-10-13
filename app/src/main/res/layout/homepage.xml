@@ -187,9 +187,9 @@
                     android:layout_marginTop="@dimen/fifteen">
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/showitemRecycler"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/showitemRecycler">
+                        android:layout_height="wrap_content">
 
                     </androidx.recyclerview.widget.RecyclerView>
 
@@ -215,36 +215,36 @@
                         android:id="@+id/text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/ten"
                         android:text="You Can Call AnyTime To"
                         android:textColor="#FFFFFF"
                         android:textSize="@dimen/edittextsize"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="@dimen/ten"
-                        android:layout_centerVertical="true"></TextView>
+                        android:textStyle="bold"></TextView>
 
                     <TextView
                         android:id="@+id/text1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_below="@id/text"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/ten"
                         android:text="Get Your Product"
                         android:textColor="#FFFFFF"
                         android:textSize="@dimen/edittextsize"
-                        android:layout_below="@id/text"
-                        android:textStyle="bold"
-                        android:layout_marginLeft="@dimen/ten"
-                        android:layout_centerVertical="true"></TextView>
+                        android:textStyle="bold"></TextView>
 
                     <com.google.android.material.button.MaterialButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/ten"
-                        android:text="CALL +91-1800 888 545"
-                        app:backgroundTint="#DA291C"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:textSize="@dimen/ten_size"></com.google.android.material.button.MaterialButton>
+                        android:layout_marginRight="@dimen/ten"
+                        android:text="CALL +91-1800 888 545"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/ten_size"
+                        android:textStyle="bold"
+                        app:backgroundTint="#DA291C"></com.google.android.material.button.MaterialButton>
 
 
                 </RelativeLayout>
@@ -262,12 +262,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/view2"
-                    android:textColor="#22647E"
                     android:layout_marginLeft="@dimen/fifteen"
-                    android:textSize="@dimen/edittextsize"
+                    android:layout_marginTop="@dimen/fifteen"
                     android:text="Best Selling"
-                    android:textStyle="bold"
-                    android:layout_marginTop="@dimen/fifteen"></TextView>
+                    android:textColor="#22647E"
+                    android:textSize="@dimen/edittextsize"
+                    android:textStyle="bold"></TextView>
 
                 <RelativeLayout
                     android:layout_width="match_parent"

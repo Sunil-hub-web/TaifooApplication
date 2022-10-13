@@ -256,9 +256,14 @@
             android:id="@+id/addressdetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_below="@id/text"
-            android:layout_margin="@dimen/ten"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="@dimen/ten"
+            android:layout_marginLeft="@dimen/ten"
+            android:layout_marginTop="@dimen/ten"
+            android:layout_marginEnd="@dimen/ten"
+            android:layout_marginRight="@dimen/ten"
+            android:layout_marginBottom="@dimen/ten"
             android:textColor="@color/some_color"
             android:textSize="@dimen/edittextsize"></TextView>
 

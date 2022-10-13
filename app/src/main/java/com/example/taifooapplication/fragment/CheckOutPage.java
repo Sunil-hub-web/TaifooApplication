@@ -77,7 +77,7 @@ public class CheckOutPage extends Fragment {
     Dialog dialog;
     Spinner spinner_City,spinner_Pincode;
     Button btn_AddnewAddress,btn_selectAddress,btn_ProceedCheckout;
-    RadioButton radio_payonline,radio_cashondelivery;
+    RadioButton radio_payonline,radio_cashondelivery,selectedRadioButton;
     RadioGroup radioGroup;
     String str_Name,str_Email,str_MobileNo,str_City,str_Area,str_Address,city_Id,city_Name,pincode,
             str_PinCode,City_id,pincode_Name, userId,subTotalPrice,deliveryPrice,totalPrice,taxandfee,
@@ -87,7 +87,6 @@ public class CheckOutPage extends Fragment {
     RecyclerView recyclerAddressDetails;
     LinearLayoutManager linearLayoutManager1;
     SelectAddressAdapter selectAddressAdapter;
-    RadioButton selectedRadioButton;
 
     @Nullable
     @Override

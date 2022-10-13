@@ -25,11 +25,11 @@
 
 
         <FrameLayout
+            android:id="@+id/framLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/bottomNavigation"
-            android:layout_below="@id/toll"
-            android:id="@+id/framLayout">
+            android:layout_below="@id/toll">
 
         </FrameLayout>
 

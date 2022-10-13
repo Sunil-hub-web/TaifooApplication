@@ -84,9 +84,9 @@
                             android:id="@+id/text_Regularprice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_toRightOf="@id/rs1"
                             android:layout_marginLeft="@dimen/five"
                             android:layout_marginRight="@dimen/five"
+                            android:layout_toRightOf="@id/rs1"
                             android:layout_weight="1"
                             android:text="LOGIN"
                             android:textColor="#DD1D0F"
@@ -109,9 +109,8 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/twelve_size"
                         android:textStyle="bold"
-                        app:backgroundTint="#1D4759"
                         android:visibility="visible"
-                        ></com.google.android.material.button.MaterialButton>
+                        app:backgroundTint="#1D4759"></com.google.android.material.button.MaterialButton>
 
                     <RelativeLayout
                         android:id="@+id/showProduct"

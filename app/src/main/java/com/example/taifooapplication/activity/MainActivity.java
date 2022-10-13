@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(ContextCompat.getColor(MainActivity.this, R.color.white));*/
 
+
         text_Login = findViewById(R.id.login);
         text_SignUp = findViewById(R.id.signup);
 

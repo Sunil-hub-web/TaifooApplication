@@ -78,16 +78,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:orientation="vertical"
+            android:background="@drawable/homecard_back1"
             android:elevation="@dimen/fifteen"
-            android:background="@drawable/homecard_back1">
+            android:orientation="vertical">
 
             <ImageView
 
                 android:layout_width="@dimen/twelve"
                 android:layout_height="@dimen/twelve"
-                android:src="@drawable/wrong"
-                android:layout_margin="@dimen/eight"></ImageView>
+                android:layout_marginStart="@dimen/eight"
+                android:layout_marginLeft="@dimen/eight"
+                android:layout_marginTop="@dimen/eight"
+                android:layout_marginEnd="@dimen/eight"
+                android:layout_marginRight="@dimen/eight"
+                android:layout_marginBottom="@dimen/eight"
+                android:src="@drawable/wrong"></ImageView>
 
         </RelativeLayout>
 

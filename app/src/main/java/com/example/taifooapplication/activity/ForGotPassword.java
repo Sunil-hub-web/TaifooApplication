@@ -112,6 +112,7 @@ public class ForGotPassword extends AppCompatActivity {
 
         ProgressDialog progressDialog = new ProgressDialog(ForGotPassword.this);
         progressDialog.setMessage("Pelase wait...");
+        progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.forgotPassword, new Response.Listener<String>() {
             @Override
