@@ -53,13 +53,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#01A5EF"
-                android:textSize="@dimen/edittextsize"
-                android:text="9339334933"
                 android:layout_gravity="center_horizontal"
-                android:layout_toRightOf="@id/call"
                 android:layout_marginLeft="@dimen/twenty"
-                android:drawablePadding="@dimen/twelve">
+                android:layout_toRightOf="@id/call"
+                android:drawablePadding="@dimen/twelve"
+                android:text="8237550818 , 9284905718 , \n 8436408481"
+                android:textColor="#01A5EF"
+                android:textSize="@dimen/edittextsize">
 
             </TextView>
 
@@ -97,11 +97,55 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/twenty"
+                android:layout_toRightOf="@id/email"
+                android:drawablePadding="@dimen/twelve"
+                android:text="support@taifoo.in"
+                android:textColor="#01A5EF"
+                android:textSize="@dimen/edittextsize">
+
+            </TextView>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/edittextsize"
+            android:layout_marginTop="@dimen/thirty"
+            android:text="or"
+            android:layout_gravity="center_horizontal"
+            android:layout_below="@id/t1">
+
+        </TextView>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/forty"
+            android:layout_gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Address : "
+                android:layout_marginLeft="@dimen/twenty"
+                android:textColor="@color/black"
+                android:textSize="@dimen/edittextsize">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textColor="#01A5EF"
                 android:textSize="@dimen/edittextsize"
-                android:text="support@liimr.com"
-                android:layout_gravity="center_horizontal"
-                android:layout_toRightOf="@id/email"
+                android:text="Kesnand road, Kale odha, tal haveli, wagholi, pune, maharashtra Pin. 412207"
+                android:layout_toRightOf="@id/address"
                 android:layout_marginLeft="@dimen/twenty"
                 android:drawablePadding="@dimen/twelve">
 

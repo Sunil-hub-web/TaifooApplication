@@ -3,17 +3,31 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/New folder/TaifooApplication/app/src/main/res/drawable/textfieldback.xml" value="0.154" />
         <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/activity_home_page.xml" value="0.22083333333333333" />
         <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/activity_main.xml" value="0.22083333333333333" />
+        <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/activity_order_success_fully.xml" value="0.22083333333333333" />
         <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/activity_show_your_order_details.xml" value="0.18518518518518517" />
+        <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/activity_splash_screen.xml" value="0.22083333333333333" />
+        <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/addaddressdetails.xml" value="0.22083333333333333" />
+        <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/addressdetails.xml" value="0.22083333333333333" />
+        <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/cartpage.xml" value="0.22083333333333333" />
         <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/cartpagedetails.xml" value="0.21865889212827988" />
+        <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/categorypage.xml" value="0.22083333333333333" />
+        <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/checkoutpage.xml" value="0.16296296296296298" />
         <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/condition_logout.xml" value="0.18518518518518517" />
         <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/homepage.xml" value="0.22083333333333333" />
         <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/homepageproduct.xml" value="0.22083333333333333" />
+        <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/liimrsupport.xml" value="0.22083333333333333" />
         <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/loginpage.xml" value="0.22083333333333333" />
+        <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/myorder.xml" value="0.22083333333333333" />
+        <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/myorderdetails.xml" value="0.22083333333333333" />
+        <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/orderdetails.xml" value="0.22083333333333333" />
         <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/personal_information.xml" value="0.16296296296296298" />
         <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/registerpage.xml" value="0.22083333333333333" />
         <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/serachlocation.xml" value="0.18518518518518517" />
+        <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/serachpage.xml" value="0.1" />
+        <entry key="..\:/New folder/TaifooApplication/app/src/main/res/layout/showitem.xml" value="0.22083333333333333" />
       </map>
     </option>
   </component>

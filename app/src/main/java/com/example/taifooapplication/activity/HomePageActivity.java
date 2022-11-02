@@ -208,35 +208,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             }
         });
 
-        nav_MyAddress.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                drawerLayout.closeDrawer(GravityCompat.START);
-                //loc.setVisibility(View.GONE);
-                //text_address.setVisibility(View.GONE);
-                //logo.setVisibility(View.GONE);
-                search.setVisibility(View.GONE);
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                AddressDetails addressDetails = new AddressDetails();
-                ft.replace(R.id.framLayout, addressDetails);
-                ft.commit();
-                text_name.setTextSize(18);
-                text_name.setText("Manage Address");
-
-            }
-        });
-
-        nav_Logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                //SharedPrefManager.getInstance(HomePageActivity.this).logout();
-
-                logout_Condition();
-            }
-        });
-
         nav_Home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -266,26 +237,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             }
         });
 
-        search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                //loc.setVisibility(View.GONE);
-                //logo.setVisibility(View.VISIBLE);
-                search.setVisibility(View.GONE);
-                //text_address.setVisibility(View.GONE);
-                text_name.setVisibility(View.GONE);
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                SerachFoodPage serachFoodPage = new SerachFoodPage();
-                ft.replace(R.id.framLayout, serachFoodPage,"serachFoodPage");
-                ft.commit();
-                text_name.setTextSize(15);
-                text_name.setText(addressDetails);
-
-            }
-        });
-
         img_Cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -302,6 +253,57 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 text_name.setTextSize(18);
                 text_name.setText("My Cart");
 
+
+            }
+        });
+
+        nav_MyAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                drawerLayout.closeDrawer(GravityCompat.START);
+                //loc.setVisibility(View.GONE);
+                //text_address.setVisibility(View.GONE);
+                //logo.setVisibility(View.GONE);
+                search.setVisibility(View.GONE);
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                AddressDetails addressDetails = new AddressDetails();
+                ft.replace(R.id.framLayout, addressDetails);
+                ft.commit();
+                text_name.setTextSize(18);
+                text_name.setText("Manage Address");
+
+            }
+        });
+
+        nav_Logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //SharedPrefManager.getInstance(HomePageActivity.this).logout();
+
+                logout_Condition();
+            }
+        });
+
+
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                //loc.setVisibility(View.GONE);
+                //logo.setVisibility(View.VISIBLE);
+                search.setVisibility(View.GONE);
+                //text_address.setVisibility(View.GONE);
+                text_name.setVisibility(View.GONE);
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                SerachFoodPage serachFoodPage = new SerachFoodPage();
+                ft.replace(R.id.framLayout, serachFoodPage,"serachFoodPage");
+                ft.commit();
+                text_name.setTextSize(15);
+                text_name.setText(addressDetails);
 
             }
         });
@@ -387,7 +389,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                         text_name.setTextSize(15);
                         text_name.setText(addressDetails);
 
-
                         break;
 
                     case R.id.cart:
@@ -405,7 +406,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                     case R.id.wishlist:
 
                         return true;
-
 
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.framLayout,selectedFragment).commit();
@@ -455,6 +455,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         window.setBackgroundDrawableResource(R.drawable.homecard_back1);
 
     }
+
     public void Clickmenu(View view){
 
         // open drawer

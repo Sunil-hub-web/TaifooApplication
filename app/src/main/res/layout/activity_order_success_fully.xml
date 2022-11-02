@@ -6,12 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".activity.OrderSuccessFully">
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/image_Arrow"
         android:layout_width="@dimen/thirty"
         android:layout_height="@dimen/thirty"
-        android:src="@drawable/left_arrow"
-        android:layout_margin="@dimen/twenty"></ImageView>
+        android:layout_marginStart="@dimen/twenty"
+        android:layout_marginLeft="@dimen/twenty"
+        android:layout_marginTop="@dimen/twenty"
+        android:layout_marginEnd="@dimen/twenty"
+        android:layout_marginRight="@dimen/twenty"
+        android:layout_marginBottom="@dimen/twenty"
+        android:src="@drawable/left_arrow"></ImageView>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -56,7 +61,7 @@
 
         </TextView>
 
-        <RelativeLayout
+       <!-- <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/ten">
@@ -83,7 +88,7 @@
                 android:textColor="#9EA5A6"
                 android:textSize="@dimen/edittextsize"
                 android:textStyle="bold"></TextView>
-        </RelativeLayout>
+        </RelativeLayout>-->
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"

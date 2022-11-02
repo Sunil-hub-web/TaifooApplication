@@ -4,10 +4,15 @@
     android:layout_height="wrap_content">
 
     <RelativeLayout
+        android:id="@+id/first"
         android:layout_width="match_parent"
         android:layout_height="@dimen/hundred"
-        android:id="@+id/first"
-        android:layout_margin="@dimen/ten"
+        android:layout_marginStart="@dimen/ten"
+        android:layout_marginLeft="@dimen/ten"
+        android:layout_marginTop="@dimen/ten"
+        android:layout_marginEnd="@dimen/ten"
+        android:layout_marginRight="@dimen/ten"
+        android:layout_marginBottom="@dimen/ten"
         android:background="@drawable/homecard_back1"
         android:elevation="@dimen/ten">
 
@@ -15,51 +20,52 @@
             android:id="@+id/productImage"
             android:layout_width="@dimen/eighty"
             android:layout_height="@dimen/eighty"
-            android:src="@drawable/save"
             android:layout_margin="10dp"
-            android:scaleType="fitXY"></ImageView>
+            android:scaleType="fitXY"
+            android:src="@drawable/save"></ImageView>
 
         <TextView
             android:id="@+id/product_Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/ten"
             android:layout_marginLeft="@dimen/twenty"
-            android:text="BBRoyal"
+            android:layout_marginTop="@dimen/ten"
             android:layout_toRightOf="@id/productImage"
+            android:text="BBRoyal"
             android:textColor="@color/black"
             android:textSize="@dimen/edittextsize"
             android:textStyle="bold"></TextView>
+
         <TextView
             android:id="@+id/unit_Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/five"
-            android:text=""
             android:layout_below="@id/product_Name"
+            android:layout_marginLeft="@dimen/twenty"
+            android:layout_marginTop="@dimen/five"
             android:layout_toRightOf="@id/productImage"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="@dimen/textsize"
-            android:layout_marginLeft="@dimen/twenty"
             android:textStyle="bold"></TextView>
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/unit_Name"
-            android:layout_toRightOf="@id/productImage"
             android:layout_marginLeft="@dimen/twenty"
-            android:layout_marginTop="@dimen/five">
+            android:layout_marginTop="@dimen/five"
+            android:layout_toRightOf="@id/productImage">
 
             <TextView
                 android:id="@+id/totalPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/twenty_five"
+                android:text="500.00"
                 android:textColor="#D81405"
                 android:textSize="@dimen/edittextsize"
-                android:text="500.00"
-                android:textStyle="bold"
-                android:layout_marginLeft="@dimen/twenty_five"></TextView>
+                android:textStyle="bold"></TextView>
 
             <TextView
                 android:id="@+id/priceSymbol5"
@@ -100,24 +106,23 @@
             android:id="@+id/inc"
             android:layout_width="@dimen/eighty"
             android:layout_height="@dimen/twenty_five"
-            android:weightSum="3"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/twenty"
             android:layout_marginBottom="@dimen/twenty"
-            android:layout_marginRight="@dimen/twenty">
+            android:weightSum="3">
 
             <TextView
                 android:id="@+id/t3"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/textback"
                 android:gravity="center"
                 android:text="-"
-                android:background="@drawable/textback"
                 android:textColor="@color/white"
                 android:textSize="@dimen/edittextsize"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/t2"
@@ -134,12 +139,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/textback"
                 android:gravity="center"
                 android:text="+"
-                android:background="@drawable/textback"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 
