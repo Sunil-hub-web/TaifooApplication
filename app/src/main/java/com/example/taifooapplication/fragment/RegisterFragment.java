@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -142,6 +143,8 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onResponse(String response) {
 
+                Log.d("registerRanjeet",response.toString());
+
                 dialog.dismiss();
 
                 try {
@@ -184,7 +187,7 @@ public class RegisterFragment extends Fragment {
 
                 params.put("fullname", userName);
                 params.put("contact", mobileNo);
-                params.put("email", emailId);
+                params.put("mail", emailId);
                 params.put("username", name);
                 params.put("password", password);
 

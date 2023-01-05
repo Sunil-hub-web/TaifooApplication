@@ -111,21 +111,21 @@ public class LoginPageFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(response);
 
                     String message = jsonObject.getString("success");
-                    String msg = jsonObject.getString("msg");
+//                    String msg = jsonObject.getString("msg");
 
                     if (message.equals("true")) {
 
-                        Toast.makeText(getContext(), "Login" + msg, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "Login" + msg, Toast.LENGTH_SHORT).show();
 
                         String id = jsonObject.getString("id");
                         String name = jsonObject.getString("name");
                         String email = jsonObject.getString("email");
-                        String contact_no = jsonObject.getString("contact_no");
-                        String wallet_amt = jsonObject.getString("wallet_amt");
+//                        String contact_no = jsonObject.getString("contact_no");
+//                        String wallet_amt = jsonObject.getString("wallet_amt");
                         String image = jsonObject.getString("img");
-                        String password = edit_Password.getText().toString().trim();
+//                        String password = edit_Password.getText().toString().trim();
 
-                        Login_ModelClass login_modelClass = new Login_ModelClass(id, name, email, contact_no, password, wallet_amt,image);
+                        Login_ModelClass login_modelClass = new Login_ModelClass(id, name, email, "contact_no", password, "wallet_amt",image);
                         SharedPrefManager.getInstance(getContext()).userLogin(login_modelClass);
 
                         Intent intent = new Intent(getContext(), HomePageActivity.class);
@@ -135,7 +135,7 @@ public class LoginPageFragment extends Fragment {
 
                         Toast.makeText(getContext(), "Incorrect UserName and Password", Toast.LENGTH_SHORT).show();
 
-                        Toast.makeText(getContext(), "Login" + msg, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(getContext(), "Login" + msg, Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {
