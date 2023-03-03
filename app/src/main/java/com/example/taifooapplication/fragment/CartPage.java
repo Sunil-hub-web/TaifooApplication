@@ -125,7 +125,7 @@ public class CartPage extends Fragment {
         getCartItem(userId);
 
 
-       /* delivery.setOnClickListener(new View.OnClickListener() {
+        delivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -180,7 +180,7 @@ public class CartPage extends Fragment {
                 dialogMenu.show();
 
             }
-        });*/
+        });
 
         return view;
 
@@ -200,10 +200,12 @@ public class CartPage extends Fragment {
 
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    String message = jsonObject.getString("success");
-                    String All_Cart = jsonObject.getString("All_Cart");
+                    //String message = jsonObject.getString("success");
+                    String All_Cart = jsonObject.getString("allcart");
 
-                    if(message.equals("true")){
+                    JSONArray jsonArray_AllCart1 = new JSONArray(All_Cart);
+
+                    if(jsonArray_AllCart1.length() != 0){
 
                         JSONArray jsonArray_AllCart = new JSONArray(All_Cart);
 
@@ -211,15 +213,17 @@ public class CartPage extends Fragment {
 
                             JSONObject jsonObject_AllCart = jsonArray_AllCart.getJSONObject(i);
 
+                           // String cart_id = jsonObject_AllCart.getString("cart_id");
                             String product_id = jsonObject_AllCart.getString("product_id");
-                            String product_img = jsonObject_AllCart.getString("product_img");
                             String product_name = jsonObject_AllCart.getString("product_name");
-                            String product_weight = jsonObject_AllCart.getString("product_weight");
-                            String sale_price = jsonObject_AllCart.getString("sale_price");
-                            String quantity = jsonObject_AllCart.getString("quantity");
+                           // String product_weight = jsonObject_AllCart.getString("product_weight");
+                            String variation = jsonObject_AllCart.getString("variation");
+                            String product_img = jsonObject_AllCart.getString("product_image");
+                            String quantity = jsonObject_AllCart.getString("product_qty");
+                            String sale_price = jsonObject_AllCart.getString("price");
 
                             CartPage_ModelClass cartPage_modelClass = new CartPage_ModelClass(
-                                    product_id,product_img,product_name,product_weight,sale_price,quantity
+                                    product_id,product_img,product_name,variation,sale_price,quantity
                             );
 
                             sales_Price = Double.valueOf(sale_price);
@@ -282,7 +286,6 @@ public class CartPage extends Fragment {
                             String tot_Amount = String.valueOf(AmountTotal);
 
                             text_totalPrice.setText(tot_Amount);
-
 
                             linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
                             cartPageAdapter = new CartPageAdapter(getActivity(),itemList);

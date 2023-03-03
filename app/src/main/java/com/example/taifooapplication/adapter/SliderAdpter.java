@@ -48,7 +48,7 @@ public class SliderAdpter extends RecyclerView.Adapter<SliderAdpter.ViewHOlder> 
        /* int image = slideImage.getImage();
         int strImage = Integer.valueOf(image);*/
 
-        String image = "https://"+slideImage.getImage();
+        String image = slideImage.getImage();
         Picasso.with(context).load(image).into(holder.img_showImage);
 
         if(position == show_Image.size() - 2){

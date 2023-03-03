@@ -36,11 +36,15 @@ public class AppURL {
 
     public static final String getShippingCharges = "https://taifoo.in/admin/api/api.php?method=getShipping";
 
-    public static final String getProductCategory = "https://taifoo.in/admin/api/api.php?method=categorypage";
+    public static final String getProductCategory = "https://taifoo.in/admin/api/api.php?method=getProducts";
 
     public static final String orderPlaced = "https://taifoo.in/admin/api/api.php?method=placeorder";
 
     public static final String getOrderDetails = "https://taifoo.in/admin/api/api.php?method=GetOrders";
+
+    public static final String singleProduct = "https://taifoo.in/admin/api/api.php?method=singleProduct";
+
+
 
 
 

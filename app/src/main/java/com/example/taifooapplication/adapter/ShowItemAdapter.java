@@ -46,7 +46,7 @@ public class ShowItemAdapter extends RecyclerView.Adapter<ShowItemAdapter.ViewHo
 
         ShowItem_ModelClass show_item = showItem.get(position);
 
-        String image = "https://"+show_item.getImage();
+        String image = show_item.getImage();
         Picasso.with(context).load(image).into(holder.itemImage);
         holder.itemName.setText(show_item.getCategory_name());
 
@@ -72,7 +72,7 @@ public class ShowItemAdapter extends RecyclerView.Adapter<ShowItemAdapter.ViewHo
                 Intent intent = new Intent(context, ActivityCategoryPage.class);
                 intent.putExtra("categoryId",show_item.getCategory_id());
                 intent.putExtra("categoryName",show_item.getCategory_name());
-                intent.putExtra("cartCount",cartCount);
+                //intent.putExtra("cartCount",cartCount);
                 context.startActivity(intent);
 
             }

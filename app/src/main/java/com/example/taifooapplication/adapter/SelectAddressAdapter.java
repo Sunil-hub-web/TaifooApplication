@@ -1,5 +1,6 @@
 package com.example.taifooapplication.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.view.LayoutInflater;
@@ -44,7 +45,7 @@ public class SelectAddressAdapter extends RecyclerView.Adapter<SelectAddressAdap
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
-    public void onBindViewHolder(@NonNull  SelectAddressAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull  SelectAddressAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         ViewAddressDetails_ModelClass viewAddress = address_Details.get(position);
 
@@ -63,7 +64,7 @@ public class SelectAddressAdapter extends RecyclerView.Adapter<SelectAddressAdap
                 index = position;
                 notifyDataSetChanged();
                 all_values = holder.text_Address.getText().toString().trim();
-                Toast.makeText(context, all_values, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, all_values, Toast.LENGTH_SHORT).show();
 
             }
         });

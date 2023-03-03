@@ -1,5 +1,6 @@
 package com.example.taifooapplication.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -61,7 +62,7 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull  ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull  ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         CartPage_ModelClass cartItem = itemlist.get(position);
 
@@ -77,7 +78,7 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
 
         holder.totalPrice.setText(price_total);
 
-        String image = "https://"+cartItem.getProduct_img();
+        String image = cartItem.getProduct_img();
         Picasso.with(context).load(image).into(holder.productImage);
 
         holder.product_Name.setText(cartItem.getProduct_name());
@@ -304,8 +305,8 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
                     JSONObject jsonObject = new JSONObject(response);
 
                     String message = jsonObject.getString("success");
-                    String cart_count = jsonObject.getString("cart_count");
-                    HomePageActivity.text_ItemCount.setText(cart_count);
+                   // String cart_count = jsonObject.getString("cart_count");
+                   // HomePageActivity.text_ItemCount.setText(cart_count);
 
                     if(message.equals("true")){
 
@@ -342,6 +343,7 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
         requestQueue.add(stringRequest);
 
     }
+
     public void updateToCart(String userId,String productId,String quantity){
 
         ProgressDialog progressDialog = new ProgressDialog(context);

@@ -78,13 +78,14 @@ public class CategoryPage extends Fragment {
 
                     JSONObject jsonObject = new JSONObject(response);
 
-                    String message = jsonObject.getString("success");
-                    String cart_count = jsonObject.getString("cart_count");
-                    String All_category = jsonObject.getString("All_category");
+                      String message = jsonObject.getString("success");
+                 //   String cart_count = jsonObject.getString("cart_count");
+                      String cart_count = "0";
+                      String All_category = jsonObject.getString("All_category");
 
                     if(message.equals("true")){
 
-                        HomePageActivity.text_ItemCount.setText(cart_count);
+                       // HomePageActivity.text_ItemCount.setText(cart_count);
 
                         //Retrive All_category For Home
 
@@ -94,8 +95,8 @@ public class CategoryPage extends Fragment {
                             JSONObject jsonObject_Category = jsonArray_Categary.getJSONObject(j);
 
                             String category_id = jsonObject_Category.getString("category_id");
-                            String category_name = jsonObject_Category.getString("category_name");
-                            String category_image = jsonObject_Category.getString("img");
+                            String category_name = jsonObject_Category.getString("cate_name");
+                            String category_image = jsonObject_Category.getString("cate_img");
 
                             ShowItem_ModelClass showItem_modelClass = new ShowItem_ModelClass(category_image,category_id,category_name);
                             category.add(showItem_modelClass);

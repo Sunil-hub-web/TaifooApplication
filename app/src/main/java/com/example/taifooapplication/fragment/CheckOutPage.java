@@ -45,12 +45,14 @@ import com.example.taifooapplication.adapter.CartPageAdapter;
 import com.example.taifooapplication.adapter.CitySpinerAdapter;
 import com.example.taifooapplication.adapter.OrderSummaryAdapter;
 import com.example.taifooapplication.adapter.PincodeSpinerAdapter;
+import com.example.taifooapplication.adapter.SateSpinearAdapter;
 import com.example.taifooapplication.adapter.SelectAddressAdapter;
 import com.example.taifooapplication.adapter.ViewaddressDetailsAdapter;
 import com.example.taifooapplication.modelclas.CartPage_ModelClass;
 import com.example.taifooapplication.modelclas.City_ModelClass;
 import com.example.taifooapplication.modelclas.OrderSummary_ModelClass;
 import com.example.taifooapplication.modelclas.PinCode_ModelClass;
+import com.example.taifooapplication.modelclas.State_ModelClass;
 import com.example.taifooapplication.modelclas.ViewAddressDetails_ModelClass;
 
 import org.json.JSONArray;
@@ -70,19 +72,21 @@ public class CheckOutPage extends Fragment {
     LinearLayoutManager linearLayoutManager;
     ArrayList<OrderSummary_ModelClass> ordersummary = new ArrayList<>();
     ArrayList<City_ModelClass> list_city = new ArrayList<>();
+    ArrayList<State_ModelClass> list_state = new ArrayList<>();
     ArrayList<PinCode_ModelClass> arrayListPincode = new ArrayList<PinCode_ModelClass>();
     ArrayList<ViewAddressDetails_ModelClass> addressDetails = new ArrayList<>();
     double totalprice, sales_Price, quanTity, totalAmount = 0,d_taxandfee,d_subTotalPrice,d_Total;
     TextView text_subTotalPrice,text_shippingCharges,text_TotalPrice,text_ShowAddress;
     Dialog dialog;
-    Spinner spinner_City,spinner_Pincode;
+    Spinner spinner_City,spinner_Pincode,spinner_State;
     Button btn_AddnewAddress,btn_selectAddress,btn_ProceedCheckout;
     RadioButton radio_payonline,radio_cashondelivery,selectedRadioButton;
     RadioGroup radioGroup;
     String str_Name,str_Email,str_MobileNo,str_City,str_Area,str_Address,city_Id,city_Name,pincode,
             str_PinCode,City_id,pincode_Name, userId,subTotalPrice,deliveryPrice,totalPrice,taxandfee,
             Name,Email,MobileNo,City,Area,Address,PinCode,addressId,city_id,cityid,pin_code,pin_id,str_Total,
-            str_ShowAddress,str_ShippingNmae,addreessid,selectPaymentOption,currentDate,currentTime;
+            str_ShowAddress,str_ShippingNmae,addreessid,selectPaymentOption,currentDate,currentTime,state_id,
+            state_name,pincode_id,state_Id,state_Name;
 
     RecyclerView recyclerAddressDetails;
     LinearLayoutManager linearLayoutManager1;
@@ -198,10 +202,12 @@ public class CheckOutPage extends Fragment {
 
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    String message = jsonObject.getString("success");
-                    String All_Cart = jsonObject.getString("All_Cart");
+                    //String message = jsonObject.getString("success");
+                    String All_Cart = jsonObject.getString("allcart");
 
-                    if(message.equals("true")){
+                    JSONArray jsonArray_AllCart1 = new JSONArray(All_Cart);
+
+                    if(jsonArray_AllCart1.length() != 0){
 
                         JSONArray jsonArray_AllCart = new JSONArray(All_Cart);
 
@@ -209,15 +215,17 @@ public class CheckOutPage extends Fragment {
 
                             JSONObject jsonObject_AllCart = jsonArray_AllCart.getJSONObject(i);
 
+                            // String cart_id = jsonObject_AllCart.getString("cart_id");
                             String product_id = jsonObject_AllCart.getString("product_id");
-                            String product_img = jsonObject_AllCart.getString("product_img");
                             String product_name = jsonObject_AllCart.getString("product_name");
-                            String product_weight = jsonObject_AllCart.getString("product_weight");
-                            String sale_price = jsonObject_AllCart.getString("sale_price");
-                            String quantity = jsonObject_AllCart.getString("quantity");
+                            // String product_weight = jsonObject_AllCart.getString("product_weight");
+                            String variation = jsonObject_AllCart.getString("variation");
+                            String product_img = jsonObject_AllCart.getString("product_image");
+                            String quantity = jsonObject_AllCart.getString("product_qty");
+                            String sale_price = jsonObject_AllCart.getString("price");
 
                             OrderSummary_ModelClass orderSummary_modelClass = new OrderSummary_ModelClass(
-                                    product_id,product_img,product_name,product_weight,sale_price,quantity
+                                    product_id,product_img,product_name,variation,sale_price,quantity
                             );
 
                             sales_Price = Double.valueOf(sale_price);
@@ -278,6 +286,7 @@ public class CheckOutPage extends Fragment {
         //dialog.setCancelable(false);
         spinner_City = dialog.findViewById(R.id.spinner_City);
         spinner_Pincode = dialog.findViewById(R.id.spinner_Pincode);
+        spinner_State = dialog.findViewById(R.id.spinner_State);
 
         getLocationCity();
 
@@ -332,7 +341,7 @@ public class CheckOutPage extends Fragment {
                     str_PinCode = pincode;
                     str_City = city_Id;
 
-                    addAddress_Save(userId,str_Name,str_MobileNo,str_City,str_Address,str_Area,str_Email,str_PinCode);
+                    addAddress_Save(userId,str_Name,state_Id,city_Id,pincode_id,str_MobileNo,str_Address);
 
                 }
 
@@ -362,7 +371,9 @@ public class CheckOutPage extends Fragment {
 
                 try {
                     JSONObject jsonObject = new JSONObject(response);
+
                     String message = jsonObject.getString("success");
+
                     if (message.equals("true")) {
 
                         String allLocation = jsonObject.getString("All_loc");
@@ -372,24 +383,127 @@ public class CheckOutPage extends Fragment {
                         for (int i = 0; i < jsonArray.length(); i++) {
 
                             JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                            JSONArray jsinArrayPincode = jsonObject1.getJSONArray("pincode_list");
-                            cityid = jsonObject1.getString("city_id");
 
-                            City_ModelClass city_modelClass = new City_ModelClass
-                                    (jsonObject1.getString("city_name"), cityid);
+                            String state_id = jsonObject1.getString("state_id");
+                            String state_name = jsonObject1.getString("state_name");
 
-                            list_city.add(city_modelClass);
+                            JSONArray jsinArraycity = jsonObject1.getJSONArray("city_list");
 
+                            State_ModelClass state_modelClass = new State_ModelClass
+                                    (jsonObject1.getString("state_name"), state_id);
+
+                            list_state.add(state_modelClass);
                         }
 
-
-                        CitySpinerAdapter adapter = new CitySpinerAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item
-                                , list_city);
-                        spinner_City.setAdapter(adapter);
+                        SateSpinearAdapter adapter = new SateSpinearAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item
+                                , list_state);
+                        spinner_State.setAdapter(adapter);
 
                         Log.d("citylist", list_city.toString());
 
+
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                spinner_State.setSelection(-1, true);
+
+                spinner_State.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                        try {
+                            State_ModelClass mystate = (State_ModelClass) parent.getSelectedItem();
+
+                            state_Id = mystate.getState_id();
+                            state_Name = mystate.getCity();
+
+                            getCityData(state_Id);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                progressDialog.dismiss();
+                error.printStackTrace();
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.getCache().clear();
+        requestQueue.add(stringRequest);
+
+    }
+
+    public void getCityData(String state_Id){
+
+        ProgressDialog progressDialog  = new ProgressDialog(getContext());
+        progressDialog.setMessage("Show Your City");
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppURL.getUserLocation, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                progressDialog.dismiss();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    String message = jsonObject.getString("success");
+
+                    if (message.equals("true")) {
+
+                        String allLocation = jsonObject.getString("All_loc");
+
+                        JSONArray jsonArray = new JSONArray(allLocation);
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+
+                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+
+                            String state_id = jsonObject1.getString("state_id");
+
+                            if(state_id.equals(state_Id)){
+
+                                JSONArray jsinArraycity = jsonObject1.getJSONArray("city_list");
+
+                                for (int j =0;j<jsinArraycity.length();j++){
+
+                                    JSONObject jsonObjectcity = jsinArraycity.getJSONObject(j);
+
+                                    JSONArray jsinArrayPincode = jsonObjectcity.getJSONArray("pincode_list");
+
+                                    cityid = jsonObjectcity.getString("city_id");
+
+                                    City_ModelClass city_modelClass = new City_ModelClass
+                                            (jsonObjectcity.getString("city_name"), cityid);
+
+                                    list_city.add(city_modelClass);
+                                }
+
+                                CitySpinerAdapter adapter = new CitySpinerAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item
+                                        , list_city);
+                                spinner_City.setAdapter(adapter);
+
+                                Log.d("citylist", list_city.toString());
+                            }
+                        }
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -453,6 +567,7 @@ public class CheckOutPage extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     String message = jsonObject.getString("success");
+
                     if (message.equals("true")) {
 
                         String allLocation = jsonObject.getString("All_loc");
@@ -462,21 +577,36 @@ public class CheckOutPage extends Fragment {
                         for (int i = 0; i < jsonArray.length(); i++) {
 
                             JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                            String cityid = jsonObject1.getString("city_id");
 
-                            if (cityid.equals(city_id)) {
+                            String state_id = jsonObject1.getString("state_id");
 
-                                String pincode = jsonObject1.getString("pincode_list");
-                                JSONArray jsonArray1 = new JSONArray(pincode);
+                            if(state_id.equals(state_Id)){
 
-                                for (int j = 0; j < jsonArray1.length(); j++) {
+                                JSONArray jsinArraycity = jsonObject1.getJSONArray("city_list");
 
-                                    JSONObject jsonObject2 = jsonArray1.getJSONObject(j);
-                                    pin_code = jsonObject2.getString("pincode");
-                                    pin_id = jsonObject2.getString("pin_id");
+                                for (int j =0;j<jsinArraycity.length();j++){
 
-                                    PinCode_ModelClass pinCode_modelClass = new PinCode_ModelClass(pin_code, pin_id);
-                                    arrayListPincode.add(pinCode_modelClass);
+                                    JSONObject jsonObjectcity = jsinArraycity.getJSONObject(j);
+
+
+
+                                    cityid = jsonObjectcity.getString("city_id");
+
+                                    if (cityid.equals(city_id)) {
+
+                                        JSONArray jsinArrayPincode = jsonObjectcity.getJSONArray("pincode_list");
+
+                                        for (int k = 0; k < jsinArrayPincode.length(); k++) {
+
+                                            JSONObject jsonObject2 = jsinArrayPincode.getJSONObject(k);
+                                            pin_code = jsonObject2.getString("pincode");
+                                            pin_id = jsonObject2.getString("pin_id");
+
+                                            PinCode_ModelClass pinCode_modelClass = new PinCode_ModelClass(pin_code, pin_id);
+                                            arrayListPincode.add(pinCode_modelClass);
+                                        }
+
+                                    }
                                 }
 
                             }
@@ -485,8 +615,8 @@ public class CheckOutPage extends Fragment {
                         PincodeSpinerAdapter pincodeSpinerAdapter = new PincodeSpinerAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item
                                 , arrayListPincode);
                         spinner_Pincode.setAdapter(pincodeSpinerAdapter);
-
                     }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -501,6 +631,7 @@ public class CheckOutPage extends Fragment {
                             PinCode_ModelClass mystate = (PinCode_ModelClass) parent.getSelectedItem();
 
                             pincode = mystate.getPincode();
+                            pincode_id = mystate.getPin_id();
 
                             Log.d("R_Pincode", city_id);
 
@@ -531,8 +662,8 @@ public class CheckOutPage extends Fragment {
         requestQueue.add(stringRequest);
     }
 
-    public void addAddress_Save(String userId,String name,String number,String city,
-                                String address,String area,String email,String pincode){
+    public void addAddress_Save(String userId,String name,String state_id,String city_id,
+                                String pincode,String number,String address){
 
         ProgressDialog progressDialog  = new ProgressDialog(getContext());
         progressDialog.setMessage("Add Address Details");
@@ -580,12 +711,11 @@ public class CheckOutPage extends Fragment {
 
                 params.put("id",userId);
                 params.put("name",name);
-                params.put("number",number);
-                params.put("city_id",city);
-                params.put("address",address);
-                params.put("area_id",area);
-                params.put("email",email);
+                params.put("state_id",state_id);
+                params.put("city_id",city_id);
                 params.put("pincode",pincode);
+                params.put("number",number);
+                params.put("address",address);
 
                 return params;
             }
@@ -638,7 +768,7 @@ public class CheckOutPage extends Fragment {
         progressDialog.setMessage("Show User Address Details");
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppURL.getAddressDetails, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.getAddressDetails, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -661,13 +791,16 @@ public class CheckOutPage extends Fragment {
 
                             addressId = jsonObject1.getString("addres_id");
                             Name = jsonObject1.getString("name");
+                            state_id = jsonObject1.getString("state_id");
+                            state_name = jsonObject1.getString("state_name");
                             city_id = jsonObject1.getString("city_id");
                             City = jsonObject1.getString("city_name");
-                            Area = jsonObject1.getString("area");
+                            pin_id = jsonObject1.getString("pin_id");
+                            // Area = jsonObject1.getString("area");
                             PinCode = jsonObject1.getString("pincode");
                             MobileNo = jsonObject1.getString("number");
                             Address = jsonObject1.getString("address");
-                            Email = jsonObject1.getString("email");
+                            // Email = jsonObject1.getString("email");
 
 
                             ViewAddressDetails_ModelClass viewAddressDetails_modelClass = new ViewAddressDetails_ModelClass(
@@ -704,8 +837,7 @@ public class CheckOutPage extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
 
                 Map<String,String> params = new HashMap<>();
-
-                params.put("userid",userid);
+                params.put("id",userid);
                 return params;
             }
         };
@@ -737,7 +869,7 @@ public class CheckOutPage extends Fragment {
                     if(message.equals("true")){
 
                         String order_id = jsonObject.getString("order_id");
-                        String order_date = jsonObject.getString("order_date");
+                       // String order_date = jsonObject.getString("order_date");
                         String msg = jsonObject.getString("msg");
 
                         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();

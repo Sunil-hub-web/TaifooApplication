@@ -617,23 +617,31 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
                     JSONObject jsonObject = new JSONObject(response);
                     String message = jsonObject.getString("success");
-                    String msg = jsonObject.getString("msg");
+                   // String msg = jsonObject.getString("msg");
                     String img = jsonObject.getString("img");
+
 
                     if (message.equals("true")) {
 
-                        if (img.equals("")) {
+                        String name = jsonObject.getString("name");
+                        String mobile = jsonObject.getString("number");
+
+                        nav_Name.setText(name);
+                        nav_MobileNo.setText(mobile);
+
+                       /* if (img.equals("")) {
 
                             Toast.makeText(HomePageActivity.this, msg, Toast.LENGTH_SHORT).show();
 
                             String name = jsonObject.getString("name");
-                            String mobile = jsonObject.getString("contact_no");
+                            String mobile = jsonObject.getString("number");
 
                             nav_Name.setText(name);
                             nav_MobileNo.setText(mobile);
 
 
-                        } else {
+                        }
+                        else {
 
                             //Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
 
@@ -643,21 +651,26 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                             nav_Name.setText(name);
                             nav_MobileNo.setText(mobile);
 
-                            String image_profile = jsonObject.getString("img");
+                          //  String image_profile = jsonObject.getString("img");
 
-                            Log.d("image", image_profile);
+                          //  Log.d("image", image_profile);
 
-                            String url = "https://" + image_profile;
+                           // String url = "https://" + image_profile;
 
                             nav_Name.setText(name);
                             nav_MobileNo.setText(mobile);
 
-                            Picasso.with(HomePageActivity.this).load(url)
+                         *//*   Picasso.with(HomePageActivity.this).load(url)
                                     .placeholder(R.drawable.profileimage)
-                                    .into(profile_image);
+                                    .into(profile_image);*//*
                         }
+*/
 
+                    }else{
 
+                         String msg = jsonObject.getString("msg");
+
+                        Toast.makeText(HomePageActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {
@@ -679,7 +692,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("user_id", userId);
+                params.put("id", userId);
                 return params;
             }
         };

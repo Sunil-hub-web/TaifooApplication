@@ -72,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/two_hundred"
             android:src="@drawable/chikencutpice"
-            android:scaleType="centerInside"></ImageView>
+            android:scaleType="centerInside" />
 
         <TextView
             android:id="@+id/productname"
@@ -81,19 +81,20 @@
             android:layout_margin="@dimen/ten"
             android:text="Chicken Leg"
             android:textSize="@dimen/twenty_five"
-            android:textColor="#22647E"></TextView>
+            android:textColor="#22647E" />
 
         <TextView
+            android:id="@+id/Description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/ten"
-            android:text="hbjsbbmkjjbdsbkbmk,mzbiuulkikkbnk,mn,mdkibukjbkbkmbkjbiubgdsk"
             android:textSize="@dimen/edittextsize"
             android:textColor="#787B7C"></TextView>
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/priceRel">
 
             <RelativeLayout
                 android:id="@+id/price"
@@ -153,7 +154,23 @@
 
         </RelativeLayout>
 
-
+        <TextView
+            android:id="@+id/spinertext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/priceRel"
+            android:layout_gravity="center"
+            android:padding="@dimen/five"
+            android:layout_marginLeft="@dimen/fifteen"
+            android:layout_marginTop="@dimen/ten"
+            android:layout_marginRight="@dimen/ten"
+            android:layout_marginBottom="@dimen/five"
+            android:background="@drawable/box"
+            android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
+            android:drawableTint="@color/some_color"
+            android:gravity="center"
+            android:text="Select Variation"
+            android:textSize="@dimen/textsize" />
 
 
         <RelativeLayout

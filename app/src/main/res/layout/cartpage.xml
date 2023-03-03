@@ -36,29 +36,36 @@
                 android:text="SubTotal"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/textsize"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/priceSymbol1"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="@dimen/ten"
-                android:layout_toRightOf="@+id/subTotal"
-                android:layout_marginLeft="250dp"
-                android:text="₹"
-                android:textColor="@color/some_color1"
-                android:textSize="@dimen/edittextsize"
-                android:textStyle="bold"></TextView>
+                android:layout_alignParentRight="true">
 
-            <TextView
-                android:id="@+id/text_subTotalPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/priceSymbol1"
-                android:text="145.00"
-                android:textColor="@color/some_color1"
-                android:textSize="@dimen/textsize"
-                android:textStyle="bold"></TextView>
+                <TextView
+                    android:id="@+id/priceSymbol1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/ten"
+                    android:layout_toRightOf="@+id/subTotal"
+                    android:text="₹"
+                    android:textColor="@color/some_color1"
+                    android:textSize="@dimen/edittextsize"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/text_subTotalPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/priceSymbol1"
+                    android:text="14555555.00"
+                    android:textColor="@color/some_color1"
+                    android:textSize="@dimen/textsize"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
 
         </RelativeLayout>
 
@@ -78,29 +85,37 @@
                 android:text="Tax &amp; Fees"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/textsize"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/priceSymbol2"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="₹"
-                android:layout_marginLeft="240dp"
-                android:layout_marginRight="@dimen/ten"
-                android:textColor="@color/some_color1"
-                android:textSize="@dimen/edittextsize"
-                android:layout_toRightOf="@+id/shipping_Name"
-                android:textStyle="bold"></TextView>
+                android:layout_alignParentRight="true">
 
-            <TextView
-                android:id="@+id/text_taxandfee"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/priceSymbol2"
-                android:text="0"
-                android:textColor="@color/some_color1"
-                android:textSize="@dimen/textsize"
-                android:textStyle="bold"></TextView>
+                <TextView
+                    android:id="@+id/priceSymbol2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₹"
+                    android:layout_marginRight="@dimen/ten"
+                    android:textColor="@color/some_color1"
+                    android:textSize="@dimen/edittextsize"
+                    android:layout_toRightOf="@+id/shipping_Name"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/text_taxandfee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/priceSymbol2"
+                    android:text="0"
+                    android:textColor="@color/some_color1"
+                    android:textSize="@dimen/textsize"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -112,6 +127,7 @@
             android:layout_marginTop="@dimen/fifteen"
             android:layout_marginRight="@dimen/fifteen">
 
+
             <TextView
                 android:id="@+id/delivery"
                 android:layout_width="wrap_content"
@@ -121,45 +137,38 @@
                 android:text="Delivery"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/textsize"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/priceSymbol3"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="₹"
-                android:layout_toRightOf="@+id/delivery"
-                android:layout_marginLeft="260dp"
-                android:layout_marginRight="@dimen/ten"
-                android:textColor="@color/some_color1"
-                android:textSize="@dimen/edittextsize"
-                android:textStyle="bold"></TextView>
+                android:layout_alignParentRight="true">
+
+                <TextView
+                    android:id="@+id/priceSymbol3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="₹"
+                    android:layout_toRightOf="@+id/delivery"
+                    android:layout_marginRight="@dimen/ten"
+                    android:textColor="@color/some_color1"
+                    android:textSize="@dimen/edittextsize"
+                    android:textStyle="bold" />
 
 
-            <TextView
-                android:id="@+id/text_deliveryPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="1"
-                android:layout_toRightOf="@+id/priceSymbol3"
-                android:textColor="@color/some_color1"
-                android:textSize="@dimen/textsize"
-                android:textStyle="bold"></TextView>
+                <TextView
+                    android:id="@+id/text_deliveryPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:layout_toRightOf="@+id/priceSymbol3"
+                    android:textColor="@color/some_color1"
+                    android:textSize="@dimen/textsize"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
         </RelativeLayout>
-
-       <!-- <TextView
-            android:id="@+id/promoCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="@dimen/fifteen"
-            android:layout_marginTop="@dimen/fifteen"
-            android:layout_marginRight="@dimen/fifteen"
-            android:text="You Have No promo code"
-            android:textColor="@color/some_color1"
-            android:textSize="@dimen/textsize"
-            android:textStyle="bold"></TextView>-->
-
 
     </LinearLayout>
 

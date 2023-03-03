@@ -40,7 +40,7 @@ public class OrderSummaryAdapter extends RecyclerView.Adapter<OrderSummaryAdapte
 
         OrderSummary_ModelClass order_summary = ordersummary.get(position);
 
-        String image = "https://"+order_summary.getProduct_img();
+        String image = order_summary.getProduct_img();
         Picasso.with(context).load(image).into(holder.productImage);
         holder.productName.setText(order_summary.getProduct_name());
 

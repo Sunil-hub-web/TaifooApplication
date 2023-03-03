@@ -1,13 +1,18 @@
 package com.example.taifooapplication.modelclas;
 
+import java.util.ArrayList;
+
 public class Category_ModelClass {
 
     String product_id,product_img,product_name,product_weight,product_grossweight,
-            plate,regular_price,sale_price,quantity;
+            plate,regular_price,sale_price,quantity,description,var_id, var_price, var_name;
+
+    ArrayList<VariationDetails> variation;
 
     public Category_ModelClass(String product_id, String product_img, String product_name,
                                   String product_weight, String product_grossweight, String plate,
-                                  String regular_price, String sale_price, String quantity) {
+                                  String regular_price, String sale_price, String quantity,String description,
+                                  ArrayList<VariationDetails> variation,String var_id, String var_price, String var_name) {
 
         this.product_id = product_id;
         this.product_img = product_img;
@@ -18,6 +23,11 @@ public class Category_ModelClass {
         this.regular_price = regular_price;
         this.sale_price = sale_price;
         this.quantity = quantity;
+        this.description = description;
+        this.variation = variation;
+        this.var_id = var_id;
+        this.var_price = var_price;
+        this.var_name = var_name;
     }
 
     public String getProduct_id() {
@@ -90,5 +100,45 @@ public class Category_ModelClass {
 
     public void setQuantity(String quantity) {
         this.quantity = quantity;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public ArrayList<VariationDetails> getVariation() {
+        return variation;
+    }
+
+    public void setVariation(ArrayList<VariationDetails> variation) {
+        this.variation = variation;
+    }
+
+    public String getVar_id() {
+        return var_id;
+    }
+
+    public void setVar_id(String var_id) {
+        this.var_id = var_id;
+    }
+
+    public String getVar_price() {
+        return var_price;
+    }
+
+    public void setVar_price(String var_price) {
+        this.var_price = var_price;
+    }
+
+    public String getVar_name() {
+        return var_name;
+    }
+
+    public void setVar_name(String var_name) {
+        this.var_name = var_name;
     }
 }

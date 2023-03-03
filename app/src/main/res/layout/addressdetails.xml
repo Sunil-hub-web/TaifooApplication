@@ -38,6 +38,14 @@
             android:hint="email id"
             android:layout_margin="@dimen/ten"></EditText>
 
+        <Spinner
+            android:id="@+id/spinner_State"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_margin="@dimen/ten"
+            android:spinnerMode="dropdown"
+            android:background="@drawable/textfieldback" />
+
             <Spinner
                 android:id="@+id/spinner_City"
                 android:layout_width="match_parent"

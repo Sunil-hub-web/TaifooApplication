@@ -3,6 +3,7 @@ package com.example.taifooapplication.modelclas;
 public class City_ModelClass {
 
    String city;
+   String City_id;
 
     public City_ModelClass(String city, String city_id) {
         this.city = city;
@@ -16,8 +17,6 @@ public class City_ModelClass {
     public void setCity_id(String city_id) {
         City_id = city_id;
     }
-
-    String City_id;
 
     public City_ModelClass(String city) {
         this.city = city;

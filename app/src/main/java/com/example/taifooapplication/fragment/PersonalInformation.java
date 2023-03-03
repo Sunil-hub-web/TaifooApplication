@@ -51,7 +51,7 @@ public class PersonalInformation extends Fragment {
     EditText edit_fillname, edit_mobileNo, edit_EmailId;
     String str_fillname, str_mobileNo, str_EmailId, profile_photo, userId;
     Button btn_Update;
-    CircleImageView profile_image;
+    //CircleImageView profile_image;
     public static final int IMAGE_CODE = 1;
     Uri imageUri;
     TextView text_editOption;
@@ -66,7 +66,7 @@ public class PersonalInformation extends Fragment {
         edit_fillname = view.findViewById(R.id.edit_fillname);
         edit_mobileNo = view.findViewById(R.id.edit_mobileNo);
         edit_EmailId = view.findViewById(R.id.edit_EmailId);
-        profile_image = view.findViewById(R.id.profile_image);
+       // profile_image = view.findViewById(R.id.profile_image);
         btn_Update = view.findViewById(R.id.btn_Update);
         text_editOption = view.findViewById(R.id.text_editOption);
 
@@ -91,7 +91,7 @@ public class PersonalInformation extends Fragment {
             }
         });
 
-        profile_image.setOnClickListener(new View.OnClickListener() {
+        /*profile_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -100,24 +100,25 @@ public class PersonalInformation extends Fragment {
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(intent, IMAGE_CODE);
             }
-        });
+        });*/
 
         btn_Update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (imageUri != null) {
+                if (edit_fillname.getText().toString().equals("")){
+                    Toast.makeText(getActivity(), "Enter Your Name", Toast.LENGTH_SHORT).show();
+                }else if (edit_EmailId.getText().toString().equals("")){
+                    Toast.makeText(getActivity(), "Enter Your EmailId", Toast.LENGTH_SHORT).show();
+                }else if (edit_mobileNo.getText().toString().equals("")){
+                    Toast.makeText(getActivity(), "Enter Your MobileNo", Toast.LENGTH_SHORT).show();
+                }else{
 
                     str_fillname = edit_fillname.getText().toString().trim();
                     str_EmailId = edit_EmailId.getText().toString().trim();
                     str_mobileNo = edit_mobileNo.getText().toString().trim();
 
                     updateProfileDetails(userId, str_fillname, str_EmailId, str_mobileNo, profile_photo);
-
-                } else {
-
-                    Toast.makeText(getContext(), "Please Select Your Image", Toast.LENGTH_SHORT).show();
-
                 }
 
             }
@@ -134,7 +135,7 @@ public class PersonalInformation extends Fragment {
                 data != null && data.getData() != null) {
 
             imageUri = data.getData();
-            profile_image.setImageURI(imageUri);
+            //profile_image.setImageURI(imageUri);
 
             try {
 
@@ -144,6 +145,8 @@ public class PersonalInformation extends Fragment {
                 bitmap.compress(Bitmap.CompressFormat.PNG, 80, baos); //bm is the bitmap object
                 byte[] img = baos.toByteArray();
                 profile_photo = Base64.encodeToString(img, Base64.DEFAULT);
+
+                //updateProfilePicDetails(userId,profile_photo);
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -166,12 +169,28 @@ public class PersonalInformation extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     String message = jsonObject.getString("success");
-                    String msg = jsonObject.getString("msg");
-                    String img = jsonObject.getString("img");
+                   // String img = jsonObject.getString("img");
 
                     if (message.equals("true")) {
 
-                        if (img.equals("")) {
+                        String name = jsonObject.getString("name");
+                        String mobile = jsonObject.getString("number");
+                        String email = jsonObject.getString("email");
+
+                        edit_fillname.setText(name);
+                        edit_EmailId.setText(email);
+                        edit_mobileNo.setText(mobile);
+
+                        //edit_fillname.setFocusable(false);
+                        edit_fillname.setEnabled(false);
+
+                        //edit_EmailId.setFocusable(false);
+                        edit_EmailId.setEnabled(false);
+
+                        //edit_mobileNo.setFocusable(false);
+                        edit_mobileNo.setEnabled(false);
+
+                       /* if (img.equals("")) {
 
                             //Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
 
@@ -223,8 +242,12 @@ public class PersonalInformation extends Fragment {
                             //edit_mobileNo.setFocusable(false);
                             edit_mobileNo.setEnabled(false);
                         }
+*/
 
+                    }else{
 
+                        String msg = jsonObject.getString("msg");
+                        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {
@@ -246,7 +269,7 @@ public class PersonalInformation extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("user_id", userId);
+                params.put("id", userId);
                 return params;
             }
         };
@@ -355,11 +378,11 @@ public class PersonalInformation extends Fragment {
 
                 Map<String, String> params = new HashMap<>();
 
-                params.put("user_id",id);
+                params.put("id",id);
                 params.put("name",name);
                 params.put("email",email);
-                params.put("contact_no",mobileNo);
-                params.put("img",image);
+                params.put("num",mobileNo);
+                params.put("user_name",name);
 
                 return params;
             }

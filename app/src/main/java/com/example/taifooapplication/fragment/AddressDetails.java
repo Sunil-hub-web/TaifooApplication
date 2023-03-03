@@ -36,9 +36,11 @@ import com.example.taifooapplication.R;
 import com.example.taifooapplication.SharedPrefManager;
 import com.example.taifooapplication.adapter.CitySpinerAdapter;
 import com.example.taifooapplication.adapter.PincodeSpinerAdapter;
+import com.example.taifooapplication.adapter.SateSpinearAdapter;
 import com.example.taifooapplication.adapter.ViewaddressDetailsAdapter;
 import com.example.taifooapplication.modelclas.City_ModelClass;
 import com.example.taifooapplication.modelclas.PinCode_ModelClass;
+import com.example.taifooapplication.modelclas.State_ModelClass;
 import com.example.taifooapplication.modelclas.ViewAddressDetails_ModelClass;
 
 import org.json.JSONArray;
@@ -54,13 +56,13 @@ public class AddressDetails extends Fragment {
     Dialog dialog;
     String cityid,pin_code,pin_id;
     ArrayList<City_ModelClass> list_city = new ArrayList<>();
+    ArrayList<State_ModelClass> list_state = new ArrayList<>();
     ArrayList<PinCode_ModelClass> arrayListPincode = new ArrayList<PinCode_ModelClass>();
-    Spinner spinner_City,spinner_Pincode;
-    String city_Id,city_Name,pincode;
+    Spinner spinner_City,spinner_Pincode,spinner_State;
     Button btn_addAddress;
     String str_Name,str_Email,str_MobileNo,str_City,str_Area,str_Address,
-            str_PinCode,userId,City_id,pincode_Name,
-            Name,Email,MobileNo,City,Area,Address,PinCode,addressId,city_id;
+            str_PinCode,userId,city_Id,city_Name,pincode,pincode_id,state_Id,state_Name,
+            Name,Email,MobileNo,City,Area,Address,PinCode,addressId,city_id,state_id,state_name;
 
     ArrayList<ViewAddressDetails_ModelClass> addressDetails = new ArrayList<>();
     RecyclerView recyclerAddressDetails;
@@ -100,6 +102,7 @@ public class AddressDetails extends Fragment {
         //dialog.setCancelable(false);
         spinner_City = dialog.findViewById(R.id.spinner_City);
         spinner_Pincode = dialog.findViewById(R.id.spinner_Pincode);
+        spinner_State = dialog.findViewById(R.id.spinner_State);
 
         getLocationCity();
 
@@ -154,7 +157,7 @@ public class AddressDetails extends Fragment {
                     str_PinCode = pincode;
                     str_City = city_Id;
 
-                    addAddress_Save(userId,str_Name,str_MobileNo,str_City,str_Address,str_Area,str_Email,str_PinCode);
+                    addAddress_Save(userId,str_Name,state_Id,city_Id,pincode_id,str_MobileNo,str_Address);
 
                 }
 
@@ -184,7 +187,9 @@ public class AddressDetails extends Fragment {
 
                 try {
                     JSONObject jsonObject = new JSONObject(response);
+
                     String message = jsonObject.getString("success");
+
                     if (message.equals("true")) {
 
                         String allLocation = jsonObject.getString("All_loc");
@@ -194,24 +199,127 @@ public class AddressDetails extends Fragment {
                         for (int i = 0; i < jsonArray.length(); i++) {
 
                             JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                            JSONArray jsinArrayPincode = jsonObject1.getJSONArray("pincode_list");
-                            cityid = jsonObject1.getString("city_id");
 
-                            City_ModelClass city_modelClass = new City_ModelClass
-                                    (jsonObject1.getString("city_name"), cityid);
+                            String state_id = jsonObject1.getString("state_id");
+                            String state_name = jsonObject1.getString("state_name");
 
-                            list_city.add(city_modelClass);
+                            JSONArray jsinArraycity = jsonObject1.getJSONArray("city_list");
 
+                            State_ModelClass state_modelClass = new State_ModelClass
+                                    (jsonObject1.getString("state_name"), state_id);
+
+                            list_state.add(state_modelClass);
                         }
 
-
-                        CitySpinerAdapter adapter = new CitySpinerAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item
-                                , list_city);
-                        spinner_City.setAdapter(adapter);
+                        SateSpinearAdapter adapter = new SateSpinearAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item
+                                , list_state);
+                        spinner_State.setAdapter(adapter);
 
                         Log.d("citylist", list_city.toString());
 
+
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                spinner_State.setSelection(-1, true);
+
+               spinner_State.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                   @Override
+                   public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                       try {
+                           State_ModelClass mystate = (State_ModelClass) parent.getSelectedItem();
+
+                           state_Id = mystate.getState_id();
+                           state_Name = mystate.getCity();
+
+                           getCityData(state_Id);
+
+                       } catch (Exception e) {
+                           e.printStackTrace();
+                       }
+
+                   }
+
+                   @Override
+                   public void onNothingSelected(AdapterView<?> parent) {
+
+                   }
+               });
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                progressDialog.dismiss();
+                error.printStackTrace();
+            }
+        });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.getCache().clear();
+        requestQueue.add(stringRequest);
+
+    }
+
+    public void getCityData(String state_Id){
+
+        ProgressDialog progressDialog  = new ProgressDialog(getContext());
+        progressDialog.setMessage("Show Your City");
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppURL.getUserLocation, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                progressDialog.dismiss();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    String message = jsonObject.getString("success");
+
+                    if (message.equals("true")) {
+
+                        String allLocation = jsonObject.getString("All_loc");
+
+                        JSONArray jsonArray = new JSONArray(allLocation);
+
+                        for (int i = 0; i < jsonArray.length(); i++) {
+
+                            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
+
+                            String state_id = jsonObject1.getString("state_id");
+
+                            if(state_id.equals(state_Id)){
+
+                                JSONArray jsinArraycity = jsonObject1.getJSONArray("city_list");
+
+                                for (int j =0;j<jsinArraycity.length();j++){
+
+                                    JSONObject jsonObjectcity = jsinArraycity.getJSONObject(j);
+
+                                    JSONArray jsinArrayPincode = jsonObjectcity.getJSONArray("pincode_list");
+
+                                    cityid = jsonObjectcity.getString("city_id");
+
+                                    City_ModelClass city_modelClass = new City_ModelClass
+                                            (jsonObjectcity.getString("city_name"), cityid);
+
+                                    list_city.add(city_modelClass);
+                                }
+
+                                CitySpinerAdapter adapter = new CitySpinerAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item
+                                        , list_city);
+                                spinner_City.setAdapter(adapter);
+
+                                Log.d("citylist", list_city.toString());
+                            }
+                        }
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -275,6 +383,7 @@ public class AddressDetails extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     String message = jsonObject.getString("success");
+
                     if (message.equals("true")) {
 
                         String allLocation = jsonObject.getString("All_loc");
@@ -284,21 +393,36 @@ public class AddressDetails extends Fragment {
                         for (int i = 0; i < jsonArray.length(); i++) {
 
                             JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-                            String cityid = jsonObject1.getString("city_id");
 
-                            if (cityid.equals(city_id)) {
+                            String state_id = jsonObject1.getString("state_id");
 
-                                String pincode = jsonObject1.getString("pincode_list");
-                                JSONArray jsonArray1 = new JSONArray(pincode);
+                            if(state_id.equals(state_Id)){
 
-                                for (int j = 0; j < jsonArray1.length(); j++) {
+                                JSONArray jsinArraycity = jsonObject1.getJSONArray("city_list");
 
-                                    JSONObject jsonObject2 = jsonArray1.getJSONObject(j);
-                                    pin_code = jsonObject2.getString("pincode");
-                                    pin_id = jsonObject2.getString("pin_id");
+                                for (int j =0;j<jsinArraycity.length();j++){
 
-                                    PinCode_ModelClass pinCode_modelClass = new PinCode_ModelClass(pin_code, pin_id);
-                                    arrayListPincode.add(pinCode_modelClass);
+                                    JSONObject jsonObjectcity = jsinArraycity.getJSONObject(j);
+
+
+
+                                    cityid = jsonObjectcity.getString("city_id");
+
+                                    if (cityid.equals(city_id)) {
+
+                                        JSONArray jsinArrayPincode = jsonObjectcity.getJSONArray("pincode_list");
+
+                                        for (int k = 0; k < jsinArrayPincode.length(); k++) {
+
+                                            JSONObject jsonObject2 = jsinArrayPincode.getJSONObject(k);
+                                            pin_code = jsonObject2.getString("pincode");
+                                            pin_id = jsonObject2.getString("pin_id");
+
+                                            PinCode_ModelClass pinCode_modelClass = new PinCode_ModelClass(pin_code, pin_id);
+                                            arrayListPincode.add(pinCode_modelClass);
+                                        }
+
+                                    }
                                 }
 
                             }
@@ -307,8 +431,8 @@ public class AddressDetails extends Fragment {
                         PincodeSpinerAdapter pincodeSpinerAdapter = new PincodeSpinerAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item
                                 , arrayListPincode);
                         spinner_Pincode.setAdapter(pincodeSpinerAdapter);
-
                     }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -323,6 +447,7 @@ public class AddressDetails extends Fragment {
                             PinCode_ModelClass mystate = (PinCode_ModelClass) parent.getSelectedItem();
 
                             pincode = mystate.getPincode();
+                            pincode_id = mystate.getPin_id();
 
                             Log.d("R_Pincode", city_id);
 
@@ -353,8 +478,8 @@ public class AddressDetails extends Fragment {
         requestQueue.add(stringRequest);
     }
 
-    public void addAddress_Save(String userId,String name,String number,String city,
-                           String address,String area,String email,String pincode){
+    public void addAddress_Save(String userId,String name,String state_id,String city_id,
+                                String pincode,String number,String address){
 
         ProgressDialog progressDialog  = new ProgressDialog(getContext());
         progressDialog.setMessage("Add Address Details");
@@ -404,12 +529,11 @@ public class AddressDetails extends Fragment {
 
                 params.put("id",userId);
                 params.put("name",name);
-                params.put("number",number);
-                params.put("city_id",city);
-                params.put("address",address);
-                params.put("area_id",area);
-                params.put("email",email);
+                params.put("state_id",state_id);
+                params.put("city_id",city_id);
                 params.put("pincode",pincode);
+                params.put("number",number);
+                params.put("address",address);
 
                 return params;
             }
@@ -430,7 +554,7 @@ public class AddressDetails extends Fragment {
         progressDialog.setMessage("update User Details");
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, AppURL.getAddressDetails, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.getAddressDetails, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -453,13 +577,16 @@ public class AddressDetails extends Fragment {
 
                             addressId = jsonObject1.getString("addres_id");
                             Name = jsonObject1.getString("name");
+                            state_id = jsonObject1.getString("state_id");
+                            state_name = jsonObject1.getString("state_name");
                             city_id = jsonObject1.getString("city_id");
                             City = jsonObject1.getString("city_name");
-                            Area = jsonObject1.getString("area");
+                            pin_id = jsonObject1.getString("pin_id");
+                           // Area = jsonObject1.getString("area");
                             PinCode = jsonObject1.getString("pincode");
                             MobileNo = jsonObject1.getString("number");
                             Address = jsonObject1.getString("address");
-                            Email = jsonObject1.getString("email");
+                           // Email = jsonObject1.getString("email");
 
 
                             ViewAddressDetails_ModelClass viewAddressDetails_modelClass = new ViewAddressDetails_ModelClass(
@@ -502,7 +629,7 @@ public class AddressDetails extends Fragment {
 
                 Map<String,String> params = new HashMap<>();
 
-                params.put("userid",userid);
+                params.put("id",userid);
                 return params;
             }
         };

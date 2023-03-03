@@ -31,6 +31,7 @@ import com.example.taifooapplication.AppURL;
 import com.example.taifooapplication.R;
 import com.example.taifooapplication.adapter.ProductCateGoryAdapter;
 import com.example.taifooapplication.modelclas.Category_ModelClass;
+import com.example.taifooapplication.modelclas.VariationDetails;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,9 +47,10 @@ public class ActivityCategoryPage extends AppCompatActivity {
     ArrayList<Category_ModelClass> category = new ArrayList<>();
     ProductCateGoryAdapter productCateGoryAdapter;
     GridLayoutManager gridLayoutManager;
-    String CategoryId,CategoryName,cartCount;
+    String CategoryId,CategoryName;
     TextView product_Name,text_ItemCount;
     ImageView image_Arrow;
+    ArrayList<VariationDetails> variationDetails;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -70,12 +72,12 @@ public class ActivityCategoryPage extends AppCompatActivity {
         Intent intent = getIntent();
         CategoryId = intent.getStringExtra("categoryId");
         CategoryName = intent.getStringExtra("categoryName");
-        cartCount = intent.getStringExtra("cartCount");
+        //cartCount = intent.getStringExtra("cartCount");
 
         Log.d("categoryName",CategoryId + CategoryName);
 
         product_Name.setText(CategoryName);
-        text_ItemCount.setText(cartCount);
+        //text_ItemCount.setText(cartCount);
 
         getcategoryProduct(CategoryId);
 
@@ -107,28 +109,53 @@ public class ActivityCategoryPage extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
 
                     String message = jsonObject.getString("success");
+
                     if(message.equals("true")){
 
-                        String All_shop = jsonObject.getString("All_shop");
+                        String All_Products = jsonObject.getString("All_Products");
 
-                        JSONArray jsonArray_Category = new JSONArray(All_shop);
+                        JSONArray jsonArray_Category = new JSONArray(All_Products);
+
                         for (int i=0;i<jsonArray_Category.length();i++) {
 
                             JSONObject jsonObject_Category = jsonArray_Category.getJSONObject(i);
 
-                            String quantity = jsonObject_Category.getString("quantity");
-                            String product_id = jsonObject_Category.getString("product_id");
-                            String product_img = jsonObject_Category.getString("product_img");
-                            String product_name = jsonObject_Category.getString("product_name");
-                            String product_weight = jsonObject_Category.getString("product_weight");
-                            String product_grossweight = jsonObject_Category.getString("product_grossweight");
-                            String plate = jsonObject_Category.getString("plate");
+                            // String quantity = jsonObject_BestSellig.getString("quantity");
+                            String product_id = jsonObject_Category.getString("products_id");
+                            String product_name = jsonObject_Category.getString("name");
+                            String product_img = jsonObject_Category.getString("image");
+                            //String product_weight = jsonObject_BestSellig.getString("product_weight");
+                            //String product_grossweight = jsonObject_BestSellig.getString("product_grossweight");
+                            //String plate = jsonObject_BestSellig.getString("plate");
+                            String description = jsonObject_Category.getString("description");
                             String regular_price = jsonObject_Category.getString("regular_price");
-                            String sale_price = jsonObject_Category.getString("sale_price");
+                            String sale_price = jsonObject_Category.getString("sales_price");
+                            String variations = jsonObject_Category.getString("variations");
+
+                            variationDetails = new ArrayList<>();
+
+                            JSONArray jsonArray_variat = new JSONArray(variations);
+
+                            if (jsonArray_variat.length() == 0) {
+                            } else {
+                                for (int l = 0; l < jsonArray_variat.length(); l++) {
+
+                                    JSONObject jsonObject_vari = jsonArray_variat.getJSONObject(l);
+
+                                    String price_id = jsonObject_vari.getString("price_id");
+                                    String price = jsonObject_vari.getString("price");
+                                    String varations = jsonObject_vari.getString("varations");
+
+                                    VariationDetails variationDetails1 = new VariationDetails(price_id, price, varations);
+                                    variationDetails.add(variationDetails1);
+
+                                }
+                            }
 
                             Category_ModelClass category_modelClass = new Category_ModelClass(
-                                    product_id, product_img, product_name, product_weight, product_grossweight,
-                                    plate, regular_price, sale_price, quantity
+                                    product_id, product_img, product_name, "", "",
+                                    "", regular_price, sale_price, "0", description, variationDetails,
+                                    "0","0","0"
                             );
 
                             category.add(category_modelClass);
@@ -161,7 +188,7 @@ public class ActivityCategoryPage extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
 
                 Map<String,String> params = new HashMap<>();
-                params.put("category_id",categoryId);
+                params.put("sub_cate_id",categoryId);
                 return params;
             }
         };

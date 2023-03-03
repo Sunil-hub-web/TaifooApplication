@@ -3,20 +3,27 @@ package com.example.taifooapplication.activity;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Paint;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.StrikethroughSpan;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,25 +37,34 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.taifooapplication.AppURL;
 import com.example.taifooapplication.R;
+import com.example.taifooapplication.RecyclerTouchListener;
 import com.example.taifooapplication.SharedPrefManager;
+import com.example.taifooapplication.adapter.VariationAdapterforProductlist;
+import com.example.taifooapplication.modelclas.VariationDetails;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ProductDescription extends AppCompatActivity {
 
     TextView totalPrice1,priceSymbol1,product_Name,textUnit,productname,t1, t2, t3,totalPrice,
-            text_ItemCount;
+            text_ItemCount,Description_text,spinertext;
     ImageView image_Arrow,productImage;
-    String productName,productprice,text_Unit,Regular_price,product_Image,t,countvalue,productId,userId,
-            quantity,cartCount;
+    String productName,productprice,variation_ID,Regular_price,product_Image,t,countvalue,productId,userId,
+            quantity,cartCount,Description,product_id;
     LinearLayout linearLayout;
     int count_value;
     Button btn_addToCart;
+    ArrayList<VariationDetails> variationDetails;
+    ArrayList<VariationDetails> variations;
+    Dialog dialogMenu;
+    RelativeLayout priceRel;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -67,53 +83,40 @@ public class ProductDescription extends AppCompatActivity {
         image_Arrow = findViewById(R.id.image_Arrow);
         product_Name = findViewById(R.id.product_Name);
         productname = findViewById(R.id.productname);
+        Description_text = findViewById(R.id.Description);
         //textUnit = findViewById(R.id.textUnit);
         productImage = findViewById(R.id.productImage);
         btn_addToCart = findViewById(R.id.btn_addToCart);
         text_ItemCount = findViewById(R.id.text_ItemCount);
+        spinertext = findViewById(R.id.spinertext);
+        priceRel = findViewById(R.id.priceRel);
 
         linearLayout = findViewById(R.id.inc);
         t1 = findViewById(R.id.t1);
         t2 = findViewById(R.id.t2);
         t3 = findViewById(R.id.t3);
 
-        Intent intent = getIntent();
-
-        productName = intent.getStringExtra("productName");
-        productprice = intent.getStringExtra("productprice");
-        //text_Unit = intent.getStringExtra("text_Unit");
-        quantity = intent.getStringExtra("quantity");
-        Regular_price = intent.getStringExtra("Regular_price");
-        product_Image = intent.getStringExtra("productImage");
-        productId = intent.getStringExtra("productId");
-        cartCount = intent.getStringExtra("cartCount");
-        text_ItemCount.setText(cartCount);
-
         userId = SharedPrefManager.getInstance(ProductDescription.this).getUser().getId();
 
-        String image = "https://"+product_Image;
-        Picasso.with(ProductDescription.this).load(image).into(productImage);
+        String image = product_Image;
+        //Picasso.with(ProductDescription.this).load(image).into(productImage);
 
-        String tt_1 = Regular_price;
-        String tt_2 = "Rs.";
-
-
+        /*totalPrice1.setPaintFlags(totalPrice1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        priceSymbol1.setPaintFlags(priceSymbol1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
 
         SpannableString ss = new SpannableString(tt_1);
         SpannableString ss1 = new SpannableString(tt_2);
-        StrikethroughSpan strikethroughSpan = new StrikethroughSpan();
+        StrikethroughSpan strikethroughSpan = new StrikethroughSpan();*/
 
-        ss.setSpan(strikethroughSpan,0,3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ss1.setSpan(strikethroughSpan,0,2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+       // ss.setSpan(strikethroughSpan,0,3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        //ss1.setSpan(strikethroughSpan,0,2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        totalPrice1.setText(ss);
-        priceSymbol1.setText(ss1);
-        //textUnit.setText(text_Unit);
-        product_Name.setText(productName);
-        totalPrice.setText(productprice);
+       // t2.setText(quantity);
 
-        t2.setText(quantity);
+        product_id = getIntent().getStringExtra("product_id");
+
+        singleProduct(product_id);
 
         image_Arrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,6 +144,15 @@ public class ProductDescription extends AppCompatActivity {
 
                 totalPrice.setText(str_Amount);
 
+                if(variationDetails.size() == 0){
+
+                    updateToCart(userId,productId,quantity,"","");
+
+                }else{
+
+                    updateToCart(userId,productId,quantity,"",variation_ID);
+                }
+
 
             }
         });
@@ -163,6 +175,15 @@ public class ProductDescription extends AppCompatActivity {
 
                 totalPrice.setText(str_Amount);
 
+                if(variationDetails.size() == 0){
+
+                    updateToCart(userId,productId,quantity,"","");
+
+                }else{
+
+                    updateToCart(userId,productId,quantity,"",variation_ID);
+                }
+
 
             }
         });
@@ -173,9 +194,83 @@ public class ProductDescription extends AppCompatActivity {
 
                 quantity = t2.getText().toString().trim();
 
-                btnAddToCart(userId,productId,quantity);
+                if(variationDetails.size() == 0){
+
+                    btnAddToCart(userId,productId,quantity,"","");
+
+                }else{
+
+                    btnAddToCart(userId,productId,quantity,"",variation_ID);
+                }
+
             }
         });
+
+        spinertext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                variations = new ArrayList<VariationDetails>();
+
+                if(variationDetails.isEmpty()){
+
+                }else {
+                    variations = variationDetails;
+
+                    dialogMenu = new Dialog(ProductDescription.this, android.R.style.Theme_Light_NoTitleBar);
+                    dialogMenu.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialogMenu.setContentView(R.layout.variationrecycler_layout);
+                    dialogMenu.setCancelable(true);
+                    dialogMenu.setCanceledOnTouchOutside(true);
+                    dialogMenu.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+
+                    RecyclerView rv_vars = dialogMenu.findViewById(R.id.rv_vars);
+
+
+                    rv_vars.setLayoutManager(new LinearLayoutManager(ProductDescription.this));
+                    rv_vars.setNestedScrollingEnabled(false);
+
+                    VariationAdapterforProductlist varad = new VariationAdapterforProductlist(variations, ProductDescription.this);
+                    rv_vars.setAdapter(varad);
+
+                    rv_vars.addOnItemTouchListener(new RecyclerTouchListener(ProductDescription.this, rv_vars, new RecyclerTouchListener.ClickListener() {
+
+                        @Override
+                        public void onClick(View view, int post) {
+
+                            Log.d("gbrdsfbfbvdz", "clicked");
+
+                            priceRel.setVisibility(View.VISIBLE);
+
+                            VariationDetails parenting = variations.get(post);
+
+                            variation_ID = parenting.getPrice_id();
+
+                            totalPrice1.setPaintFlags(totalPrice1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                            priceSymbol1.setPaintFlags(priceSymbol1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+                            totalPrice1.setText("₹ " + parenting.getPrice());
+                            totalPrice.setText("₹ " + parenting.getPrice());
+                            spinertext.setText(parenting.getVarations());
+
+                            dialogMenu.dismiss();
+                        }
+
+                        @Override
+                        public void onLongClick(View view, int position) {
+
+                        }
+
+                    }));
+
+                    dialogMenu.show();
+                }
+
+            }
+        });
+
+
 
     }
 
@@ -194,24 +289,25 @@ public class ProductDescription extends AppCompatActivity {
         }
     }
 
-    public void btnAddToCart(String userId,String productId,String quantity){
+    public void btnAddToCart(String userId, String productId, String quantity, String attribute_id, String variation_id) {
 
         ProgressDialog progressDialog = new ProgressDialog(ProductDescription.this);
         progressDialog.setMessage("Item Add To Cart");
         progressDialog.show();
 
-        StringRequest stringRequest  = new StringRequest(Request.Method.POST, AppURL.addToCart, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.addToCart, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
                 progressDialog.dismiss();
 
                 try {
+
                     JSONObject jsonObject = new JSONObject(response);
                     String message = jsonObject.getString("success");
                     String msg = jsonObject.getString("msg");
 
-                    if(message.equals("true")){
+                    if (message.equals("true")) {
 
                         Toast.makeText(ProductDescription.this, msg, Toast.LENGTH_SHORT).show();
 
@@ -227,19 +323,253 @@ public class ProductDescription extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
 
                 progressDialog.dismiss();
-                error.printStackTrace ();
+                error.printStackTrace();
                 Toast.makeText(ProductDescription.this, "address Details Not Found", Toast.LENGTH_SHORT).show();
 
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<>();
+                params.put("user_id", userId);
+                params.put("product_id", productId);
+                params.put("quantity", quantity);
+                params.put("attribute_id", attribute_id);
+                params.put("variation_id", variation_id);
+
+                return params;
+            }
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(ProductDescription.this);
+        requestQueue.add(stringRequest);
+
+    }
+
+    public void updateToCart(String userId, String productId, String quantity,String attribute_id, String variation_id) {
+
+        ProgressDialog progressDialog = new ProgressDialog(ProductDescription.this);
+        progressDialog.setMessage("Updte Cart SuccessFully");
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.addToCart, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                progressDialog.dismiss();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String message = jsonObject.getString("success");
+                    String msg = jsonObject.getString("msg");
+
+                    if (message.equals("true")) {
+
+                        Toast.makeText(ProductDescription.this, msg, Toast.LENGTH_SHORT).show();
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                progressDialog.dismiss();
+                error.printStackTrace();
+                Toast.makeText(ProductDescription.this, "address Details Not Found", Toast.LENGTH_SHORT).show();
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<>();
+                params.put("user_id", userId);
+                params.put("product_id", productId);
+                params.put("quantity", quantity);
+                params.put("attribute_id", attribute_id);
+                params.put("variation_id", variation_id);
+
+                return params;
+            }
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(ProductDescription.this);
+        requestQueue.add(stringRequest);
+
+    }
+
+    public void deleteCartItem(String userId, String productId) {
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.deleteFormCart, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+
+                    //String message = jsonObject.getString("success");
+                    String cart_count = jsonObject.getString("cart_count");
+                    HomePageActivity.text_ItemCount.setText(cart_count);
+
+                    /*if(message.equals("true")){
+
+                        String msg = jsonObject.getString("msg");
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+                    }*/
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                error.printStackTrace();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<>();
+
+                params.put("user_id", userId);
+                params.put("product_id", productId);
+
+                return params;
+            }
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(ProductDescription.this);
+        requestQueue.getCache().clear();
+        requestQueue.add(stringRequest);
+
+    }
+
+    public void singleProduct(String product_id){
+
+        ProgressDialog progressDialog = new ProgressDialog(ProductDescription.this);
+        progressDialog.setMessage("Show You Product Please Wait...");
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.singleProduct, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                progressDialog.dismiss();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String product = jsonObject.getString("product");
+                    JSONArray jsonArray_product = new JSONArray(product);
+
+                    for (int i=0;i<jsonArray_product.length();i++){
+
+                        JSONObject jsonObject_product = jsonArray_product.getJSONObject(0);
+
+                        // String quantity = jsonObject_BestSellig.getString("quantity");
+                        String product_id = jsonObject_product.getString("product_id");
+                        productName = jsonObject_product.getString("product_name");
+                        product_Image = jsonObject_product.getString("product_image");
+                        //String product_weight = jsonObject_BestSellig.getString("product_weight");
+                        //String product_grossweight = jsonObject_BestSellig.getString("product_grossweight");
+                        //String plate = jsonObject_BestSellig.getString("plate");
+                        Description = jsonObject_product.getString("description");
+                        Regular_price = jsonObject_product.getString("regular_price");
+                        productprice = jsonObject_product.getString("sales_price");
+                        String variations = String.valueOf(jsonObject_product.getString("variation"));
+
+                        variationDetails = new ArrayList<>();
+
+                        if(variations.equals("null")){
+                        }else{
+                            JSONArray jsonArray_variat = new JSONArray(variations);
+
+                            if (jsonArray_variat.length() == 0) {
+                            } else {
+                                for (int l = 0; l < jsonArray_variat.length(); l++) {
+
+                                    JSONObject jsonObject_vari = jsonArray_variat.getJSONObject(l);
+
+                                    String price_id = jsonObject_vari.getString("variation_id");
+                                    String price = jsonObject_vari.getString("price");
+                                    String varations = jsonObject_vari.getString("variation_name");
+
+                                    VariationDetails variationDetails1 = new VariationDetails(price_id, price, varations);
+                                    variationDetails.add(variationDetails1);
+
+                                }
+                            }
+
+                        }
+
+                        if(product_Image.equals("")){
+
+                        }else{
+                            Picasso.with(ProductDescription.this).load(product_Image).into(productImage);
+                        }
+
+                        if(variationDetails.size() != 0){
+
+                            spinertext.setVisibility(View.VISIBLE);
+                            priceRel.setVisibility(View.GONE);
+
+
+                        }else{
+
+                            spinertext.setVisibility(View.GONE);
+                            priceRel.setVisibility(View.VISIBLE);
+
+                            totalPrice1.setPaintFlags(totalPrice1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                            priceSymbol1.setPaintFlags(priceSymbol1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+                            String tt_1 = Regular_price;
+                            String tt_2 = "Rs.";
+
+                            SpannableString ss = new SpannableString(tt_1);
+                            SpannableString ss1 = new SpannableString(tt_2);
+                            StrikethroughSpan strikethroughSpan = new StrikethroughSpan();
+
+                            totalPrice1.setText(ss);
+                            priceSymbol1.setText(ss1);
+                            //textUnit.setText(text_Unit);
+                            product_Name.setText(productName);
+                            totalPrice.setText(productprice);
+                            Description_text.setText(Description);
+                        }
+
+                    }
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                progressDialog.dismiss();
+
+                Toast.makeText(ProductDescription.this, ""+error, Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
                 Map<String,String> params = new HashMap<>();
-                params.put("user_id",userId);
-                params.put("product_id",productId);
-                params.put("quantity",quantity);
-
+                params.put("product_id",product_id);
                 return params;
             }
         };
