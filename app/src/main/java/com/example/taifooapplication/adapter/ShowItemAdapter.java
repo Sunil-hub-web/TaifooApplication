@@ -2,6 +2,7 @@ package com.example.taifooapplication.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,8 +48,14 @@ public class ShowItemAdapter extends RecyclerView.Adapter<ShowItemAdapter.ViewHo
         ShowItem_ModelClass show_item = showItem.get(position);
 
         String image = show_item.getImage();
-        Picasso.with(context).load(image).into(holder.itemImage);
-        holder.itemName.setText(show_item.getCategory_name());
+
+        if(image.equals("")){
+        }else{
+            Picasso.with(context).load(image).into(holder.itemImage);
+        }
+
+        String plainText = Html.fromHtml(show_item.getCategory_name()).toString();
+        holder.itemName.setText(plainText);
 
         holder.rel_view.setOnClickListener(new View.OnClickListener() {
             @Override

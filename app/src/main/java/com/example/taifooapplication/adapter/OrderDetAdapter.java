@@ -47,8 +47,13 @@ public class OrderDetAdapter extends RecyclerView.Adapter<OrderDetAdapter.MyView
 
         MyOrderDetails productdet = product.get(position);
 
-        String image = "https://"+productdet.getImage();
-        Picasso.with(context).load(image).into(holder.productImage);
+        String image = productdet.getImage();
+
+        if (image.equals("")){}else{
+
+            Picasso.with(context).load(image).into(holder.productImage);
+        }
+
 
         holder.text_ProdectName.setText(productdet.getProductName());
         holder.totalunit.setText(productdet.getUnit());

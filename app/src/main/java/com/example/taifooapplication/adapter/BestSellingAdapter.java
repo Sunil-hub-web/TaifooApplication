@@ -188,14 +188,14 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
             }
         });
 
-        holder.addToCart.setOnClickListener(new View.OnClickListener() {
+        /*holder.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 holder.showProduct.setVisibility(View.VISIBLE);
                 holder.addToCart.setVisibility(View.GONE);
             }
-        });
+        });*/
 
         holder.productImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -282,23 +282,54 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
             @Override
             public void onClick(View v) {
 
-                holder.t2.setText("1");
-                productid = bestSell.getProduct_id();
-                quantity = holder.t2.getText().toString().trim();
-
                 if (bestSell.getVariation().size() == 0) {
 
-                    btnAddToCart(userid, productid, quantity, "", "");
+                    holder.t2.setText("1");
+                    productid = bestSell.getProduct_id();
+                    quantity = holder.t2.getText().toString().trim();
 
-                } else {
+                    if (bestSell.getVariation().size() == 0) {
 
-                    String variId = bestSell.getVar_id();
-                    btnAddToCart(userid, productid, quantity, "", variId);
+                        btnAddToCart(userid, productid, quantity, "", "");
+
+                    } else {
+
+                        String variId = bestSell.getVar_id();
+                        btnAddToCart(userid, productid, quantity, "", variId);
+                    }
+
+
+                    holder.addToCart.setVisibility(View.GONE);
+                    holder.showProduct.setVisibility(View.VISIBLE);
+
+                }else{
+
+                    if (holder.spinertext.getText().toString().equals("Select Variation")){
+
+                        Toast.makeText(context, "Select Variation", Toast.LENGTH_SHORT).show();
+
+                    }else {
+
+                        holder.t2.setText("1");
+                        productid = bestSell.getProduct_id();
+                        quantity = holder.t2.getText().toString().trim();
+
+                        if (bestSell.getVariation().size() == 0) {
+
+                            btnAddToCart(userid, productid, quantity, "", "");
+
+                        } else {
+
+                            String variId = bestSell.getVar_id();
+                            btnAddToCart(userid, productid, quantity, "", variId);
+                        }
+
+
+                        holder.addToCart.setVisibility(View.GONE);
+                        holder.showProduct.setVisibility(View.VISIBLE);
+                    }
                 }
 
-
-                holder.addToCart.setVisibility(View.GONE);
-                holder.showProduct.setVisibility(View.VISIBLE);
             }
         });
 
@@ -419,7 +450,7 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
         progressDialog.setMessage("Updte Cart SuccessFully");
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.addToCart, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.updateToCart, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 

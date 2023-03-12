@@ -64,11 +64,11 @@ public class LoginPageFragment extends Fragment {
 
                 if(TextUtils.isEmpty(edit_UserName.getText())){
 
-                    edit_UserName.setText("Fill The Details");
+                    edit_UserName.setError("Fill The Details");
 
                 }else if(TextUtils.isEmpty(edit_Password.getText())){
 
-                    edit_Password.setText("Fill The Details");
+                    edit_Password.setError("Fill The Details");
 
                 }else{
 

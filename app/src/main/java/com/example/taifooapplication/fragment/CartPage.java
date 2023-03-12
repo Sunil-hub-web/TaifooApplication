@@ -65,7 +65,7 @@ public class CartPage extends Fragment {
             text_totalPrice,delivery;
     String userId;
     Dialog dialogMenu;
-    double totalprice, sales_Price, quanTity, totalAmount = 0, shipCharge,taxCharge;
+    double totalprice, sales_Price, quanTity, totalAmount = 0.0, shipCharge,taxCharge;
     public static LinearLayout cartempty,lin_amount;
     public static RelativeLayout rel_totalprice;
 
@@ -86,7 +86,7 @@ public class CartPage extends Fragment {
         text_totalPrice = view.findViewById(R.id.text_totalPrice);
         cartempty = view.findViewById(R.id.cartempty);
         rel_totalprice = view.findViewById(R.id.totalprice);
-        lin_amount = view.findViewById(R.id.amount);
+        lin_amount = view.findViewById(R.id.amountdetails);
 
         userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
 
@@ -125,7 +125,7 @@ public class CartPage extends Fragment {
         getCartItem(userId);
 
 
-        delivery.setOnClickListener(new View.OnClickListener() {
+       /* delivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -180,7 +180,7 @@ public class CartPage extends Fragment {
                 dialogMenu.show();
 
             }
-        });
+        });*/
 
         return view;
 
@@ -199,9 +199,12 @@ public class CartPage extends Fragment {
                 progressDialog.dismiss();
 
                 try {
+
                     JSONObject jsonObject = new JSONObject(response);
                     //String message = jsonObject.getString("success");
                     String All_Cart = jsonObject.getString("allcart");
+
+                    itemList.clear();
 
                     JSONArray jsonArray_AllCart1 = new JSONArray(All_Cart);
 
@@ -295,6 +298,16 @@ public class CartPage extends Fragment {
 
                         }
 
+                    }else{
+
+                        if(itemList.size() == 0){
+
+                            cartempty.setVisibility(View.VISIBLE);
+                            lin_amount.setVisibility(View.GONE);
+                            recyclerCartPage.setVisibility(View.GONE);
+                            rel_totalprice.setVisibility(View.GONE);
+
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -336,32 +349,54 @@ public class CartPage extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
 
-                    String message = jsonObject.getString("success");
+                    String success = jsonObject.getString("success");
 
-                    if (message.equals("true")) {
+                    if (success.equals("true")) {
 
-                        String All_shipping_chr = jsonObject.getString("All_shipping_chr");
+                       // String All_shipping_chr = jsonObject.getString("All_shipping_chr");
+                       // JSONObject jsonObject_Shipping = new JSONObject(All_shipping_chr);
 
-                        JSONArray jsonArray_Shipping = new JSONArray(All_shipping_chr);
+                        String shipping_id = jsonObject.getString("shipping_id");
+                        String price = jsonObject.getString("price");
+                        String delivery_price = jsonObject.getString("delivery_price");
+                        String name = jsonObject.getString("name");
 
-                        for (int i = 0; i < jsonArray_Shipping.length(); i++) {
 
-                            JSONObject jsonObject_Shipping = jsonArray_Shipping.getJSONObject(i);
+                        ShappingCharges_ModelClass shappingCharges_modelClass = new ShappingCharges_ModelClass(shipping_id,
+                                price, delivery_price, name
+                        );
 
-                            String shipping_id = jsonObject_Shipping.getString("shipping_id");
-                            String price = jsonObject_Shipping.getString("price");
-                            String delivery_price = jsonObject_Shipping.getString("delivery_price");
-                            String name = jsonObject_Shipping.getString("name");
+                        ShippingCharges.add(shappingCharges_modelClass);
 
-                            ShappingCharges_ModelClass shappingCharges_modelClass = new ShappingCharges_ModelClass(shipping_id,
-                                    price, delivery_price, name
-                            );
+                        Double valcharges = Double.valueOf(delivery_price);
 
-                            ShippingCharges.add(shappingCharges_modelClass);
+                        if(totalAmount < valcharges){
 
+                            String shippingPrice = price;
+                            String shippingName = name;
+
+                            delivery.setText(shippingName);
+                            text_deliveryPrice.setText(shippingPrice);
+
+                            shipCharge = Double.valueOf(shippingPrice);
+
+                            String tax = text_taxandfee.getText().toString().trim();
+                            taxCharge = Double.valueOf(tax);
+
+                            Double AmountTotal = totalAmount + shipCharge + taxCharge;
+
+                            String tot_Amount = String.valueOf(AmountTotal);
+
+                            text_totalPrice.setText(tot_Amount);
+
+
+                            Log.d("ShippingCharges", ShippingCharges.toString());
+
+                        }else{
+
+                            delivery.setVisibility(View.GONE);
+                            text_deliveryPrice.setVisibility(View.GONE);
                         }
-
-                        Log.d("ShippingCharges", ShippingCharges.toString());
 
                     }
                 } catch (JSONException e) {

@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -101,7 +102,10 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
 
         }
 
-        holder.productName.setText (productCategory.getProduct_name ());
+        String plainText = Html.fromHtml(productCategory.getProduct_name ()).toString();
+        holder.productName.setText(plainText);
+
+       // holder.productName.setText (productCategory.getProduct_name ());
 
         //holder.text_Unit.setText (bestSell.getProduct_weight ());
 
@@ -189,14 +193,14 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
             }
         });
 
-        holder.addToCart.setOnClickListener(new View.OnClickListener() {
+/*        holder.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 holder.showProduct.setVisibility (View.VISIBLE);
                 holder.addToCart.setVisibility (View.GONE);
             }
-        });
+        });*/
 
         holder.productImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,14 +209,7 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
                 quantity = holder.t2.getText().toString().trim();
 
                 Intent intent = new Intent(context, ProductDescription.class);
-                intent.putExtra("productName",productCategory.getProduct_name ());
-                intent.putExtra("productprice",productCategory.getSale_price ());
-                //intent.putExtra("text_Unit",bestSell.getProduct_weight());
-                intent.putExtra("quantity",quantity);
-                intent.putExtra("Regular_price",productCategory.getRegular_price ());
-                intent.putExtra("productImage",productCategory.getProduct_img ());
-                intent.putExtra("productId",productCategory.getProduct_id ());
-                intent.putExtra("Description",productCategory.getDescription());
+                intent.putExtra("product_id",productCategory.getProduct_id ());
                 //intent.putExtra("cartCount",cartCount);
 
                 context.startActivity(intent);
@@ -293,22 +290,52 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
             @Override
             public void onClick(View v) {
 
-                holder.t2.setText("1");
-                productid = productCategory.getProduct_id();
-                quantity = holder.t2.getText().toString().trim();
+                if (productCategory.getVariation().size() == 0){
 
-                if(productCategory.getVariation().size() == 0){
+                    holder.t2.setText("1");
+                    productid = productCategory.getProduct_id();
+                    quantity = holder.t2.getText().toString().trim();
 
-                    btnAddToCart(userid,productid,quantity,"","");
+                    if(productCategory.getVariation().size() == 0){
+
+                        btnAddToCart(userid,productid,quantity,"","");
+
+                    }else{
+
+                        String varicId = productCategory.getVar_id();
+                        btnAddToCart(userid,productid,quantity,"",varicId);
+                    }
+
+                    holder.addToCart.setVisibility (View.GONE);
+                    holder.showProduct.setVisibility(View.VISIBLE);
 
                 }else{
 
-                    String varicId = productCategory.getVar_id();
-                    btnAddToCart(userid,productid,quantity,"",varicId);
+                    if (holder.spinertext.getText().toString().equals("Select Variation")){
+
+                        Toast.makeText(context, "Select Variation", Toast.LENGTH_SHORT).show();
+                    }else{
+
+                        holder.t2.setText("1");
+                        productid = productCategory.getProduct_id();
+                        quantity = holder.t2.getText().toString().trim();
+
+                        if(productCategory.getVariation().size() == 0){
+
+                            btnAddToCart(userid,productid,quantity,"","");
+
+                        }else{
+
+                            String varicId = productCategory.getVar_id();
+                            btnAddToCart(userid,productid,quantity,"",varicId);
+                        }
+
+                        holder.addToCart.setVisibility (View.GONE);
+                        holder.showProduct.setVisibility(View.VISIBLE);
+                    }
                 }
 
-                holder.addToCart.setVisibility (View.GONE);
-                holder.showProduct.setVisibility(View.VISIBLE);
+
             }
         });
 

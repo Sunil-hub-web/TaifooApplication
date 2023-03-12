@@ -10,10 +10,10 @@
         android:id="@+id/myAccount"
         android:title="@string/myAccount"
         android:icon="@drawable/account"/>
-    <item
+    <!--<item
         android:id="@+id/wishlist"
         android:title="@string/wishlist"
-        android:icon="@drawable/wishlist"/>
+        android:icon="@drawable/wishlist"/>-->
 
     <item
         android:id="@+id/cart"

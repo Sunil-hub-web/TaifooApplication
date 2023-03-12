@@ -37,7 +37,8 @@
             android:layout_below="@id/text_ProdectName"
             android:layout_marginTop="@dimen/five"
             android:layout_toRightOf="@id/productImage"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/linorder">
 
             <RelativeLayout
                 android:layout_width="wrap_content"
@@ -51,7 +52,7 @@
                     android:layout_marginLeft="@dimen/ten"
                     android:text="Order Id : "
                     android:textColor="#9EA5A6"
-                    android:textSize="@dimen/textsize"
+                    android:textSize="@dimen/twelve"
                     android:textStyle="bold" />
 
                 <TextView
@@ -63,7 +64,7 @@
                     android:layout_toRightOf="@+id/orderId"
                     android:text="dsafgghhh"
                     android:textColor="#9EA5A6"
-                    android:textSize="@dimen/textsize"
+                    android:textSize="@dimen/twelve"
                     android:textStyle="bold"></TextView>
             </RelativeLayout>
 
@@ -78,7 +79,7 @@
                     android:layout_marginLeft="@dimen/ten"
                     android:text="Order Date : "
                     android:textColor="#9EA5A6"
-                    android:textSize="@dimen/textsize"
+                    android:textSize="@dimen/twelve"
                     android:textStyle="bold"></TextView>
 
                 <TextView
@@ -90,7 +91,7 @@
                     android:layout_toRightOf="@+id/orderDate"
                     android:text="dsafgghhh"
                     android:textColor="#9EA5A6"
-                    android:textSize="@dimen/textsize"
+                    android:textSize="@dimen/twelve"
                     android:textStyle="bold"></TextView>
             </RelativeLayout>
 
@@ -106,7 +107,7 @@
                     android:layout_marginLeft="@dimen/ten"
                     android:text="Order Status : "
                     android:textColor="#9EA5A6"
-                    android:textSize="@dimen/textsize"
+                    android:textSize="@dimen/twelve"
                     android:textStyle="bold" />
 
                 <TextView
@@ -118,7 +119,7 @@
                     android:layout_toRightOf="@+id/orderStatus"
                     android:text="dsafgghhh"
                     android:textColor="#9EA5A6"
-                    android:textSize="@dimen/textsize"
+                    android:textSize="@dimen/twelve"
                     android:textStyle="bold"></TextView>
             </RelativeLayout>
 
@@ -129,7 +130,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/ten"
-            android:layout_centerInParent="true">
+            android:layout_centerInParent="true"
+            android:layout_toLeftOf="@+id/linorder">
 
             <TextView
                 android:id="@+id/totalunit"
@@ -137,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/some_color1"
                 android:layout_marginTop="@dimen/ten"
-                android:textSize="@dimen/textsize"
+                android:textSize="@dimen/twelve"
                 android:text="250gm"
                 android:layout_marginLeft="@dimen/twenty"
                 android:textStyle="bold"></TextView>
@@ -148,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="#FF1518"
                 android:layout_marginTop="@dimen/five"
-                android:textSize="@dimen/textsize"
+                android:textSize="@dimen/twelve"
                 android:text="500.00"
                 android:textStyle="bold"
                 android:layout_below="@+id/totalunit"
@@ -160,7 +162,7 @@
                 android:layout_height="wrap_content"
                 android:text="Rs."
                 android:textColor="#FF1518"
-                android:textSize="@dimen/textsize"
+                android:textSize="@dimen/twelve"
                 android:textStyle="bold"
                 android:layout_below="@+id/totalunit"
                 android:layout_marginTop="@dimen/five"></TextView>

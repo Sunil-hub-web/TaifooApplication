@@ -142,7 +142,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         //loc = findViewById(R.id.loc);
         //logo = findViewById(R.id.logo);
         search = findViewById(R.id.image_search);
-        img_Cart = findViewById(R.id.img_Cart);
+        //img_Cart = findViewById(R.id.img_Cart);
         text_ItemCount = findViewById(R.id.text_ItemCount);
         //text_address = findViewById(R.id.text_address);
         rle_click = findViewById(R.id.rle_click);
@@ -212,7 +212,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             @Override
             public void onClick(View v) {
 
-                if(test != null && test.isVisible()){
+               /* if(test != null && test.isVisible()){
 
                     drawerLayout.closeDrawer(GravityCompat.START);
                     text_name.setVisibility(View.VISIBLE);
@@ -232,12 +232,25 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                     text_name.setTextSize(15);
                     text_name.setText(addressDetails);
 
-                }
+                }*/
+
+                drawerLayout.closeDrawer(GravityCompat.START);
+                //loc.setVisibility(View.VISIBLE);
+                //logo.setVisibility(View.VISIBLE);
+                search.setVisibility(View.VISIBLE);
+                //text_address.setVisibility(View.VISIBLE);
+                text_name.setVisibility(View.VISIBLE);
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                Homepage homepage = new Homepage();
+                ft.replace(R.id.framLayout, homepage,"HomeFragment");
+                ft.commit();
+                text_name.setTextSize(15);
+                text_name.setText(addressDetails);
 
             }
         });
 
-        img_Cart.setOnClickListener(new View.OnClickListener() {
+       /* img_Cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -255,7 +268,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
 
             }
-        });
+        });*/
 
         nav_MyAddress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -376,6 +389,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                         text_name.setText("PersonalInformation");
                         //text_address.setVisibility(View.GONE);
 
+                        getSupportFragmentManager().beginTransaction().replace(R.id.framLayout,selectedFragment).commit();
+
                         break;
 
                     case R.id.home:
@@ -389,6 +404,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                         text_name.setTextSize(15);
                         text_name.setText(addressDetails);
 
+                        getSupportFragmentManager().beginTransaction().replace(R.id.framLayout,selectedFragment,"HomeFragment").commit();
+
                         break;
 
                     case R.id.cart:
@@ -401,14 +418,16 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                         text_name.setText("My Cart");
                         //text_address.setVisibility(View.GONE);
 
+                        getSupportFragmentManager().beginTransaction().replace(R.id.framLayout,selectedFragment).commit();
+
                         break;
 
-                    case R.id.wishlist:
+                    /*case R.id.wishlist:
 
-                        return true;
+                        return true;*/
 
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.framLayout,selectedFragment).commit();
+                //getSupportFragmentManager().beginTransaction().replace(R.id.framLayout,selectedFragment).commit();
 
                 return true;
             }

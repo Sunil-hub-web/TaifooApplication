@@ -200,7 +200,7 @@ public class Homepage extends Fragment {
                         arraysize = imageSlider.size();
                         dots = new TextView[arraysize];
                         dotsIndicator();
-                        selectedIndicatorPosition(currentPossition);
+                        selectedIndicatorPosition(currentPossition--);
 
                         //Retrive All_category For Home
 

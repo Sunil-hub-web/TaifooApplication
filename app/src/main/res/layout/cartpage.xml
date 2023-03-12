@@ -14,7 +14,7 @@
         </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
-        android:id="@+id/amount"
+        android:id="@+id/amountdetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/totalprice"
@@ -59,7 +59,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@+id/priceSymbol1"
-                    android:text="14555555.00"
+                    android:text="0"
                     android:textColor="@color/some_color1"
                     android:textSize="@dimen/textsize"
                     android:textStyle="bold" />
@@ -142,7 +142,8 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true">
+                android:layout_alignParentRight="true"
+                android:id="@+id/deliveryTotal">
 
                 <TextView
                     android:id="@+id/priceSymbol3"

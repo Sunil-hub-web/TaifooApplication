@@ -200,7 +200,14 @@ public class ProductDescription extends AppCompatActivity {
 
                 }else{
 
-                    btnAddToCart(userId,productId,quantity,"",variation_ID);
+                    if (spinertext.getText().toString().equals("Select Variation")){
+
+                        Toast.makeText(ProductDescription.this, "Select Variation", Toast.LENGTH_SHORT).show();
+
+                    }else{
+
+                        btnAddToCart(userId,productId,quantity,"",variation_ID);
+                    }
                 }
 
             }
@@ -354,7 +361,7 @@ public class ProductDescription extends AppCompatActivity {
         progressDialog.setMessage("Updte Cart SuccessFully");
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.addToCart, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.updateToCart, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -523,6 +530,24 @@ public class ProductDescription extends AppCompatActivity {
                             spinertext.setVisibility(View.VISIBLE);
                             priceRel.setVisibility(View.GONE);
 
+                            totalPrice1.setPaintFlags(totalPrice1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                            priceSymbol1.setPaintFlags(priceSymbol1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+
+                            String tt_1 = Regular_price;
+                            String tt_2 = "Rs.";
+
+                            SpannableString ss = new SpannableString(tt_1);
+                            SpannableString ss1 = new SpannableString(tt_2);
+                            StrikethroughSpan strikethroughSpan = new StrikethroughSpan();
+
+                            totalPrice1.setText(ss);
+                            priceSymbol1.setText(ss1);
+                            //textUnit.setText(text_Unit);
+                            product_Name.setText(productName);
+                            productname.setText(productName);
+                            totalPrice.setText(productprice);
+                            Description_text.setText(Description);
+
 
                         }else{
 
@@ -543,13 +568,12 @@ public class ProductDescription extends AppCompatActivity {
                             priceSymbol1.setText(ss1);
                             //textUnit.setText(text_Unit);
                             product_Name.setText(productName);
+                            productname.setText(productName);
                             totalPrice.setText(productprice);
                             Description_text.setText(Description);
                         }
 
                     }
-
-
 
                 } catch (JSONException e) {
                     e.printStackTrace();

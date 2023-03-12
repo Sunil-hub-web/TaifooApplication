@@ -2,14 +2,15 @@ package com.example.taifooapplication.modelclas;
 
 public class MyOrderDetails {
 
-    String productName,price,unit,image;
+    String productName,price,unit,image,qty;
 
-    public MyOrderDetails(String productName, String price, String unit, String image) {
+    public MyOrderDetails(String productName, String price, String unit, String image,String qty) {
 
         this.productName = productName;
         this.price = price;
         this.unit = unit;
         this.image = image;
+        this.qty = qty;
     }
 
     public String getProductName() {
@@ -42,6 +43,14 @@ public class MyOrderDetails {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getQty() {
+        return qty;
+    }
+
+    public void setQty(String qty) {
+        this.qty = qty;
     }
 
     @Override

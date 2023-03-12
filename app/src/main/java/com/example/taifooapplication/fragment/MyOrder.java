@@ -122,10 +122,11 @@ public class MyOrder extends Fragment {
                                 productName = jsonObject_OrderDetails.getString("name");
                                 img = jsonObject_OrderDetails.getString("img");
                                 price = jsonObject_OrderDetails.getString("price");
+                                String qty = jsonObject_OrderDetails.getString("qty");
                                 weight = jsonObject_OrderDetails.getString("weight");
 
                                 MyOrderDetails myOrderDetails = new MyOrderDetails(
-                                        productName, price, weight, img
+                                        productName, price, weight, img,qty
                                 );
                                 myorderDetails.add(myOrderDetails);
                             }

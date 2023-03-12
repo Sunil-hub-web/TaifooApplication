@@ -105,6 +105,8 @@ public class ActivityCategoryPage extends AppCompatActivity {
 
                 progressDialog.dismiss();
 
+                category.clear();
+
                 try {
                     JSONObject jsonObject = new JSONObject(response);
 
@@ -116,57 +118,65 @@ public class ActivityCategoryPage extends AppCompatActivity {
 
                         JSONArray jsonArray_Category = new JSONArray(All_Products);
 
-                        for (int i=0;i<jsonArray_Category.length();i++) {
+                        if (jsonArray_Category.length() != 0){
 
-                            JSONObject jsonObject_Category = jsonArray_Category.getJSONObject(i);
+                            for (int i=0;i<jsonArray_Category.length();i++) {
 
-                            // String quantity = jsonObject_BestSellig.getString("quantity");
-                            String product_id = jsonObject_Category.getString("products_id");
-                            String product_name = jsonObject_Category.getString("name");
-                            String product_img = jsonObject_Category.getString("image");
-                            //String product_weight = jsonObject_BestSellig.getString("product_weight");
-                            //String product_grossweight = jsonObject_BestSellig.getString("product_grossweight");
-                            //String plate = jsonObject_BestSellig.getString("plate");
-                            String description = jsonObject_Category.getString("description");
-                            String regular_price = jsonObject_Category.getString("regular_price");
-                            String sale_price = jsonObject_Category.getString("sales_price");
-                            String variations = jsonObject_Category.getString("variations");
+                                JSONObject jsonObject_Category = jsonArray_Category.getJSONObject(i);
 
-                            variationDetails = new ArrayList<>();
+                                // String quantity = jsonObject_BestSellig.getString("quantity");
+                                String product_id = jsonObject_Category.getString("products_id");
+                                String product_name = jsonObject_Category.getString("name");
+                                String product_img = jsonObject_Category.getString("image");
+                                //String product_weight = jsonObject_BestSellig.getString("product_weight");
+                                //String product_grossweight = jsonObject_BestSellig.getString("product_grossweight");
+                                //String plate = jsonObject_BestSellig.getString("plate");
+                                String description = jsonObject_Category.getString("description");
+                                String regular_price = jsonObject_Category.getString("regular_price");
+                                String sale_price = jsonObject_Category.getString("sales_price");
+                                String variations = jsonObject_Category.getString("variations");
 
-                            JSONArray jsonArray_variat = new JSONArray(variations);
+                                variationDetails = new ArrayList<>();
 
-                            if (jsonArray_variat.length() == 0) {
-                            } else {
-                                for (int l = 0; l < jsonArray_variat.length(); l++) {
+                                JSONArray jsonArray_variat = new JSONArray(variations);
 
-                                    JSONObject jsonObject_vari = jsonArray_variat.getJSONObject(l);
+                                if (jsonArray_variat.length() == 0) {
+                                } else {
+                                    for (int l = 0; l < jsonArray_variat.length(); l++) {
 
-                                    String price_id = jsonObject_vari.getString("price_id");
-                                    String price = jsonObject_vari.getString("price");
-                                    String varations = jsonObject_vari.getString("varations");
+                                        JSONObject jsonObject_vari = jsonArray_variat.getJSONObject(l);
 
-                                    VariationDetails variationDetails1 = new VariationDetails(price_id, price, varations);
-                                    variationDetails.add(variationDetails1);
+                                        String price_id = jsonObject_vari.getString("price_id");
+                                        String price = jsonObject_vari.getString("price");
+                                        String varations = jsonObject_vari.getString("varations");
 
+                                        VariationDetails variationDetails1 = new VariationDetails(price_id, price, varations);
+                                        variationDetails.add(variationDetails1);
+
+                                    }
                                 }
+
+                                Category_ModelClass category_modelClass = new Category_ModelClass(
+                                        product_id, product_img, product_name, "", "",
+                                        "", regular_price, sale_price, "0", description, variationDetails,
+                                        "0","0","0"
+                                );
+
+                                category.add(category_modelClass);
+
                             }
 
-                            Category_ModelClass category_modelClass = new Category_ModelClass(
-                                    product_id, product_img, product_name, "", "",
-                                    "", regular_price, sale_price, "0", description, variationDetails,
-                                    "0","0","0"
-                            );
+                            gridLayoutManager = new GridLayoutManager(ActivityCategoryPage.this,2,GridLayoutManager.VERTICAL,false);
+                            productCateGoryAdapter = new ProductCateGoryAdapter(ActivityCategoryPage.this,category,CategoryName);
+                            categoryProductRecycler.setLayoutManager(gridLayoutManager);
+                            categoryProductRecycler.setHasFixedSize(true);
+                            categoryProductRecycler.setAdapter(productCateGoryAdapter);
+                        }else{
 
-                            category.add(category_modelClass);
-
+                            Toast.makeText(ActivityCategoryPage.this, "Product is Not Available", Toast.LENGTH_SHORT).show();
                         }
 
-                        gridLayoutManager = new GridLayoutManager(ActivityCategoryPage.this,2,GridLayoutManager.VERTICAL,false);
-                        productCateGoryAdapter = new ProductCateGoryAdapter(ActivityCategoryPage.this,category,CategoryName);
-                        categoryProductRecycler.setLayoutManager(gridLayoutManager);
-                        categoryProductRecycler.setHasFixedSize(true);
-                        categoryProductRecycler.setAdapter(productCateGoryAdapter);
+
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
