@@ -87,7 +87,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             nav_Logout,nav_Name,nav_MobileNo,text_ItemCount,nav_ContactUs,
             text_addressName,nav_Categogry;
 
-    public static ImageView search,img_Cart;
+    public static ImageView search,img_Cart,image_search,menu;
 
     CircleImageView profile_image;
 
@@ -142,7 +142,9 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         //loc = findViewById(R.id.loc);
         //logo = findViewById(R.id.logo);
         search = findViewById(R.id.image_search);
-        //img_Cart = findViewById(R.id.img_Cart);
+        img_Cart = findViewById(R.id.img_Cart);
+        image_search = findViewById(R.id.image_search);
+        menu = findViewById(R.id.menu);
         text_ItemCount = findViewById(R.id.text_ItemCount);
         //text_address = findViewById(R.id.text_address);
         rle_click = findViewById(R.id.rle_click);
@@ -250,7 +252,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             }
         });
 
-       /* img_Cart.setOnClickListener(new View.OnClickListener() {
+        img_Cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -268,7 +270,27 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
 
             }
-        });*/
+        });
+
+        image_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                drawerLayout.closeDrawer(GravityCompat.START);
+                //loc.setVisibility(View.GONE);
+                //text_address.setVisibility(View.GONE);
+                //logo.setVisibility(View.GONE);
+                search.setVisibility(View.GONE);
+                menu.setVisibility(View.GONE);
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                SerachFoodPage serachFoodPage = new SerachFoodPage();
+                ft.replace(R.id.framLayout, serachFoodPage);
+                ft.commit();
+                text_name.setTextSize(18);
+                text_name.setText("Serach Product");
+
+            }
+        });
 
         nav_MyAddress.setOnClickListener(new View.OnClickListener() {
             @Override

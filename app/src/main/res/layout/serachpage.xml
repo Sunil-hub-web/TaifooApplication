@@ -6,6 +6,47 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/serach"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/seventy"
+            android:layout_marginTop="@dimen/five"
+            android:background="@drawable/layoutback"
+            android:elevation="5dp">
+
+            <EditText
+                android:id="@+id/serachProduct"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/serachback"
+                android:layout_margin="10dp"
+                android:padding="@dimen/fifteen"
+                android:drawablePadding="@dimen/fifteen"
+                android:hint="Serach Product"
+                android:drawableLeft="@drawable/loupe">
+
+            </EditText>
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ten"
+            android:id="@+id/recyclerSerach">
+
+
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+
+
 <!--    <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"

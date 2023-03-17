@@ -29,7 +29,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.taifooapplication.AppURL;
 import com.example.taifooapplication.R;
+import com.example.taifooapplication.SharedPrefManager;
 import com.example.taifooapplication.adapter.ProductCateGoryAdapter;
+import com.example.taifooapplication.fragment.CartCountClass;
 import com.example.taifooapplication.modelclas.Category_ModelClass;
 import com.example.taifooapplication.modelclas.VariationDetails;
 
@@ -51,6 +53,8 @@ public class ActivityCategoryPage extends AppCompatActivity {
     TextView product_Name,text_ItemCount;
     ImageView image_Arrow;
     ArrayList<VariationDetails> variationDetails;
+
+    SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -80,6 +84,9 @@ public class ActivityCategoryPage extends AppCompatActivity {
         //text_ItemCount.setText(cartCount);
 
         getcategoryProduct(CategoryId);
+
+        String userId = SharedPrefManager.getInstance(ActivityCategoryPage.this).getUser().getId();
+        getCartCount(userId);
 
         image_Arrow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -208,6 +215,47 @@ public class ActivityCategoryPage extends AppCompatActivity {
         requestQueue.add(stringRequest);
 
 
+    }
+
+    public void getCartCount(String userId){
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.cartCount, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String msg = jsonObject.getString("msg");
+                    if(msg.equals("success")){
+
+                        String count = jsonObject.getString("count");
+                        sharedPrefManager.cartCount(count);
+                        text_ItemCount.setText(count);
+
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String,String> params = new HashMap<>();
+                params.put("user_id",userId);
+                return params;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(ActivityCategoryPage.this);
+        requestQueue.getCache().clear();
+        requestQueue.add(stringRequest);
     }
 
 }

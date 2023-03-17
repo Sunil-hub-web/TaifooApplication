@@ -2,7 +2,7 @@ package com.example.taifooapplication.modelclas;
 
 public class Login_ModelClass {
 
-    String id,name,email,mobile,password,walletAmount,image;
+    String id,name,email,mobile,password,walletAmount,image,cartCount;
 
     public Login_ModelClass(String id, String name, String email,
                             String mobile, String password, String walletAmount,String image) {
@@ -14,6 +14,9 @@ public class Login_ModelClass {
         this.walletAmount = walletAmount;
         this.image = image;
     }
+
+    public Login_ModelClass(){}
+
 
     public String getId() {
         return id;
@@ -69,5 +72,13 @@ public class Login_ModelClass {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getCartCount() {
+        return cartCount;
+    }
+
+    public void setCartCount(String cartCount) {
+        this.cartCount = cartCount;
     }
 }

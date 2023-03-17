@@ -39,6 +39,7 @@ import com.example.taifooapplication.RecyclerTouchListener;
 import com.example.taifooapplication.SharedPrefManager;
 import com.example.taifooapplication.activity.HomePageActivity;
 import com.example.taifooapplication.activity.ProductDescription;
+import com.example.taifooapplication.fragment.CartCountClass;
 import com.example.taifooapplication.modelclas.Category_ModelClass;
 import com.example.taifooapplication.modelclas.VariationDetails;
 import com.squareup.picasso.Picasso;
@@ -413,6 +414,10 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
 
                         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 
+                        String userId = SharedPrefManager.getInstance(context).getUser().getId();
+                        CartCountClass cartCountClass = new CartCountClass(context);
+                        cartCountClass.getCartCount(userId);
+
                     }
 
                 } catch (JSONException e) {
@@ -520,6 +525,10 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
                     //String message = jsonObject.getString("success");
                     String cart_count = jsonObject.getString("cart_count");
                     HomePageActivity.text_ItemCount.setText(cart_count);
+
+                    String userId = SharedPrefManager.getInstance(context).getUser().getId();
+                    CartCountClass cartCountClass = new CartCountClass(context);
+                    cartCountClass.getCartCount(userId);
 
                     /*if(message.equals("true")){
 

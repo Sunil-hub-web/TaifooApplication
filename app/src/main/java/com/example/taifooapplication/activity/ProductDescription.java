@@ -40,6 +40,7 @@ import com.example.taifooapplication.R;
 import com.example.taifooapplication.RecyclerTouchListener;
 import com.example.taifooapplication.SharedPrefManager;
 import com.example.taifooapplication.adapter.VariationAdapterforProductlist;
+import com.example.taifooapplication.fragment.CartCountClass;
 import com.example.taifooapplication.modelclas.VariationDetails;
 import com.squareup.picasso.Picasso;
 
@@ -65,6 +66,8 @@ public class ProductDescription extends AppCompatActivity {
     ArrayList<VariationDetails> variations;
     Dialog dialogMenu;
     RelativeLayout priceRel;
+
+    SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -277,7 +280,8 @@ public class ProductDescription extends AppCompatActivity {
             }
         });
 
-
+        String userId = SharedPrefManager.getInstance(ProductDescription.this).getUser().getId();
+        getCartCount(userId);
 
     }
 
@@ -317,6 +321,9 @@ public class ProductDescription extends AppCompatActivity {
                     if (message.equals("true")) {
 
                         Toast.makeText(ProductDescription.this, msg, Toast.LENGTH_SHORT).show();
+
+                        String userId = SharedPrefManager.getInstance(ProductDescription.this).getUser().getId();
+                        getCartCount(userId);
 
                     }
 
@@ -425,6 +432,10 @@ public class ProductDescription extends AppCompatActivity {
                     //String message = jsonObject.getString("success");
                     String cart_count = jsonObject.getString("cart_count");
                     HomePageActivity.text_ItemCount.setText(cart_count);
+
+                    String userId = SharedPrefManager.getInstance(ProductDescription.this).getUser().getId();
+                    CartCountClass cartCountClass = new CartCountClass(ProductDescription.this);
+                    cartCountClass.getCartCount(userId);
 
                     /*if(message.equals("true")){
 
@@ -602,6 +613,47 @@ public class ProductDescription extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(ProductDescription.this);
         requestQueue.add(stringRequest);
 
+    }
+
+    public void getCartCount(String userId){
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.cartCount, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String msg = jsonObject.getString("msg");
+                    if(msg.equals("success")){
+
+                        String count = jsonObject.getString("count");
+                        sharedPrefManager.cartCount(count);
+                        text_ItemCount.setText(count);
+
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String,String> params = new HashMap<>();
+                params.put("user_id",userId);
+                return params;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(ProductDescription.this);
+        requestQueue.getCache().clear();
+        requestQueue.add(stringRequest);
     }
 
 }

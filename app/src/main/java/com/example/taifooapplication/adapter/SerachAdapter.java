@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,7 +40,7 @@ import com.example.taifooapplication.activity.HomePageActivity;
 import com.example.taifooapplication.activity.ProductDescription;
 import com.example.taifooapplication.fragment.CartCountClass;
 import com.example.taifooapplication.modelclas.BestSelling_modelClass;
-import com.example.taifooapplication.modelclas.ShowItem_ModelClass;
+import com.example.taifooapplication.modelclas.SerachProductModel;
 import com.example.taifooapplication.modelclas.VariationDetails;
 import com.squareup.picasso.Picasso;
 
@@ -50,34 +51,35 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.ViewHolder> {
+public class SerachAdapter extends RecyclerView.Adapter<SerachAdapter.ViewHolder> {
 
     Context context;
-    ArrayList<BestSelling_modelClass> sellProduct;
+    ArrayList<SerachProductModel> sellProduct;
+    ArrayList<SerachProductModel> payment2;
     int count_value;
     String countvalue, userid, productid, quantity, cartCount;
     ArrayList<VariationDetails> variations;
     Dialog dialogMenu;
-
-    public BestSellingAdapter(Context context, ArrayList<BestSelling_modelClass> showItem, String cart_count) {
+    public SerachAdapter(Context context, ArrayList<SerachProductModel> serachProductModels) {
 
         this.context = context;
-        this.sellProduct = showItem;
-        this.cartCount = cart_count;
+        this.sellProduct = serachProductModels;
+        this.payment2 = new ArrayList<>();
+        this.payment2.addAll(serachProductModels);
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SerachAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.homepageproduct, parent, false);
-        return new ViewHolder(view);
+        return new SerachAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull SerachAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        BestSelling_modelClass bestSell = sellProduct.get(position);
+        SerachProductModel bestSell = sellProduct.get(position);
 
         String image = bestSell.getProduct_img();
 
@@ -367,7 +369,6 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
             t3 = itemView.findViewById(R.id.t3);
             rs1 = itemView.findViewById(R.id.rs1);
             priceRel = itemView.findViewById(R.id.priceRel);
-
         }
 
         private void linearLayout(Boolean x) {
@@ -560,4 +561,27 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
 
     }
 
+    public void filter(CharSequence charSequence){
+
+        ArrayList<SerachProductModel> tempArrayList = new ArrayList<SerachProductModel>();
+
+        if(!TextUtils.isEmpty(charSequence)){
+
+            for(SerachProductModel item : sellProduct){
+
+                if(item.getProduct_name().toLowerCase().contains((charSequence))){
+                    tempArrayList.add(item);
+                }
+            }
+
+        }else{
+
+            sellProduct.addAll(payment2);
+        }
+
+        sellProduct.clear();
+        sellProduct.addAll(tempArrayList);
+        notifyDataSetChanged();
+        tempArrayList.clear();
+    }
 }

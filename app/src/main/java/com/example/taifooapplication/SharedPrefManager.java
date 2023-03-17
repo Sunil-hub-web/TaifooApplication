@@ -19,10 +19,11 @@ public class SharedPrefManager {
     private static final String KEY_password = "keypassword";
     private static final String KEY_wallet_Amount = "wallet_Amount";
     private static final String KEY_image = "keyimage_image";
+    private static final String KEY_Count = "keycartcount";
     private static SharedPrefManager mInstance;
     private static Context mCtx;
 
-    private SharedPrefManager(Context context) {
+    public SharedPrefManager(Context context) {
         mCtx = context;
     }
 
@@ -52,6 +53,24 @@ public class SharedPrefManager {
         editor.apply();
     }
 
+    public void cartCount(String cartCount){
+
+        SharedPreferences sharedPrefManager1 = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = sharedPrefManager1.edit();
+
+        editor1.putString(KEY_Count,cartCount);
+        editor1.apply();
+        editor1.commit();
+
+    }
+
+    public String getCartCount(){
+        SharedPreferences sharedPrefManager1 = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        return sharedPrefManager1.getString(KEY_Count,"DEFAULT");
+    }
+
+
+
     //this method will checker whether user is already logged in or not
     public boolean isLoggedIn() {
         SharedPreferences sharedPrefManager = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
@@ -71,7 +90,6 @@ public class SharedPrefManager {
                 sharedPrefManager.getString(KEY_password, null),
                 sharedPrefManager.getString(KEY_wallet_Amount, null),
                 sharedPrefManager.getString(KEY_image, null)
-
         );
 
     }

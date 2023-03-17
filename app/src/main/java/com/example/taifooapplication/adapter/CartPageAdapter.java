@@ -28,6 +28,7 @@ import com.example.taifooapplication.AppURL;
 import com.example.taifooapplication.R;
 import com.example.taifooapplication.SharedPrefManager;
 import com.example.taifooapplication.activity.HomePageActivity;
+import com.example.taifooapplication.fragment.CartCountClass;
 import com.example.taifooapplication.fragment.CartPage;
 import com.example.taifooapplication.modelclas.CartPage_ModelClass;
 import com.squareup.picasso.Picasso;
@@ -312,6 +313,10 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
 
                         String msg = jsonObject.getString("msg");
                         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
+
+                        String userId = SharedPrefManager.getInstance(context).getUser().getId();
+                        CartCountClass cartCountClass = new CartCountClass(context);
+                        cartCountClass.getCartCount(userId);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

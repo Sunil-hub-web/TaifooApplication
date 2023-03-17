@@ -1,27 +1,14 @@
-package com.example.taifooapplication.fragment;
+package com.example.taifooapplication.activity;
 
 import android.app.ProgressDialog;
-import android.graphics.Paint;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.SpannableString;
-import android.text.TextWatcher;
-import android.text.style.StrikethroughSpan;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -31,79 +18,38 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.taifooapplication.AppURL;
 import com.example.taifooapplication.R;
-import com.example.taifooapplication.activity.ProductDescription;
-import com.example.taifooapplication.adapter.BestSellingAdapter;
 import com.example.taifooapplication.adapter.SerachAdapter;
-import com.example.taifooapplication.modelclas.BestSelling_modelClass;
 import com.example.taifooapplication.modelclas.SerachProductModel;
 import com.example.taifooapplication.modelclas.VariationDetails;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
-public class SerachFoodPage extends Fragment {
+public class SerachYouProduct extends AppCompatActivity {
+
 
     SerachAdapter serachAdapter;
     GridLayoutManager gridLayoutManager1;
     ArrayList<VariationDetails> variationDetails;
     ArrayList<SerachProductModel> serachProductModels = new ArrayList<>();
     RecyclerView recyclerSerach;
-    EditText serachProduct;
-    @Nullable
+
     @Override
-    public View onCreateView(@NonNull  LayoutInflater inflater,
-                             @Nullable  ViewGroup container,
-                             @Nullable  Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.serachpage,container,false);
-
-        recyclerSerach = view.findViewById(R.id.recyclerSerach);
-        serachProduct = view.findViewById(R.id.serachProduct);
-
-        singleProduct();
-
-        serachProduct.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if (serachProduct.getText().toString().trim().equals("")){
-
-                    singleProduct();
-
-                }else{
-
-                    serachAdapter.filter(s);
-                }
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        return view;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.serachpage);
     }
 
     public void singleProduct(){
 
-        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        ProgressDialog progressDialog = new ProgressDialog(SerachYouProduct.this);
         progressDialog.setMessage("Show You Product Please Wait...");
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.searchProduct, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.singleProduct, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -160,8 +106,8 @@ public class SerachFoodPage extends Fragment {
 
                     }
 
-                    gridLayoutManager1 = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
-                    serachAdapter = new SerachAdapter(getContext(), serachProductModels);
+                    gridLayoutManager1 = new GridLayoutManager(SerachYouProduct.this, 2, GridLayoutManager.VERTICAL, false);
+                    serachAdapter = new SerachAdapter(SerachYouProduct.this, serachProductModels);
                     recyclerSerach.setLayoutManager(gridLayoutManager1);
                     recyclerSerach.setHasFixedSize(true);
                     recyclerSerach.setNestedScrollingEnabled(false);
@@ -179,12 +125,12 @@ public class SerachFoodPage extends Fragment {
 
                 progressDialog.dismiss();
 
-                Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(SerachYouProduct.this, ""+error, Toast.LENGTH_SHORT).show();
             }
         });
 
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,3,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        RequestQueue requestQueue = Volley.newRequestQueue(SerachYouProduct.this);
         requestQueue.add(stringRequest);
 
     }

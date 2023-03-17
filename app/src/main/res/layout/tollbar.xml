@@ -38,9 +38,9 @@
             android:src="@drawable/search"
             android:layout_marginTop="5dp"
             android:onClick="Serachpage"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="10dp"
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true">
+            android:layout_toLeftOf="@+id/img_Cart">
 
         </ImageView>
 
@@ -102,7 +102,7 @@
 
 
 
-     <!--   <ImageView
+        <ImageView
             android:id="@+id/img_Cart"
             android:layout_width="@dimen/twenty_five"
             android:layout_height="@dimen/twenty_five"
@@ -120,12 +120,11 @@
             android:layout_marginTop="@dimen/two"
             android:textColor="@color/some_color"
             android:textSize="@dimen/twelve_size"
-            android:text="12"
             android:textStyle="bold"
             android:gravity="center"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/ten"
-            android:background="@drawable/textcountshape"/>-->
+            android:background="@drawable/textcountshape"/>
 
 
     </RelativeLayout>

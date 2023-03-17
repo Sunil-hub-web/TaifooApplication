@@ -11,6 +11,7 @@ import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -56,6 +57,7 @@ import java.util.Map;
 public class Homepage extends Fragment {
 
     TextView text_name, text_shopByCategory, text_ItemCount;
+    ImageView image_search;
     SliderAdpter sliderAdpter;
     ViewPager2 sliderViewPager2;
     TextView[] dots;
@@ -76,6 +78,9 @@ public class Homepage extends Fragment {
     int currentPossition = 0;
     int arraysize;
 
+    SharedPrefManager sharedPrefManager;
+
+    @SuppressLint("MissingInflatedId")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -90,8 +95,9 @@ public class Homepage extends Fragment {
         text_shopByCategory = view.findViewById(R.id.shopByCategory);
         text_name = view.findViewById(R.id.name);
         bestsellingRecycler = view.findViewById(R.id.bestsellingRecycler);
-        //text_ItemCount = view.findViewById(R.id.text_ItemCount);
+        text_ItemCount = view.findViewById(R.id.text_ItemCount);
 
+        sharedPrefManager = new SharedPrefManager(getContext());
 
         String mystring = new String("Shop");
         String text = "by Category";
@@ -146,6 +152,7 @@ public class Homepage extends Fragment {
             }
         });
 
+        getCartCount(userId);
 
         return view;
     }
@@ -175,7 +182,7 @@ public class Homepage extends Fragment {
 
                     if (message.equals("true")) {
 
-                        //  HomePageActivity.text_ItemCount.setText(cart_count);
+
 
                         // Retrive Home Page Banner
 
@@ -351,6 +358,46 @@ public class Homepage extends Fragment {
             }
         }
 
+    }
+
+    public void getCartCount(String userId){
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.cartCount, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String msg = jsonObject.getString("msg");
+                    if(msg.equals("success")){
+
+                        String count = jsonObject.getString("count");
+                        sharedPrefManager.cartCount(count);
+                        HomePageActivity.text_ItemCount.setText(count);
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String,String> params = new HashMap<>();
+                params.put("user_id",userId);
+                return params;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.getCache().clear();
+        requestQueue.add(stringRequest);
     }
 
 }

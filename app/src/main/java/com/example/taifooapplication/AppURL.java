@@ -44,6 +44,12 @@ public class AppURL {
 
     public static final String singleProduct = "https://taifoo.in/admin/api/api.php?method=singleProduct";
 
+    public static final String searchProduct = "https://taifoo.in/admin/api/api.php?method=searchProduct";
+
+    public static final String cartCount = "https://taifoo.in/admin/api/api.php?method=cartCount";
+
+
+
 
 
 
