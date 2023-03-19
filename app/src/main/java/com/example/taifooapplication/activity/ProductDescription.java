@@ -3,6 +3,7 @@ package com.example.taifooapplication.activity;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,6 +42,7 @@ import com.example.taifooapplication.RecyclerTouchListener;
 import com.example.taifooapplication.SharedPrefManager;
 import com.example.taifooapplication.adapter.VariationAdapterforProductlist;
 import com.example.taifooapplication.fragment.CartCountClass;
+import com.example.taifooapplication.fragment.CartPage;
 import com.example.taifooapplication.modelclas.VariationDetails;
 import com.squareup.picasso.Picasso;
 
@@ -56,7 +58,7 @@ public class ProductDescription extends AppCompatActivity {
 
     TextView totalPrice1,priceSymbol1,product_Name,textUnit,productname,t1, t2, t3,totalPrice,
             text_ItemCount,Description_text,spinertext;
-    ImageView image_Arrow,productImage;
+    ImageView image_Arrow,productImage,img_Cart;
     String productName,productprice,variation_ID,Regular_price,product_Image,t,countvalue,productId,userId,
             quantity,cartCount,Description,product_id;
     LinearLayout linearLayout;
@@ -93,6 +95,7 @@ public class ProductDescription extends AppCompatActivity {
         text_ItemCount = findViewById(R.id.text_ItemCount);
         spinertext = findViewById(R.id.spinertext);
         priceRel = findViewById(R.id.priceRel);
+        img_Cart = findViewById(R.id.img_Cart);
 
         linearLayout = findViewById(R.id.inc);
         t1 = findViewById(R.id.t1);
@@ -129,6 +132,21 @@ public class ProductDescription extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        img_Cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                HomePageActivity.search.setVisibility(View.GONE);
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                CartPage cartPage = new CartPage();
+                ft.replace(R.id.framLayout, cartPage);
+                ft.commit();
+                HomePageActivity.text_name.setTextSize(18);
+                HomePageActivity.text_name.setText("My Cart");
+            }
+        });
+
 
         t3.setOnClickListener(new View.OnClickListener() {
             @Override

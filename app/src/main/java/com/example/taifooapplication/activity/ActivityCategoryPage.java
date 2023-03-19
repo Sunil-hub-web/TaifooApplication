@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -32,6 +33,7 @@ import com.example.taifooapplication.R;
 import com.example.taifooapplication.SharedPrefManager;
 import com.example.taifooapplication.adapter.ProductCateGoryAdapter;
 import com.example.taifooapplication.fragment.CartCountClass;
+import com.example.taifooapplication.fragment.CartPage;
 import com.example.taifooapplication.modelclas.Category_ModelClass;
 import com.example.taifooapplication.modelclas.VariationDetails;
 
@@ -51,7 +53,7 @@ public class ActivityCategoryPage extends AppCompatActivity {
     GridLayoutManager gridLayoutManager;
     String CategoryId,CategoryName;
     TextView product_Name,text_ItemCount;
-    ImageView image_Arrow;
+    ImageView image_Arrow,img_Cart;
     ArrayList<VariationDetails> variationDetails;
 
     SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
@@ -72,6 +74,7 @@ public class ActivityCategoryPage extends AppCompatActivity {
         product_Name = findViewById(R.id.product_Name);
         image_Arrow = findViewById(R.id.image_Arrow);
         text_ItemCount = findViewById(R.id.text_ItemCount);
+        img_Cart = findViewById(R.id.img_Cart);
 
         Intent intent = getIntent();
         CategoryId = intent.getStringExtra("categoryId");
@@ -94,6 +97,20 @@ public class ActivityCategoryPage extends AppCompatActivity {
 
                 Intent intent1 = new Intent(ActivityCategoryPage.this,HomePageActivity.class);
                 startActivity(intent1);
+            }
+        });
+
+        img_Cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                HomePageActivity.search.setVisibility(View.GONE);
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                CartPage cartPage = new CartPage();
+                ft.replace(R.id.framLayout, cartPage);
+                ft.commit();
+                HomePageActivity.text_name.setTextSize(18);
+                HomePageActivity.text_name.setText("My Cart");
             }
         });
 
