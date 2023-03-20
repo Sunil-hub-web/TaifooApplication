@@ -268,6 +268,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 text_name.setTextSize(18);
                 text_name.setText("My Cart");
 
+                bottomNavigation.setSelectedItemId(R.id.cart);
+
 
             }
         });
@@ -307,6 +309,8 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 ft.commit();
                 text_name.setTextSize(18);
                 text_name.setText("Manage Address");
+
+                bottomNavigation.setSelectedItemId(R.id.myAccount);
 
             }
         });

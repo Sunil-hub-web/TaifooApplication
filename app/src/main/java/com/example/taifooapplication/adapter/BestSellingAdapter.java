@@ -4,9 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,10 +39,10 @@ import com.example.taifooapplication.R;
 import com.example.taifooapplication.RecyclerTouchListener;
 import com.example.taifooapplication.SharedPrefManager;
 import com.example.taifooapplication.activity.HomePageActivity;
-import com.example.taifooapplication.activity.ProductDescription;
+import com.example.taifooapplication.activity.Product_Description;
 import com.example.taifooapplication.fragment.CartCountClass;
+import com.example.taifooapplication.fragment.ProductDescription;
 import com.example.taifooapplication.modelclas.BestSelling_modelClass;
-import com.example.taifooapplication.modelclas.ShowItem_ModelClass;
 import com.example.taifooapplication.modelclas.VariationDetails;
 import com.squareup.picasso.Picasso;
 
@@ -204,9 +207,19 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
 
                 quantity = holder.t2.getText().toString().trim();
 
-                Intent intent = new Intent(context, ProductDescription.class);
-                intent.putExtra("product_id", bestSell.getProduct_id());
-                context.startActivity(intent);
+//                Intent intent = new Intent(context, ProductDescription.class);
+//                intent.putExtra("product_id", bestSell.getProduct_id());
+//                context.startActivity(intent);
+
+                ProductDescription productDescription = new ProductDescription();
+                Bundle bundle=new Bundle();
+                bundle.putString("product_id", bestSell.getProduct_id());
+                productDescription.setArguments(bundle);
+                FragmentManager fragmentManager = ((FragmentActivity)context).getSupportFragmentManager();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.framLayout,productDescription);
+                ft.addToBackStack(null);
+                ft.commit();
 
             }
         });

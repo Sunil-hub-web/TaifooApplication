@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ProductDescription">
+    tools:context=".activity.Product_Description">
 
-    <RelativeLayout
+<!--    <RelativeLayout
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="@dimen/fifty"
@@ -57,7 +57,7 @@
             android:layout_marginRight="@dimen/ten"
             android:background="@drawable/textcountshape"/>
 
-    </RelativeLayout>
+    </RelativeLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -276,7 +276,7 @@
 
     </LinearLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+  <!--  <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="@dimen/sixty"
@@ -288,6 +288,6 @@
         app:menu="@menu/menu_navigation"
         android:elevation="@dimen/twenty">
 
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+    </com.google.android.material.bottomnavigation.BottomNavigationView>-->
 
 </RelativeLayout>

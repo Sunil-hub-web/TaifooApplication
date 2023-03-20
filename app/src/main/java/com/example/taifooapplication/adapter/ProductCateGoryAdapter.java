@@ -38,7 +38,7 @@ import com.example.taifooapplication.R;
 import com.example.taifooapplication.RecyclerTouchListener;
 import com.example.taifooapplication.SharedPrefManager;
 import com.example.taifooapplication.activity.HomePageActivity;
-import com.example.taifooapplication.activity.ProductDescription;
+import com.example.taifooapplication.activity.Product_Description;
 import com.example.taifooapplication.fragment.CartCountClass;
 import com.example.taifooapplication.modelclas.Category_ModelClass;
 import com.example.taifooapplication.modelclas.VariationDetails;
@@ -209,7 +209,7 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
 
                 quantity = holder.t2.getText().toString().trim();
 
-                Intent intent = new Intent(context, ProductDescription.class);
+                Intent intent = new Intent(context, Product_Description.class);
                 intent.putExtra("product_id",productCategory.getProduct_id ());
                 //intent.putExtra("cartCount",cartCount);
 

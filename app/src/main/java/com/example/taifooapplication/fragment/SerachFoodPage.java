@@ -1,18 +1,13 @@
 package com.example.taifooapplication.fragment;
 
 import android.app.ProgressDialog;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.SpannableString;
 import android.text.TextWatcher;
-import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,7 +16,6 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -31,21 +25,15 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.taifooapplication.AppURL;
 import com.example.taifooapplication.R;
-import com.example.taifooapplication.activity.ProductDescription;
-import com.example.taifooapplication.adapter.BestSellingAdapter;
 import com.example.taifooapplication.adapter.SerachAdapter;
-import com.example.taifooapplication.modelclas.BestSelling_modelClass;
 import com.example.taifooapplication.modelclas.SerachProductModel;
 import com.example.taifooapplication.modelclas.VariationDetails;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class SerachFoodPage extends Fragment {
 

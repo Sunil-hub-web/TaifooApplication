@@ -2,6 +2,7 @@ package com.example.taifooapplication.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,10 +12,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.taifooapplication.R;
 import com.example.taifooapplication.activity.ActivityCategoryPage;
+import com.example.taifooapplication.fragment.ActivityCategory;
 import com.example.taifooapplication.modelclas.ShowItem_ModelClass;
 import com.squareup.picasso.Picasso;
 
@@ -76,11 +81,22 @@ public class ShowItemAdapter extends RecyclerView.Adapter<ShowItemAdapter.ViewHo
                 HomePageActivity.text_name.setTextSize(18);
                 HomePageActivity.text_name.setText(productName);*/
 
-                Intent intent = new Intent(context, ActivityCategoryPage.class);
-                intent.putExtra("categoryId",show_item.getCategory_id());
-                intent.putExtra("categoryName",show_item.getCategory_name());
+                //Intent intent = new Intent(context, ActivityCategoryPage.class);
+                //intent.putExtra("categoryId",show_item.getCategory_id());
+                //intent.putExtra("categoryName",show_item.getCategory_name());
                 //intent.putExtra("cartCount",cartCount);
-                context.startActivity(intent);
+                //context.startActivity(intent);
+
+                ActivityCategory activityCategory = new ActivityCategory();
+                Bundle bundle=new Bundle();
+                bundle.putString("categoryId",show_item.getCategory_id());
+                bundle.putString("categoryName",show_item.getCategory_name());
+                activityCategory.setArguments(bundle);
+                FragmentManager fragmentManager = ((FragmentActivity)context).getSupportFragmentManager();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.framLayout,activityCategory);
+                ft.addToBackStack(null);
+                ft.commit();
 
             }
         });

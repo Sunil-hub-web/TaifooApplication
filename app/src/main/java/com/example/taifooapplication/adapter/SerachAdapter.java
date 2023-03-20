@@ -37,9 +37,8 @@ import com.example.taifooapplication.R;
 import com.example.taifooapplication.RecyclerTouchListener;
 import com.example.taifooapplication.SharedPrefManager;
 import com.example.taifooapplication.activity.HomePageActivity;
-import com.example.taifooapplication.activity.ProductDescription;
+import com.example.taifooapplication.activity.Product_Description;
 import com.example.taifooapplication.fragment.CartCountClass;
-import com.example.taifooapplication.modelclas.BestSelling_modelClass;
 import com.example.taifooapplication.modelclas.SerachProductModel;
 import com.example.taifooapplication.modelclas.VariationDetails;
 import com.squareup.picasso.Picasso;
@@ -206,7 +205,7 @@ public class SerachAdapter extends RecyclerView.Adapter<SerachAdapter.ViewHolder
 
                 quantity = holder.t2.getText().toString().trim();
 
-                Intent intent = new Intent(context, ProductDescription.class);
+                Intent intent = new Intent(context, Product_Description.class);
                 intent.putExtra("product_id", bestSell.getProduct_id());
                 context.startActivity(intent);
 

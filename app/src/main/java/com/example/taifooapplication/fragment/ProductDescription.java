@@ -1,32 +1,29 @@
-package com.example.taifooapplication.activity;
-
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+package com.example.taifooapplication.fragment;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.style.StrikethroughSpan;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -40,9 +37,8 @@ import com.example.taifooapplication.AppURL;
 import com.example.taifooapplication.R;
 import com.example.taifooapplication.RecyclerTouchListener;
 import com.example.taifooapplication.SharedPrefManager;
+import com.example.taifooapplication.activity.HomePageActivity;
 import com.example.taifooapplication.adapter.VariationAdapterforProductlist;
-import com.example.taifooapplication.fragment.CartCountClass;
-import com.example.taifooapplication.fragment.CartPage;
 import com.example.taifooapplication.modelclas.VariationDetails;
 import com.squareup.picasso.Picasso;
 
@@ -54,11 +50,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ProductDescription extends AppCompatActivity {
+public class ProductDescription extends Fragment {
 
     TextView totalPrice1,priceSymbol1,product_Name,textUnit,productname,t1, t2, t3,totalPrice,
             text_ItemCount,Description_text,spinertext;
-    ImageView image_Arrow,productImage,img_Cart;
+   // ImageView image_Arrow,productImage,img_Cart;
+
+    ImageView productImage;
     String productName,productprice,variation_ID,Regular_price,product_Image,t,countvalue,productId,userId,
             quantity,cartCount,Description,product_id;
     LinearLayout linearLayout;
@@ -69,84 +67,41 @@ public class ProductDescription extends AppCompatActivity {
     Dialog dialogMenu;
     RelativeLayout priceRel;
 
-    SharedPrefManager sharedPrefManager = new SharedPrefManager(this);
+    SharedPrefManager sharedPrefManager ;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_product_description);
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
 
-       /* Window window = ProductDescription.this.getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.setStatusBarColor(ContextCompat.getColor(ProductDescription.this, R.color.white));*/
+        View view = inflater.inflate(R.layout.activity_product_description,container,false);
 
-        totalPrice1 = findViewById(R.id.totalPrice1);
-        totalPrice = findViewById(R.id.totalPrice);
-        priceSymbol1 = findViewById(R.id.priceSymbol1);
-        image_Arrow = findViewById(R.id.image_Arrow);
-        product_Name = findViewById(R.id.product_Name);
-        productname = findViewById(R.id.productname);
-        Description_text = findViewById(R.id.Description);
+        sharedPrefManager = new SharedPrefManager(getContext());
+
+        totalPrice1 = view.findViewById(R.id.totalPrice1);
+        totalPrice = view.findViewById(R.id.totalPrice);
+        priceSymbol1 = view.findViewById(R.id.priceSymbol1);
+     //   image_Arrow = view.findViewById(R.id.image_Arrow);
+       // product_Name = view.findViewById(R.id.product_Name);
+        productname = view.findViewById(R.id.productname);
+        Description_text = view.findViewById(R.id.Description);
         //textUnit = findViewById(R.id.textUnit);
-        productImage = findViewById(R.id.productImage);
-        btn_addToCart = findViewById(R.id.btn_addToCart);
-        text_ItemCount = findViewById(R.id.text_ItemCount);
-        spinertext = findViewById(R.id.spinertext);
-        priceRel = findViewById(R.id.priceRel);
-        img_Cart = findViewById(R.id.img_Cart);
+        productImage = view.findViewById(R.id.productImage);
+        btn_addToCart = view.findViewById(R.id.btn_addToCart);
+       // text_ItemCount = view.findViewById(R.id.text_ItemCount);
+        spinertext = view.findViewById(R.id.spinertext);
+        priceRel = view.findViewById(R.id.priceRel);
+    //    img_Cart = view.findViewById(R.id.img_Cart);
 
-        linearLayout = findViewById(R.id.inc);
-        t1 = findViewById(R.id.t1);
-        t2 = findViewById(R.id.t2);
-        t3 = findViewById(R.id.t3);
+        linearLayout = view.findViewById(R.id.inc);
+        t1 = view.findViewById(R.id.t1);
+        t2 = view.findViewById(R.id.t2);
+        t3 = view.findViewById(R.id.t3);
 
-        userId = SharedPrefManager.getInstance(ProductDescription.this).getUser().getId();
+        userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
 
         String image = product_Image;
-        //Picasso.with(ProductDescription.this).load(image).into(productImage);
-
-        /*totalPrice1.setPaintFlags(totalPrice1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        priceSymbol1.setPaintFlags(priceSymbol1.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-
-
-        SpannableString ss = new SpannableString(tt_1);
-        SpannableString ss1 = new SpannableString(tt_2);
-        StrikethroughSpan strikethroughSpan = new StrikethroughSpan();*/
-
-       // ss.setSpan(strikethroughSpan,0,3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        //ss1.setSpan(strikethroughSpan,0,2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-       // t2.setText(quantity);
-
-        product_id = getIntent().getStringExtra("product_id");
-
-        singleProduct(product_id);
-
-        image_Arrow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(ProductDescription.this,HomePageActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        img_Cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                HomePageActivity.search.setVisibility(View.GONE);
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                CartPage cartPage = new CartPage();
-                ft.replace(R.id.framLayout, cartPage);
-                ft.commit();
-                HomePageActivity.text_name.setTextSize(18);
-                HomePageActivity.text_name.setText("My Cart");
-            }
-        });
-
 
         t3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,7 +178,7 @@ public class ProductDescription extends AppCompatActivity {
 
                     if (spinertext.getText().toString().equals("Select Variation")){
 
-                        Toast.makeText(ProductDescription.this, "Select Variation", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Select Variation", Toast.LENGTH_SHORT).show();
 
                     }else{
 
@@ -245,7 +200,7 @@ public class ProductDescription extends AppCompatActivity {
                 }else {
                     variations = variationDetails;
 
-                    dialogMenu = new Dialog(ProductDescription.this, android.R.style.Theme_Light_NoTitleBar);
+                    dialogMenu = new Dialog(getContext(), android.R.style.Theme_Light_NoTitleBar);
                     dialogMenu.requestWindowFeature(Window.FEATURE_NO_TITLE);
                     dialogMenu.setContentView(R.layout.variationrecycler_layout);
                     dialogMenu.setCancelable(true);
@@ -256,13 +211,13 @@ public class ProductDescription extends AppCompatActivity {
                     RecyclerView rv_vars = dialogMenu.findViewById(R.id.rv_vars);
 
 
-                    rv_vars.setLayoutManager(new LinearLayoutManager(ProductDescription.this));
+                    rv_vars.setLayoutManager(new LinearLayoutManager(getContext()));
                     rv_vars.setNestedScrollingEnabled(false);
 
-                    VariationAdapterforProductlist varad = new VariationAdapterforProductlist(variations, ProductDescription.this);
+                    VariationAdapterforProductlist varad = new VariationAdapterforProductlist(variations, getContext());
                     rv_vars.setAdapter(varad);
 
-                    rv_vars.addOnItemTouchListener(new RecyclerTouchListener(ProductDescription.this, rv_vars, new RecyclerTouchListener.ClickListener() {
+                    rv_vars.addOnItemTouchListener(new RecyclerTouchListener(getContext(), rv_vars, new RecyclerTouchListener.ClickListener() {
 
                         @Override
                         public void onClick(View view, int post) {
@@ -298,9 +253,20 @@ public class ProductDescription extends AppCompatActivity {
             }
         });
 
-        String userId = SharedPrefManager.getInstance(ProductDescription.this).getUser().getId();
-        getCartCount(userId);
+        Bundle arguments = getArguments();
 
+        if (arguments!=null){
+
+            product_id = arguments.get("product_id").toString();
+            //text_ItemCount.setText(cartCount);
+
+            singleProduct(product_id);
+
+            String userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
+            getCartCount(userId);
+
+        }
+        return view;
     }
 
     private void linearLayout(Boolean x) {
@@ -320,7 +286,7 @@ public class ProductDescription extends AppCompatActivity {
 
     public void btnAddToCart(String userId, String productId, String quantity, String attribute_id, String variation_id) {
 
-        ProgressDialog progressDialog = new ProgressDialog(ProductDescription.this);
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Item Add To Cart");
         progressDialog.show();
 
@@ -338,9 +304,9 @@ public class ProductDescription extends AppCompatActivity {
 
                     if (message.equals("true")) {
 
-                        Toast.makeText(ProductDescription.this, msg, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
 
-                        String userId = SharedPrefManager.getInstance(ProductDescription.this).getUser().getId();
+                        String userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
                         getCartCount(userId);
 
                     }
@@ -356,7 +322,7 @@ public class ProductDescription extends AppCompatActivity {
 
                 progressDialog.dismiss();
                 error.printStackTrace();
-                Toast.makeText(ProductDescription.this, "address Details Not Found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "address Details Not Found", Toast.LENGTH_SHORT).show();
 
             }
         }) {
@@ -375,14 +341,14 @@ public class ProductDescription extends AppCompatActivity {
         };
 
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        RequestQueue requestQueue = Volley.newRequestQueue(ProductDescription.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
 
     }
 
     public void updateToCart(String userId, String productId, String quantity,String attribute_id, String variation_id) {
 
-        ProgressDialog progressDialog = new ProgressDialog(ProductDescription.this);
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Updte Cart SuccessFully");
         progressDialog.show();
 
@@ -399,7 +365,7 @@ public class ProductDescription extends AppCompatActivity {
 
                     if (message.equals("true")) {
 
-                        Toast.makeText(ProductDescription.this, msg, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
 
                     }
 
@@ -414,7 +380,7 @@ public class ProductDescription extends AppCompatActivity {
 
                 progressDialog.dismiss();
                 error.printStackTrace();
-                Toast.makeText(ProductDescription.this, "address Details Not Found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "address Details Not Found", Toast.LENGTH_SHORT).show();
 
             }
         }) {
@@ -433,7 +399,7 @@ public class ProductDescription extends AppCompatActivity {
         };
 
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        RequestQueue requestQueue = Volley.newRequestQueue(ProductDescription.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
 
     }
@@ -451,8 +417,8 @@ public class ProductDescription extends AppCompatActivity {
                     String cart_count = jsonObject.getString("cart_count");
                     HomePageActivity.text_ItemCount.setText(cart_count);
 
-                    String userId = SharedPrefManager.getInstance(ProductDescription.this).getUser().getId();
-                    CartCountClass cartCountClass = new CartCountClass(ProductDescription.this);
+                    String userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
+                    CartCountClass cartCountClass = new CartCountClass(getContext());
                     cartCountClass.getCartCount(userId);
 
                     /*if(message.equals("true")){
@@ -485,7 +451,7 @@ public class ProductDescription extends AppCompatActivity {
         };
 
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 0, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        RequestQueue requestQueue = Volley.newRequestQueue(ProductDescription.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.getCache().clear();
         requestQueue.add(stringRequest);
 
@@ -493,7 +459,7 @@ public class ProductDescription extends AppCompatActivity {
 
     public void singleProduct(String product_id){
 
-        ProgressDialog progressDialog = new ProgressDialog(ProductDescription.this);
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Show You Product Please Wait...");
         progressDialog.show();
 
@@ -551,7 +517,7 @@ public class ProductDescription extends AppCompatActivity {
                         if(product_Image.equals("")){
 
                         }else{
-                            Picasso.with(ProductDescription.this).load(product_Image).into(productImage);
+                            Picasso.with(getContext()).load(product_Image).into(productImage);
                         }
 
                         if(variationDetails.size() != 0){
@@ -572,7 +538,7 @@ public class ProductDescription extends AppCompatActivity {
                             totalPrice1.setText(ss);
                             priceSymbol1.setText(ss1);
                             //textUnit.setText(text_Unit);
-                            product_Name.setText(productName);
+                            HomePageActivity.text_name.setText(productName);
                             productname.setText(productName);
                             totalPrice.setText(productprice);
                             Description_text.setText(Description);
@@ -596,7 +562,7 @@ public class ProductDescription extends AppCompatActivity {
                             totalPrice1.setText(ss);
                             priceSymbol1.setText(ss1);
                             //textUnit.setText(text_Unit);
-                            product_Name.setText(productName);
+                            HomePageActivity.text_name.setText(productName);
                             productname.setText(productName);
                             totalPrice.setText(productprice);
                             Description_text.setText(Description);
@@ -615,7 +581,7 @@ public class ProductDescription extends AppCompatActivity {
 
                 progressDialog.dismiss();
 
-                Toast.makeText(ProductDescription.this, ""+error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), ""+error, Toast.LENGTH_SHORT).show();
             }
         }){
             @Override
@@ -628,7 +594,7 @@ public class ProductDescription extends AppCompatActivity {
         };
 
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,3,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        RequestQueue requestQueue = Volley.newRequestQueue(ProductDescription.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
 
     }
@@ -646,7 +612,7 @@ public class ProductDescription extends AppCompatActivity {
 
                         String count = jsonObject.getString("count");
                         sharedPrefManager.cartCount(count);
-                        text_ItemCount.setText(count);
+                        //text_ItemCount.setText(count);
 
                     }
                 } catch (JSONException e) {
@@ -669,9 +635,8 @@ public class ProductDescription extends AppCompatActivity {
             }
         };
         stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        RequestQueue requestQueue = Volley.newRequestQueue(ProductDescription.this);
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.getCache().clear();
         requestQueue.add(stringRequest);
     }
-
 }

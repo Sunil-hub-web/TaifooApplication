@@ -28,7 +28,7 @@
             android:name=".activity.ForGotPassword"
             android:theme="@style/Theme.TaifooApplication.NoActionBar" />
         <activity
-            android:name=".activity.ProductDescription"
+            android:name=".activity.Product_Description"
             android:theme="@style/Theme.TaifooApplication.NoActionBar" />
         <activity
             android:name=".activity.OrderSuccessFully"
