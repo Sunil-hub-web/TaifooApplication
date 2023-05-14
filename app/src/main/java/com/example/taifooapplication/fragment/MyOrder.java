@@ -1,6 +1,7 @@
 package com.example.taifooapplication.fragment;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -58,7 +59,11 @@ public class MyOrder extends Fragment {
 
         myOrderRecyclerView = view.findViewById(R.id.myOrderRecyclerView);
 
-        userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
+        //userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
+
+        SharedPreferences sh = getContext().getSharedPreferences("MySharedPref", getContext().MODE_PRIVATE);
+        userId = sh.getString("userId", "");
+
 
         getorderDetails(userId);
 

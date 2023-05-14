@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,6 +44,7 @@ import com.example.taifooapplication.SharedPrefManager;
 import com.example.taifooapplication.activity.HomePageActivity;
 import com.example.taifooapplication.activity.Product_Description;
 import com.example.taifooapplication.fragment.CartCountClass;
+import com.example.taifooapplication.fragment.ProductDescription;
 import com.example.taifooapplication.modelclas.Category_ModelClass;
 import com.example.taifooapplication.modelclas.VariationDetails;
 import com.squareup.picasso.Picasso;
@@ -96,10 +101,15 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
 
             holder.spinertext.setVisibility(View.GONE);
 
+            holder.priceRel.setVisibility(View.VISIBLE);
+            holder.addToCart.setVisibility(View.VISIBLE);
+
         }else{
 
             holder.priceRel.setVisibility(View.GONE);
             holder.addToCart.setVisibility(View.GONE);
+
+            holder.spinertext.setVisibility(View.VISIBLE);
 
         }
 
@@ -209,11 +219,21 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
 
                 quantity = holder.t2.getText().toString().trim();
 
-                Intent intent = new Intent(context, Product_Description.class);
-                intent.putExtra("product_id",productCategory.getProduct_id ());
-                //intent.putExtra("cartCount",cartCount);
+//                Intent intent = new Intent(context, Product_Description.class);
+//                intent.putExtra("product_id",productCategory.getProduct_id ());
+//                //intent.putExtra("cartCount",cartCount);
+//
+//                context.startActivity(intent);
 
-                context.startActivity(intent);
+                ProductDescription productDescription = new ProductDescription();
+                Bundle bundle=new Bundle();
+                bundle.putString("product_id", productCategory.getProduct_id());
+                productDescription.setArguments(bundle);
+                FragmentManager fragmentManager = ((FragmentActivity)context).getSupportFragmentManager();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.framLayout,productDescription);
+                ft.addToBackStack(null);
+                ft.commit();
 
             }
         });
@@ -414,7 +434,7 @@ public class ProductCateGoryAdapter extends RecyclerView.Adapter<ProductCateGory
 
                         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 
-                        String userId = SharedPrefManager.getInstance(context).getUser().getId();
+                        //String userId = SharedPrefManager.getInstance(context).getUser().getId();
                         CartCountClass cartCountClass = new CartCountClass(context);
                         cartCountClass.getCartCount(userId);
 

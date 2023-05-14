@@ -1,6 +1,7 @@
 package com.example.taifooapplication.fragment;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,7 +56,10 @@ public class CategoryPage extends Fragment {
 
         categoryPageRecycler = view.findViewById(R.id.categoryPageRecycler);
 
-        userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
+        //userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
+
+        SharedPreferences sh = getContext().getSharedPreferences("MySharedPref", getContext().MODE_PRIVATE);
+        userId = sh.getString("userId", "");
 
         getHomePageDetails(userId);
 

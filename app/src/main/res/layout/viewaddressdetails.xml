@@ -24,12 +24,16 @@
 
         <ImageView
             android:id="@+id/btn_Delete"
-            android:layout_alignParentRight="true"
             android:layout_width="@dimen/twenty_five"
             android:layout_height="@dimen/twenty_five"
-            android:src="@drawable/delete_button"
-            android:layout_margin="@dimen/seven"
-            android:layout_marginRight="@dimen/ten"></ImageView>
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="@dimen/seven"
+            android:layout_marginLeft="@dimen/seven"
+            android:layout_marginTop="@dimen/seven"
+            android:layout_marginEnd="@dimen/seven"
+            android:layout_marginRight="@dimen/seven"
+            android:layout_marginBottom="@dimen/seven"
+            android:src="@drawable/delete_button"></ImageView>
 
        <!-- <TextView
             android:id="@+id/addressId"

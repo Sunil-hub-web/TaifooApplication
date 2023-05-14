@@ -6,10 +6,11 @@
     <string name="myAccount">MY ACCOUNT</string>
     <string name="wishlist">WISHLIST</string>
     <string name="cart">CART</string>
+    <string name="saved_high_score_key">CategoryIdStore</string>
     <string name="entername">Enter You Name</string>
     <string name="entercontact">Enter Mobile No</string>
     <string name="enteremail">Enter You Email</string>
     <string name="enterpassword">Enter Your Password</string>
-    <string name="api_key">AIzaSyCR_aBNUSFX_aX_F48yYx2ZXQ2uc84PhrA</string>
+    <string name="api_key">AIzaSyBC0zMsBMS06ukNOFXLL-ilmIQLycg_iqI</string>
 
 </resources>

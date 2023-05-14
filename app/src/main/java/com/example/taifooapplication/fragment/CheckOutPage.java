@@ -41,6 +41,7 @@ import com.example.taifooapplication.AppURL;
 import com.example.taifooapplication.R;
 import com.example.taifooapplication.SharedPrefManager;
 import com.example.taifooapplication.activity.HomePageActivity;
+import com.example.taifooapplication.activity.OrderSuccessFully;
 import com.example.taifooapplication.adapter.CartPageAdapter;
 import com.example.taifooapplication.adapter.CitySpinerAdapter;
 import com.example.taifooapplication.adapter.OrderSummaryAdapter;
@@ -80,7 +81,7 @@ public class CheckOutPage extends Fragment {
     Dialog dialog;
     Spinner spinner_City,spinner_Pincode,spinner_State;
     Button btn_AddnewAddress,btn_selectAddress,btn_ProceedCheckout;
-    RadioButton radio_payonline,radio_cashondelivery,selectedRadioButton;
+    RadioButton radio_cashondelivery,selectedRadioButton;
     RadioGroup radioGroup;
     String str_Name,str_Email,str_MobileNo,str_City,str_Area,str_Address,city_Id,city_Name,pincode,
             str_PinCode,City_id,pincode_Name, userId,subTotalPrice,deliveryPrice,totalPrice,taxandfee,
@@ -111,10 +112,13 @@ public class CheckOutPage extends Fragment {
         text_ShowAddress = view.findViewById(R.id.text_ShowAddress);
         btn_ProceedCheckout = view.findViewById(R.id.btn_ProceedCheckout);
         radio_cashondelivery = view.findViewById(R.id.radio_cashondelivery);
-        radio_payonline = view.findViewById(R.id.radio_payonline);
+        //radio_payonline = view.findViewById(R.id.radio_payonline);
         radioGroup = view.findViewById(R.id.radioGroup);
 
-        userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
+        SharedPreferences sh = getContext().getSharedPreferences("MySharedPref", getContext().MODE_PRIVATE);
+        userId = sh.getString("userId", "");
+
+        //userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
 
         getCartItem(userId);
 
@@ -874,7 +878,10 @@ public class CheckOutPage extends Fragment {
 
                         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
 
-                        vieworder();
+                        //vieworder();
+
+                        Intent intent = new Intent(getContext(), OrderSuccessFully.class);
+                        startActivity(intent);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

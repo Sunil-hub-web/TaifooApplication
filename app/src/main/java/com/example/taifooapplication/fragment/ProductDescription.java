@@ -2,6 +2,7 @@ package com.example.taifooapplication.fragment;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -22,6 +23,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -57,11 +60,11 @@ public class ProductDescription extends Fragment {
    // ImageView image_Arrow,productImage,img_Cart;
 
     ImageView productImage;
-    String productName,productprice,variation_ID,Regular_price,product_Image,t,countvalue,productId,userId,
+    String productName,productprice,variation_ID,Regular_price,product_Image,t,countvalue,userId,
             quantity,cartCount,Description,product_id;
     LinearLayout linearLayout;
     int count_value;
-    Button btn_addToCart;
+    Button btn_addToCart,backOption;
     ArrayList<VariationDetails> variationDetails;
     ArrayList<VariationDetails> variations;
     Dialog dialogMenu;
@@ -92,6 +95,7 @@ public class ProductDescription extends Fragment {
        // text_ItemCount = view.findViewById(R.id.text_ItemCount);
         spinertext = view.findViewById(R.id.spinertext);
         priceRel = view.findViewById(R.id.priceRel);
+        backOption = view.findViewById(R.id.backOption);
     //    img_Cart = view.findViewById(R.id.img_Cart);
 
         linearLayout = view.findViewById(R.id.inc);
@@ -99,9 +103,27 @@ public class ProductDescription extends Fragment {
         t2 = view.findViewById(R.id.t2);
         t3 = view.findViewById(R.id.t3);
 
-        userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
+     //   userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
+
+        SharedPreferences sh = getContext().getSharedPreferences("MySharedPref", getContext().MODE_PRIVATE);
+        userId = sh.getString("userId", "");
+
 
         String image = product_Image;
+
+        Bundle arguments = getArguments();
+
+        if (arguments!=null){
+
+            product_id = arguments.get("product_id").toString();
+            //text_ItemCount.setText(cartCount);
+
+            singleProduct(product_id);
+
+            String userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
+            getCartCount(userId);
+
+        }
 
         t3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,11 +144,11 @@ public class ProductDescription extends Fragment {
 
                 if(variationDetails.size() == 0){
 
-                    updateToCart(userId,productId,quantity,"","");
+                    updateToCart(userId,product_id,quantity,"","");
 
                 }else{
 
-                    updateToCart(userId,productId,quantity,"",variation_ID);
+                    updateToCart(userId,product_id,quantity,"",variation_ID);
                 }
 
 
@@ -153,11 +175,11 @@ public class ProductDescription extends Fragment {
 
                 if(variationDetails.size() == 0){
 
-                    updateToCart(userId,productId,quantity,"","");
+                    updateToCart(userId,product_id,quantity,"","");
 
                 }else{
 
-                    updateToCart(userId,productId,quantity,"",variation_ID);
+                    updateToCart(userId,product_id,quantity,"",variation_ID);
                 }
 
 
@@ -172,7 +194,7 @@ public class ProductDescription extends Fragment {
 
                 if(variationDetails.size() == 0){
 
-                    btnAddToCart(userId,productId,quantity,"","");
+                    btnAddToCart(userId,product_id,quantity,"","");
 
                 }else{
 
@@ -182,7 +204,7 @@ public class ProductDescription extends Fragment {
 
                     }else{
 
-                        btnAddToCart(userId,productId,quantity,"",variation_ID);
+                        btnAddToCart(userId,product_id,quantity,"",variation_ID);
                     }
                 }
 
@@ -253,19 +275,21 @@ public class ProductDescription extends Fragment {
             }
         });
 
-        Bundle arguments = getArguments();
+        backOption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        if (arguments!=null){
+                Fragment fragment = new ActivityCategory();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.framLayout, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
 
-            product_id = arguments.get("product_id").toString();
-            //text_ItemCount.setText(cartCount);
+            }
+        });
 
-            singleProduct(product_id);
 
-            String userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
-            getCartCount(userId);
-
-        }
         return view;
     }
 
@@ -306,8 +330,9 @@ public class ProductDescription extends Fragment {
 
                         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
 
-                        String userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
-                        getCartCount(userId);
+                        //String userId = SharedPrefManager.getInstance(context).getUser().getId();
+                        CartCountClass cartCountClass = new CartCountClass(getContext());
+                        cartCountClass.getCartCount(userId);
 
                     }
 
@@ -322,7 +347,7 @@ public class ProductDescription extends Fragment {
 
                 progressDialog.dismiss();
                 error.printStackTrace();
-                Toast.makeText(getContext(), "address Details Not Found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Api not response", Toast.LENGTH_SHORT).show();
 
             }
         }) {
@@ -538,7 +563,7 @@ public class ProductDescription extends Fragment {
                             totalPrice1.setText(ss);
                             priceSymbol1.setText(ss1);
                             //textUnit.setText(text_Unit);
-                            HomePageActivity.text_name.setText(productName);
+                            //HomePageActivity.text_name.setText(productName);
                             productname.setText(productName);
                             totalPrice.setText(productprice);
                             Description_text.setText(Description);
@@ -562,7 +587,7 @@ public class ProductDescription extends Fragment {
                             totalPrice1.setText(ss);
                             priceSymbol1.setText(ss1);
                             //textUnit.setText(text_Unit);
-                            HomePageActivity.text_name.setText(productName);
+                            //HomePageActivity.text_name.setText(productName);
                             productname.setText(productName);
                             totalPrice.setText(productprice);
                             Description_text.setText(Description);

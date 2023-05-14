@@ -16,8 +16,17 @@
         android:theme="@style/Theme.TaifooApplication"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.SerachAreaDetails"
+            android:exported="true">
+         <!--   <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+        <activity
             android:name=".activity.ShowYourOrderDetails"
-            android:theme="@style/Theme.TaifooApplication.NoActionBar"></activity>
+            android:theme="@style/Theme.TaifooApplication.NoActionBar" />
         <activity
             android:name=".activity.ActivityCategoryPage"
             android:theme="@style/Theme.TaifooApplication.NoActionBar" />
@@ -35,7 +44,7 @@
             android:theme="@style/Theme.TaifooApplication.NoActionBar" />
         <activity
             android:name=".activity.HomePageActivity"
-            android:theme="@style/Theme.TaifooApplication.NoActionBar"/>
+            android:theme="@style/Theme.TaifooApplication.NoActionBar" />
         <activity
             android:name=".activity.SplashScreen"
             android:theme="@style/Theme.TaifooApplication.NoActionBar">
@@ -55,6 +64,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/api_key" />
+
     </application>
 
 </manifest>

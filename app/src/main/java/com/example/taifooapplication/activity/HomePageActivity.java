@@ -96,7 +96,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     FusedLocationProviderClient fusedLocationProviderClient;
     Double latitude,longitude;
     String name,mobileNo,image,userid,addressDetails;
-    Homepage test;
     private Boolean exit = false;
     public static FragmentManager fragmentManager;
     RelativeLayout rle_click;
@@ -117,7 +116,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         getProfileDetails(userid);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.framLayout,new Homepage(),"HomeFragment").commit();
-        test = (Homepage) getSupportFragmentManager().findFragmentByTag("HomeFragment");
+        //test = (Homepage) getSupportFragmentManager().findFragmentByTag("HomeFragment");
 /*
 
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
@@ -247,7 +246,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 ft.replace(R.id.framLayout, homepage,"HomeFragment");
                 ft.commit();
                 text_name.setTextSize(15);
-                text_name.setText(addressDetails);
+                text_name.setText("Home Page");
 
             }
         });
@@ -310,7 +309,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 text_name.setTextSize(18);
                 text_name.setText("Manage Address");
 
-                bottomNavigation.setSelectedItemId(R.id.myAccount);
+                //bottomNavigation.setSelectedItemId(R.id.myAccount);
 
             }
         });
@@ -384,7 +383,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             }
         });
 
-        rle_click.setOnClickListener(new View.OnClickListener() {
+       /* rle_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -392,7 +391,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 startActivity(intent);
 
             }
-        });
+        });*/
 
         bottomNavigation.setSelectedItemId(R.id.home);
 
@@ -747,7 +746,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         requestQueue.add(stringRequest);
     }
 
-    public void location(){
+   /* public void location(){
 
         if(test != null && test.isVisible()){
 
@@ -768,13 +767,13 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             getProfileDetails(userid);
             getLocation();
         }
-    }
+    }*/
 
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
 
-        test = (Homepage) getSupportFragmentManager().findFragmentByTag("HomeFragment");
+        Homepage test = (Homepage) getSupportFragmentManager().findFragmentByTag("HomeFragment");
 
         if (test != null && test.isVisible()) {
 
@@ -797,14 +796,15 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 }, 4 * 1000);
             }
         }
-       /* else {
+        else {
 
             text_name.setText("Home Page");
+           /* HomePageActivity.fragmentManager.beginTransaction()
+                    .replace(R.id.framLayout,new Homepage(),"HomeFragment").addToBackStack(null).commit();*/
 
-            MainActivity.fragmentManager.beginTransaction()
-                    .replace(R.id.framLayout,new Homepage(),"testID").addToBackStack(null).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.framLayout,new Homepage(),"HomeFragment").commit();
 
-        }*/
+        }
     }
 
 }

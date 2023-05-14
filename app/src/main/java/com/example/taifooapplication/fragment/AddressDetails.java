@@ -2,6 +2,8 @@ package com.example.taifooapplication.fragment;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -34,6 +36,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.taifooapplication.AppURL;
 import com.example.taifooapplication.R;
 import com.example.taifooapplication.SharedPrefManager;
+import com.example.taifooapplication.activity.SerachAreaDetails;
 import com.example.taifooapplication.adapter.CitySpinerAdapter;
 import com.example.taifooapplication.adapter.PincodeSpinerAdapter;
 import com.example.taifooapplication.adapter.SateSpinearAdapter;
@@ -80,8 +83,10 @@ public class AddressDetails extends Fragment {
         btn_addAddress = view.findViewById(R.id.btn_addAddress);
         recyclerAddressDetails = view.findViewById(R.id.recyclerAddressDetails);
 
-        userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
+     //   userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
 
+        SharedPreferences sh = getContext().getSharedPreferences("MySharedPref", getContext().MODE_PRIVATE);
+        userId = sh.getString("userId", "");
         btn_addAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,6 +118,15 @@ public class AddressDetails extends Fragment {
         EditText edit_Address = dialog.findViewById(R.id.edit_Address);
         Button btn_Save = dialog.findViewById(R.id.btn_Save);
         Button btn_cancle = dialog.findViewById(R.id.btn_cancle);
+        //Button btn_Map = dialog.findViewById(R.id.btn_Map);
+
+/*        btn_Map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startActivity(new Intent(getActivity(),SerachAreaDetails.class));
+            }
+        });*/
 
         btn_cancle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,6 +140,8 @@ public class AddressDetails extends Fragment {
             @Override
             public void onClick(View v) {
 
+                str_PinCode = pincode;
+                str_City = city_Id;
 
                 if(edit_userName.getText().toString().trim().equals("")){
 
@@ -147,6 +163,14 @@ public class AddressDetails extends Fragment {
 
                     edit_Address.setError("Please Enter Address");
 
+                }else if (str_City.equals("")) {
+
+                    edit_Address.setError("Please Select Your City");
+
+                }else if (str_PinCode.equals("")) {
+
+                    edit_Address.setError("Please Select Your Pincode");
+
                 }else{
 
                     str_Name = edit_userName.getText().toString().trim();
@@ -154,8 +178,6 @@ public class AddressDetails extends Fragment {
                     str_MobileNo = edit_MobileNo.getText().toString().trim();
                     str_Area = edit_Areas.getText().toString().trim();
                     str_Address = edit_Address.getText().toString().trim();
-                    str_PinCode = pincode;
-                    str_City = city_Id;
 
                     addAddress_Save(userId,str_Name,state_Id,city_Id,pincode_id,str_MobileNo,str_Address);
 
@@ -191,6 +213,8 @@ public class AddressDetails extends Fragment {
                     String message = jsonObject.getString("success");
 
                     if (message.equals("true")) {
+
+                        list_state.clear();
 
                         String allLocation = jsonObject.getString("All_loc");
 
@@ -282,6 +306,8 @@ public class AddressDetails extends Fragment {
                     String message = jsonObject.getString("success");
 
                     if (message.equals("true")) {
+
+                        list_city.clear();
 
                         String allLocation = jsonObject.getString("All_loc");
 
@@ -385,6 +411,8 @@ public class AddressDetails extends Fragment {
                     String message = jsonObject.getString("success");
 
                     if (message.equals("true")) {
+
+                        arrayListPincode.clear();
 
                         String allLocation = jsonObject.getString("All_loc");
 

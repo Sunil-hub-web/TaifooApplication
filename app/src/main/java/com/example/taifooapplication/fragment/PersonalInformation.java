@@ -2,6 +2,7 @@ package com.example.taifooapplication.fragment;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -70,7 +71,11 @@ public class PersonalInformation extends Fragment {
         btn_Update = view.findViewById(R.id.btn_Update);
         text_editOption = view.findViewById(R.id.text_editOption);
 
-        userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
+       // userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
+
+        SharedPreferences sh = getContext().getSharedPreferences("MySharedPref", getContext().MODE_PRIVATE);
+        userId = sh.getString("userId", "");
+
 
         getProfileDetails(userId);
 

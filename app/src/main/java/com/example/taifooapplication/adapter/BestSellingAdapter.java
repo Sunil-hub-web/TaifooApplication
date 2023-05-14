@@ -421,7 +421,7 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
 
                         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 
-                        String userId = SharedPrefManager.getInstance(context).getUser().getId();
+                        //String userId = SharedPrefManager.getInstance(context).getUser().getId();
                         CartCountClass cartCountClass = new CartCountClass(context);
                         cartCountClass.getCartCount(userId);
 

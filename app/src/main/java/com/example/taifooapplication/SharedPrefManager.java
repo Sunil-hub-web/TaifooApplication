@@ -23,6 +23,9 @@ public class SharedPrefManager {
     private static SharedPrefManager mInstance;
     private static Context mCtx;
 
+    SharedPreferences sharedPrefManager;
+    SharedPreferences sharedPrefManager1;
+
     public SharedPrefManager(Context context) {
         mCtx = context;
     }
@@ -38,7 +41,7 @@ public class SharedPrefManager {
     //this method will store the user data in shared preferences
     public void userLogin(Login_ModelClass login_modelClass) {
 
-        SharedPreferences sharedPrefManager = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        sharedPrefManager = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefManager.edit();
 
 
@@ -55,7 +58,7 @@ public class SharedPrefManager {
 
     public void cartCount(String cartCount){
 
-        SharedPreferences sharedPrefManager1 = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        sharedPrefManager1 = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor1 = sharedPrefManager1.edit();
 
         editor1.putString(KEY_Count,cartCount);
@@ -65,7 +68,7 @@ public class SharedPrefManager {
     }
 
     public String getCartCount(){
-        SharedPreferences sharedPrefManager1 = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        sharedPrefManager1 = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPrefManager1.getString(KEY_Count,"DEFAULT");
     }
 
@@ -73,13 +76,15 @@ public class SharedPrefManager {
 
     //this method will checker whether user is already logged in or not
     public boolean isLoggedIn() {
-        SharedPreferences sharedPrefManager = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+       sharedPrefManager = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         return sharedPrefManager.getString(KEY_id, null) != null;
     }
 
     //this method will give the logged in user
     public Login_ModelClass getUser() {
-        SharedPreferences sharedPrefManager = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+
+        sharedPrefManager = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+
         return new Login_ModelClass(
 
 
@@ -97,7 +102,7 @@ public class SharedPrefManager {
     //this method will logout the user
     public void logout() {
 
-        SharedPreferences sharedPrefManager = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        sharedPrefManager = mCtx.getSharedPreferences(SHARED_PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPrefManager.edit();
         editor.clear();
         editor.apply();

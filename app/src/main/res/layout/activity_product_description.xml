@@ -70,7 +70,6 @@
             android:id="@+id/productImage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/two_hundred"
-            android:src="@drawable/chikencutpice"
             android:scaleType="centerInside" />
 
         <TextView
@@ -78,7 +77,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/ten"
-            android:text="Chicken Leg"
             android:textSize="@dimen/twenty_five"
             android:textColor="#22647E" />
 
@@ -108,7 +106,6 @@
                     android:layout_height="wrap_content"
                     android:textColor="#D81405"
                     android:textSize="@dimen/twenty"
-                    android:text="500.00"
                     android:textStyle="bold"
                     android:layout_marginLeft="@dimen/thirty"></TextView>
 
@@ -136,7 +133,6 @@
                     android:layout_height="wrap_content"
                     android:textColor="#A6A2A2"
                     android:textSize="@dimen/edittextsize"
-                    android:text="500.00"
                     android:textStyle="bold"
                     android:layout_marginLeft="@dimen/thirty"></TextView>
 
@@ -265,6 +261,20 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/thirteen"
             android:text="Buy Now"
+            android:layout_marginLeft="@dimen/twenty"
+            android:layout_marginTop="@dimen/three"
+            android:layout_marginRight="@dimen/twenty"
+            app:backgroundTint="#DA291C"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="15dp"></com.google.android.material.button.MaterialButton>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/backOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/thirteen"
+            android:text="Back To Product Details"
             android:layout_marginLeft="@dimen/twenty"
             android:layout_marginTop="@dimen/three"
             android:layout_marginRight="@dimen/twenty"

@@ -5,6 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -20,8 +22,45 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/selectCity">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:hint="Select You City"
+                        android:textColorHint="@color/teal_700"
+                        android:layout_margin="@dimen/five">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/tv_SelectCity"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:imeOptions="actionNext"
+                            android:inputType="textAutoComplete"
+                            android:padding="10dp"
+                            android:textColor="@color/teal_700"
+                            android:textSize="@dimen/textsize" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/nav_dropdown"
+                        app:tint="@color/black" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="@dimen/two_hundred"
-                    android:id="@+id/viewpager">
+                    android:id="@+id/viewpager"
+                    android:layout_below="@+id/selectCity">
 
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/sliderViewPager2"

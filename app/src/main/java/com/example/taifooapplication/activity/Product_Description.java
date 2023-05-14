@@ -10,8 +10,6 @@ import com.example.taifooapplication.R;
 
 public class Product_Description extends AppCompatActivity {
 
-
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {

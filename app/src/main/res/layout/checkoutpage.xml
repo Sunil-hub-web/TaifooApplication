@@ -19,7 +19,7 @@
             android:orientation="horizontal"
             android:weightSum="2">
 
-            <RadioButton
+           <!-- <RadioButton
                 android:id="@+id/radio_payonline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
                 android:paddingLeft="@dimen/fifteen"
                 android:text="Pay Online"
                 android:textColor="#686666"
-                android:textSize="@dimen/edittextsize" />
+                android:textSize="@dimen/edittextsize" />-->
 
             <RadioButton
                 android:id="@+id/radio_cashondelivery"

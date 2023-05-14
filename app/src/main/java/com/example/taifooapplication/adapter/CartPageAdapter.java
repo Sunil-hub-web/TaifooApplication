@@ -3,6 +3,7 @@ package com.example.taifooapplication.adapter;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,6 @@ import com.android.volley.toolbox.Volley;
 import com.example.taifooapplication.AppURL;
 import com.example.taifooapplication.R;
 import com.example.taifooapplication.SharedPrefManager;
-import com.example.taifooapplication.activity.HomePageActivity;
 import com.example.taifooapplication.fragment.CartCountClass;
 import com.example.taifooapplication.fragment.CartPage;
 import com.example.taifooapplication.modelclas.CartPage_ModelClass;
@@ -44,14 +44,15 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
 
     Context context;
     ArrayList<CartPage_ModelClass> itemlist;
-    String productid,userid,price_total,total_price,str_SumTotal,str_Shpping,str_TotalPrice,sum,tax;
+    String productid,userid1,price_total,total_price,str_SumTotal,str_Shpping,str_TotalPrice,sum,tax;
     int Total,price,quantity,salesPrice;
     Double d_totPrice,d_Sum,sumOfTotal,d_ShppingCharges,d_TotlAmount,taxCharge;
 
-    public CartPageAdapter(FragmentActivity activity, ArrayList<CartPage_ModelClass> itemList) {
+    public CartPageAdapter(FragmentActivity activity, ArrayList<CartPage_ModelClass> itemList, String userid) {
 
         this.context = activity;
         this.itemlist = itemList;
+        this.userid1 = userid;
     }
 
     @NonNull
@@ -86,7 +87,10 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
         holder.unit_Name.setText("Q :"+cartItem.getQuantity());
         holder.t2.setText(cartItem.getQuantity());
 
-        userid = SharedPrefManager.getInstance(context).getUser().getId();
+      //  userid = SharedPrefManager.getInstance(context).getUser().getId();
+
+        //SharedPreferences sh = context.getSharedPreferences("MySharedPref", context.MODE_PRIVATE);
+        //userid = sh.getString("userId", "");
 
         holder.img_Delete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,11 +98,11 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
 
                 productid = cartItem.getProduct_id();
 
-               deleteCartItem(userid,productid);
+               deleteCartItem(userid1,productid);
                itemlist.remove(position);
                notifyDataSetChanged();
 
-                 int arraySize = itemlist.size();
+               int arraySize = itemlist.size();
                 String str_ArraySize = String.valueOf(arraySize);
                 //CartPage.text_ItemCount.setText(str_ArraySize);
 
@@ -192,7 +196,7 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
                     CartPage.text_totalPrice.setText(str_TotalPrice);
 
 
-                    updateToCart(userid,productid,quantity);
+                    updateToCart(userid1,productid,quantity);
 
                 }
 
@@ -245,7 +249,7 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
 
                     CartPage.text_totalPrice.setText(str_TotalPrice);
 
-                    updateToCart(userid,productid,quantity);
+                    updateToCart(userid1,productid,quantity);
 
             }
         });
@@ -314,7 +318,10 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
                         String msg = jsonObject.getString("msg");
                         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 
-                        String userId = SharedPrefManager.getInstance(context).getUser().getId();
+                        /*SharedPreferences sh = getContext().getSharedPreferences("MySharedPref", getContext().MODE_PRIVATE);
+                        userId = sh.getString("userId", "");*/
+
+                        //String userId = SharedPrefManager.getInstance(context).getUser().getId();
                         CartCountClass cartCountClass = new CartCountClass(context);
                         cartCountClass.getCartCount(userId);
                     }

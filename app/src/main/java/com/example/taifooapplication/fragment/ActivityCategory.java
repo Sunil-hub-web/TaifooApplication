@@ -1,6 +1,8 @@
 package com.example.taifooapplication.fragment;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -47,9 +49,9 @@ public class ActivityCategory extends Fragment {
     ArrayList<Category_ModelClass> category = new ArrayList<>();
     ProductCateGoryAdapter productCateGoryAdapter;
     GridLayoutManager gridLayoutManager;
-    String CategoryId,CategoryName;
-    TextView product_Name,text_ItemCount;
-   // ImageView image_Arrow,img_Cart;
+    String CategoryId, CategoryName;
+    TextView product_Name, text_ItemCount;
+    // ImageView image_Arrow,img_Cart;
     ArrayList<VariationDetails> variationDetails;
 
     SharedPrefManager sharedPrefManager;
@@ -60,25 +62,31 @@ public class ActivityCategory extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.categoryproduct,container,false);
+        View view = inflater.inflate(R.layout.categoryproduct, container, false);
 
         sharedPrefManager = new SharedPrefManager(getContext());
 
         categoryProductRecycler = view.findViewById(R.id.categoryProductRecycler);
-       // product_Name = view.findViewById(R.id.product_Name);
-       // image_Arrow = view.findViewById(R.id.image_Arrow);
-       // text_ItemCount = view.findViewById(R.id.text_ItemCount);
+        // product_Name = view.findViewById(R.id.product_Name);
+        // image_Arrow = view.findViewById(R.id.image_Arrow);
+        // text_ItemCount = view.findViewById(R.id.text_ItemCount);
         //img_Cart = view.findViewById(R.id.img_Cart);
 
         Bundle arguments = getArguments();
 
 
-        if (arguments!=null){
+        if (arguments != null) {
+
+            SharedPreferences sharedPreferences = getContext().getSharedPreferences("MySharedPrefdet", getContext().MODE_PRIVATE);
+            SharedPreferences.Editor myEdit = sharedPreferences.edit();
+            myEdit.putString("CategoryId", arguments.get("categoryId").toString());
+            myEdit.putString("CategoryName", arguments.get("categoryName").toString());
+            myEdit.apply();
 
             CategoryId = arguments.get("categoryId").toString();
             CategoryName = arguments.get("categoryName").toString();
 
-            Log.d("categoryName",CategoryId + CategoryName);
+            Log.d("categoryName", CategoryId + CategoryName);
 
             HomePageActivity.text_name.setText(CategoryName);
             //text_ItemCount.setText(cartCount);
@@ -88,12 +96,30 @@ public class ActivityCategory extends Fragment {
             String userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
             getCartCount(userId);
 
-    }
+        } else {
+
+            SharedPreferences sh = getContext().getSharedPreferences("MySharedPrefdet", getContext().MODE_PRIVATE);
+            CategoryId = sh.getString("CategoryId", "");
+            CategoryName = sh.getString("CategoryName", "");
+
+            /*CategoryId = arguments.get("categoryId").toString();
+            CategoryName = arguments.get("categoryName").toString();*/
+
+            Log.d("categoryName", CategoryId + CategoryName);
+
+            HomePageActivity.text_name.setText(CategoryName);
+            //text_ItemCount.setText(cartCount);
+
+            getcategoryProduct(CategoryId);
+
+            String userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
+            getCartCount(userId);
+        }
 
         return view;
     }
 
-    public void getcategoryProduct(String categoryId){
+    public void getcategoryProduct(String categoryId) {
 
         ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Show You Product Please Wait...");
@@ -112,15 +138,15 @@ public class ActivityCategory extends Fragment {
 
                     String message = jsonObject.getString("success");
 
-                    if(message.equals("true")){
+                    if (message.equals("true")) {
 
                         String All_Products = jsonObject.getString("All_Products");
 
                         JSONArray jsonArray_Category = new JSONArray(All_Products);
 
-                        if (jsonArray_Category.length() != 0){
+                        if (jsonArray_Category.length() != 0) {
 
-                            for (int i=0;i<jsonArray_Category.length();i++) {
+                            for (int i = 0; i < jsonArray_Category.length(); i++) {
 
                                 JSONObject jsonObject_Category = jsonArray_Category.getJSONObject(i);
 
@@ -141,6 +167,7 @@ public class ActivityCategory extends Fragment {
                                 JSONArray jsonArray_variat = new JSONArray(variations);
 
                                 if (jsonArray_variat.length() == 0) {
+
                                 } else {
                                     for (int l = 0; l < jsonArray_variat.length(); l++) {
 
@@ -159,19 +186,20 @@ public class ActivityCategory extends Fragment {
                                 Category_ModelClass category_modelClass = new Category_ModelClass(
                                         product_id, product_img, product_name, "", "",
                                         "", regular_price, sale_price, "0", description, variationDetails,
-                                        "0","0","0"
+                                        "0", "0", "0"
                                 );
 
                                 category.add(category_modelClass);
 
                             }
 
-                            gridLayoutManager = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
-                            productCateGoryAdapter = new ProductCateGoryAdapter(getContext(),category,CategoryName);
+                            gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
+                            productCateGoryAdapter = new ProductCateGoryAdapter(getContext(), category, CategoryName);
                             categoryProductRecycler.setLayoutManager(gridLayoutManager);
                             categoryProductRecycler.setHasFixedSize(true);
                             categoryProductRecycler.setAdapter(productCateGoryAdapter);
-                        }else{
+
+                        } else {
 
                             Toast.makeText(getContext(), "Product is Not Available", Toast.LENGTH_SHORT).show();
                         }
@@ -192,25 +220,25 @@ public class ActivityCategory extends Fragment {
                 Toast.makeText(getContext(), "No Product Found", Toast.LENGTH_SHORT).show();
 
             }
-        }){
+        }) {
 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
-                Map<String,String> params = new HashMap<>();
-                params.put("sub_cate_id",categoryId);
+                Map<String, String> params = new HashMap<>();
+                params.put("sub_cate_id", categoryId);
                 return params;
             }
         };
 
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,3,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
 
 
     }
 
-    public void getCartCount(String userId){
+    public void getCartCount(String userId) {
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.cartCount, new Response.Listener<String>() {
             @Override
@@ -219,7 +247,7 @@ public class ActivityCategory extends Fragment {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     String msg = jsonObject.getString("msg");
-                    if(msg.equals("success")){
+                    if (msg.equals("success")) {
 
                         String count = jsonObject.getString("count");
                         sharedPrefManager.cartCount(count);
@@ -235,13 +263,13 @@ public class ActivityCategory extends Fragment {
             public void onErrorResponse(VolleyError error) {
 
             }
-        }){
+        }) {
 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
-                Map<String,String> params = new HashMap<>();
-                params.put("user_id",userId);
+                Map<String, String> params = new HashMap<>();
+                params.put("user_id", userId);
                 return params;
             }
         };

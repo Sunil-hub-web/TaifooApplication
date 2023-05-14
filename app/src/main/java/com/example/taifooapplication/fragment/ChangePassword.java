@@ -1,6 +1,7 @@
 package com.example.taifooapplication.fragment;
 
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -51,7 +52,10 @@ public class ChangePassword extends Fragment {
         edit_ConfirmPassword = view.findViewById(R.id.edit_ConfirmPassword);
         btn_ChangePassword = view.findViewById(R.id.btn_ChangePassword);
 
-        str_UserId = SharedPrefManager.getInstance(getContext()).getUser().getId();
+       // str_UserId = SharedPrefManager.getInstance(getContext()).getUser().getId();
+
+        SharedPreferences sh = getContext().getSharedPreferences("MySharedPref", getContext().MODE_PRIVATE);
+        str_UserId = sh.getString("userId", "");
 
         btn_ChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override

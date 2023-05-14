@@ -30,7 +30,6 @@ import java.util.ArrayList;
 
 public class SerachYouProduct extends AppCompatActivity {
 
-
     SerachAdapter serachAdapter;
     GridLayoutManager gridLayoutManager1;
     ArrayList<VariationDetails> variationDetails;

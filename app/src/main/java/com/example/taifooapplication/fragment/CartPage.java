@@ -60,6 +60,7 @@ public class CartPage extends Fragment {
     public static LinearLayout cartempty,lin_amount;
     public static RelativeLayout rel_totalprice;
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -79,9 +80,7 @@ public class CartPage extends Fragment {
         rel_totalprice = view.findViewById(R.id.totalprice);
         lin_amount = view.findViewById(R.id.amountdetails);
 
-        userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
-
-        text_gotoCheckout.setOnClickListener(new View.OnClickListener() {
+        rel_totalprice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -111,6 +110,11 @@ public class CartPage extends Fragment {
 
             }
         });
+
+        //userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
+
+        SharedPreferences sh = getContext().getSharedPreferences("MySharedPref", getContext().MODE_PRIVATE);
+        userId = sh.getString("userId", "");
 
         getShippingCharges();
         getCartItem(userId);
@@ -282,7 +286,7 @@ public class CartPage extends Fragment {
                             text_totalPrice.setText(tot_Amount);
 
                             linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
-                            cartPageAdapter = new CartPageAdapter(getActivity(),itemList);
+                            cartPageAdapter = new CartPageAdapter(getActivity(),itemList,userid);
                             recyclerCartPage.setLayoutManager(linearLayoutManager);
                             recyclerCartPage.setHasFixedSize(true);
                             recyclerCartPage.setAdapter(cartPageAdapter);
@@ -298,6 +302,12 @@ public class CartPage extends Fragment {
                             recyclerCartPage.setVisibility(View.GONE);
                             rel_totalprice.setVisibility(View.GONE);
 
+                        }else{
+
+                            cartempty.setVisibility(View.VISIBLE);
+                            lin_amount.setVisibility(View.GONE);
+                            recyclerCartPage.setVisibility(View.GONE);
+                            rel_totalprice.setVisibility(View.GONE);
                         }
                     }
                 } catch (JSONException e) {

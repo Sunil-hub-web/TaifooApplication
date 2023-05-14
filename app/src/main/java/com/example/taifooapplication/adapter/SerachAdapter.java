@@ -5,8 +5,10 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,6 +44,7 @@ import com.example.taifooapplication.SharedPrefManager;
 import com.example.taifooapplication.activity.HomePageActivity;
 import com.example.taifooapplication.activity.Product_Description;
 import com.example.taifooapplication.fragment.CartCountClass;
+import com.example.taifooapplication.fragment.ProductDescription;
 import com.example.taifooapplication.modelclas.SerachProductModel;
 import com.example.taifooapplication.modelclas.VariationDetails;
 import com.squareup.picasso.Picasso;
@@ -95,10 +101,15 @@ public class SerachAdapter extends RecyclerView.Adapter<SerachAdapter.ViewHolder
 
             holder.spinertext.setVisibility(View.GONE);
 
+            holder.priceRel.setVisibility(View.VISIBLE);
+            holder.addToCart.setVisibility(View.VISIBLE);
+
         } else {
 
             holder.priceRel.setVisibility(View.GONE);
             holder.addToCart.setVisibility(View.GONE);
+
+            holder.spinertext.setVisibility(View.VISIBLE);
 
         }
 
@@ -124,7 +135,10 @@ public class SerachAdapter extends RecyclerView.Adapter<SerachAdapter.ViewHolder
             holder.showProduct.setVisibility(View.GONE);
         }
 
-        userid = SharedPrefManager.getInstance(context).getUser().getId();
+        //userid = SharedPrefManager.getInstance(context).getUser().getId();
+
+        SharedPreferences sh = context.getSharedPreferences("MySharedPref", context.MODE_PRIVATE);
+        userid = sh.getString("userId", "");
 
         holder.spinertext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,9 +219,15 @@ public class SerachAdapter extends RecyclerView.Adapter<SerachAdapter.ViewHolder
 
                 quantity = holder.t2.getText().toString().trim();
 
-                Intent intent = new Intent(context, Product_Description.class);
-                intent.putExtra("product_id", bestSell.getProduct_id());
-                context.startActivity(intent);
+                ProductDescription productDescription = new ProductDescription();
+                Bundle bundle=new Bundle();
+                bundle.putString("product_id", bestSell.getProduct_id());
+                productDescription.setArguments(bundle);
+                FragmentManager fragmentManager = ((FragmentActivity)context).getSupportFragmentManager();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.framLayout,productDescription);
+                ft.addToBackStack(null);
+                ft.commit();
 
             }
         });
@@ -408,7 +428,7 @@ public class SerachAdapter extends RecyclerView.Adapter<SerachAdapter.ViewHolder
 
                         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 
-                        String userId = SharedPrefManager.getInstance(context).getUser().getId();
+                        //String userId = SharedPrefManager.getInstance(context).getUser().getId();
                         CartCountClass cartCountClass = new CartCountClass(context);
                         cartCountClass.getCartCount(userId);
 

@@ -2,6 +2,7 @@ package com.example.taifooapplication.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,6 +12,9 @@ import android.text.style.UnderlineSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -42,6 +46,7 @@ import com.example.taifooapplication.adapter.BestSellingAdapter;
 import com.example.taifooapplication.adapter.ShowItemAdapter;
 import com.example.taifooapplication.adapter.SliderAdpter;
 import com.example.taifooapplication.modelclas.BestSelling_modelClass;
+import com.example.taifooapplication.modelclas.CityModelClass;
 import com.example.taifooapplication.modelclas.ShowImage_ModelClass;
 import com.example.taifooapplication.modelclas.ShowItem_ModelClass;
 import com.example.taifooapplication.modelclas.VariationDetails;
@@ -66,19 +71,21 @@ public class Homepage extends Fragment {
     ShowItemAdapter showItemAdapter;
     GridLayoutManager gridLayoutManager, gridLayoutManager1;
     BestSellingAdapter bestSellingAdapter;
-
-    String userId;
+    String userId,selectCityDet;
     Handler sliderhandler = new Handler();
-
     ArrayList<ShowImage_ModelClass> imageSlider = new ArrayList<>();
     ArrayList<BestSelling_modelClass> bestselling = new ArrayList<>();
     ArrayList<ShowItem_ModelClass> showItem = new ArrayList<>();
     ArrayList<VariationDetails> variationDetails;
-
     int currentPossition = 0;
     int arraysize;
-
     SharedPrefManager sharedPrefManager;
+    AutoCompleteTextView tv_SelectCity;
+
+    ArrayList<CityModelClass> cityModelClasses = new ArrayList<>();
+    ArrayList<String> cityModel_Name = new ArrayList<>();
+    HashMap<String,String> mapCity = new HashMap<>();
+
 
     @SuppressLint("MissingInflatedId")
     @Nullable
@@ -96,6 +103,7 @@ public class Homepage extends Fragment {
         text_name = view.findViewById(R.id.name);
         bestsellingRecycler = view.findViewById(R.id.bestsellingRecycler);
         text_ItemCount = view.findViewById(R.id.text_ItemCount);
+        tv_SelectCity = view.findViewById(R.id.tv_SelectCity);
 
         sharedPrefManager = new SharedPrefManager(getContext());
 
@@ -106,6 +114,12 @@ public class Homepage extends Fragment {
         text_shopByCategory.setText(content + " " + text);
 
         userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
+
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences("MySharedPref", getContext().MODE_PRIVATE);
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+        myEdit.putString("userId", userId);
+        myEdit.apply();
+        myEdit.commit();
 
         getHomePageDetails(userId);
 
@@ -154,6 +168,27 @@ public class Homepage extends Fragment {
 
         getCartCount(userId);
 
+        if (selectCityDet.equals("Select You City")){
+        }else{
+            tv_SelectCity.setText(selectCityDet);
+        }
+
+        tv_SelectCity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                tv_SelectCity.showDropDown();
+            }
+        });
+
+        tv_SelectCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                selectCityDet = tv_SelectCity.getAdapter().getItem(position).toString();
+            }
+        });
+
         return view;
     }
 
@@ -161,7 +196,7 @@ public class Homepage extends Fragment {
     public void getHomePageDetails(String userid) {
 
         ProgressDialog progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Show Your HomePage Details");
+        progressDialog.setMessage("Please Wait we are loading for you");
         progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.getHomePageDetails, new Response.Listener<String>() {
@@ -179,6 +214,7 @@ public class Homepage extends Fragment {
                     String All_banner = jsonObject.getString("All_banner");
                     String All_category = jsonObject.getString("All_category");
                     String Best_sellig = jsonObject.getString("All_products");
+                    String All_city = jsonObject.getString("All_city");
 
                     if (message.equals("true")) {
 
@@ -290,6 +326,31 @@ public class Homepage extends Fragment {
                         bestsellingRecycler.setHasFixedSize(true);
                         bestsellingRecycler.setNestedScrollingEnabled(false);
                         bestsellingRecycler.setAdapter(bestSellingAdapter);
+
+                        JSONArray jsonArray_city = new JSONArray(All_city);
+
+                        for (int i = 0; i < jsonArray_city.length(); i++) {
+
+                            JSONObject jsonObject_city = jsonArray_city.getJSONObject(i);
+
+                            String city_id = jsonObject_city.getString("city_id");
+                            String city_name = jsonObject_city.getString("city_name");
+
+                            CityModelClass cityModelClass = new CityModelClass(city_id,city_name);
+
+                            cityModelClasses.add(cityModelClass);
+                            cityModel_Name.add(city_name);
+                        }
+
+                        ArrayAdapter godownListAdapter = new ArrayAdapter(
+                                getContext(),
+                                android.R.layout.simple_spinner_dropdown_item,
+                                cityModel_Name
+                        );
+
+                        godownListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        tv_SelectCity.setThreshold(1); //will start working from first character
+                        tv_SelectCity.setAdapter(godownListAdapter);
 
                     }
                 } catch (JSONException e) {

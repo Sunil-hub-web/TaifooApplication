@@ -3,15 +3,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerCartPage"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/three_hundred_fifty"
-            android:layout_alignParentTop="true"
-            android:layout_above="@id/amount"
-            android:layout_marginBottom="@dimen/twenty">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerCartPage"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/three_hundred_fifty"
+        android:layout_above="@id/amount"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="@dimen/twenty">
 
-        </androidx.recyclerview.widget.RecyclerView>
+    </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
         android:id="@+id/amountdetails"
@@ -96,11 +96,11 @@
                     android:id="@+id/priceSymbol2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="₹"
                     android:layout_marginRight="@dimen/ten"
+                    android:layout_toRightOf="@+id/shipping_Name"
+                    android:text="₹"
                     android:textColor="@color/some_color1"
                     android:textSize="@dimen/edittextsize"
-                    android:layout_toRightOf="@+id/shipping_Name"
                     android:textStyle="bold" />
 
                 <TextView
@@ -140,18 +140,18 @@
                 android:textStyle="bold" />
 
             <RelativeLayout
+                android:id="@+id/deliveryTotal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:id="@+id/deliveryTotal">
+                android:layout_alignParentRight="true">
 
                 <TextView
                     android:id="@+id/priceSymbol3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="₹"
-                    android:layout_toRightOf="@+id/delivery"
                     android:layout_marginRight="@dimen/ten"
+                    android:layout_toRightOf="@+id/delivery"
+                    android:text="₹"
                     android:textColor="@color/some_color1"
                     android:textSize="@dimen/edittextsize"
                     android:textStyle="bold" />
@@ -161,8 +161,8 @@
                     android:id="@+id/text_deliveryPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
                     android:layout_toRightOf="@+id/priceSymbol3"
+                    android:text="0"
                     android:textColor="@color/some_color1"
                     android:textSize="@dimen/textsize"
                     android:textStyle="bold" />
@@ -177,11 +177,11 @@
         android:id="@+id/totalprice"
         android:layout_width="match_parent"
         android:layout_height="@dimen/fifty"
+        android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/twenty"
         android:layout_marginRight="@dimen/twenty"
-        android:background="#DA291C"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/fifty">
+        android:layout_marginBottom="@dimen/fifty"
+        android:background="#DA291C">
 
         <TextView
             android:id="@+id/text_gotoCheckout"
@@ -231,9 +231,9 @@
         android:id="@+id/cartempty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
         android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical"
         android:visibility="gone">
 
         <ImageView

@@ -110,16 +110,35 @@
                android:layout_marginLeft="@dimen/ten"
                android:layout_marginRight="@dimen/ten"
                android:layout_marginTop="20dp"
-               android:layout_marginBottom="10dp"
                android:padding="10dp"
                android:text="Cancel"
                app:backgroundTint="#DA291C"
                android:textColor="@color/white"
                android:textStyle="bold"
-               android:textSize="15dp"></com.google.android.material.button.MaterialButton>
+               android:textSize="15dp">
+
+           </com.google.android.material.button.MaterialButton>
 
        </LinearLayout>
 
+
+        <!--<com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_Map"
+            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ten"
+            android:layout_marginRight="@dimen/ten"
+            android:layout_marginBottom="10dp"
+            android:padding="10dp"
+            android:text="   Google Map    "
+            android:layout_gravity="center"
+            app:backgroundTint="#DA291C"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:textSize="15dp">
+
+        </com.google.android.material.button.MaterialButton>-->
 
     </LinearLayout>
 
