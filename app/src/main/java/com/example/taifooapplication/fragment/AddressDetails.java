@@ -63,8 +63,8 @@ public class AddressDetails extends Fragment {
     ArrayList<PinCode_ModelClass> arrayListPincode = new ArrayList<PinCode_ModelClass>();
     Spinner spinner_City,spinner_Pincode,spinner_State;
     Button btn_addAddress;
-    String str_Name,str_Email,str_MobileNo,str_City,str_Area,str_Address,
-            str_PinCode,userId,city_Id,city_Name,pincode,pincode_id,state_Id,state_Name,
+    String str_Name,str_Email,str_MobileNo,str_City = "",str_Area,str_Address,
+            str_PinCode = "",userId,city_Id = "",city_Name,pincode = "",pincode_id,state_Id,state_Name,
             Name,Email,MobileNo,City,Area,Address,PinCode,addressId,city_id,state_id,state_name;
 
     ArrayList<ViewAddressDetails_ModelClass> addressDetails = new ArrayList<>();
@@ -165,11 +165,11 @@ public class AddressDetails extends Fragment {
 
                 }else if (str_City.equals("")) {
 
-                    edit_Address.setError("Please Select Your City");
+                    Toast.makeText(getActivity(), "Please Select Your City", Toast.LENGTH_SHORT).show();
 
                 }else if (str_PinCode.equals("")) {
 
-                    edit_Address.setError("Please Select Your Pincode");
+                    Toast.makeText(getActivity(), "Please Select Your Pincode", Toast.LENGTH_SHORT).show();
 
                 }else{
 

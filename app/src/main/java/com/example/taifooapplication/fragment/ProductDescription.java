@@ -64,7 +64,7 @@ public class ProductDescription extends Fragment {
             quantity,cartCount,Description,product_id;
     LinearLayout linearLayout;
     int count_value;
-    Button btn_addToCart,backOption;
+    Button btn_addToCart,backOption,btn_bynow;
     ArrayList<VariationDetails> variationDetails;
     ArrayList<VariationDetails> variations;
     Dialog dialogMenu;
@@ -96,6 +96,7 @@ public class ProductDescription extends Fragment {
         spinertext = view.findViewById(R.id.spinertext);
         priceRel = view.findViewById(R.id.priceRel);
         backOption = view.findViewById(R.id.backOption);
+        btn_bynow = view.findViewById(R.id.btn_bynow);
     //    img_Cart = view.findViewById(R.id.img_Cart);
 
         linearLayout = view.findViewById(R.id.inc);
@@ -124,6 +125,24 @@ public class ProductDescription extends Fragment {
             getCartCount(userId);
 
         }
+
+        btn_bynow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Fragment fragment = new CartPage();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.framLayout, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
+                HomePageActivity.search.setVisibility(View.GONE);
+
+                HomePageActivity.text_name.setTextSize(18);
+                HomePageActivity.text_name.setText("My Cart");
+            }
+        });
 
         t3.setOnClickListener(new View.OnClickListener() {
             @Override

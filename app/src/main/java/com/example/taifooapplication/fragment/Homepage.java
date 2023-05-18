@@ -2,6 +2,7 @@ package com.example.taifooapplication.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -71,7 +72,7 @@ public class Homepage extends Fragment {
     ShowItemAdapter showItemAdapter;
     GridLayoutManager gridLayoutManager, gridLayoutManager1;
     BestSellingAdapter bestSellingAdapter;
-    String userId,selectCityDet;
+    String userId,selectCityDet = "";
     Handler sliderhandler = new Handler();
     ArrayList<ShowImage_ModelClass> imageSlider = new ArrayList<>();
     ArrayList<BestSelling_modelClass> bestselling = new ArrayList<>();
@@ -85,6 +86,9 @@ public class Homepage extends Fragment {
     ArrayList<CityModelClass> cityModelClasses = new ArrayList<>();
     ArrayList<String> cityModel_Name = new ArrayList<>();
     HashMap<String,String> mapCity = new HashMap<>();
+
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "mypref";
 
 
     @SuppressLint("MissingInflatedId")
@@ -106,6 +110,8 @@ public class Homepage extends Fragment {
         tv_SelectCity = view.findViewById(R.id.tv_SelectCity);
 
         sharedPrefManager = new SharedPrefManager(getContext());
+
+        sharedpreferences = getContext().getSharedPreferences(mypreference,Context.MODE_PRIVATE);
 
         String mystring = new String("Shop");
         String text = "by Category";
@@ -168,9 +174,16 @@ public class Homepage extends Fragment {
 
         getCartCount(userId);
 
-        if (selectCityDet.equals("Select You City")){
+        selectCityDet = sharedpreferences.getString("selectcity","null");
+
+        if (selectCityDet.equals("null")){
         }else{
-            tv_SelectCity.setText(selectCityDet);
+            if (selectCityDet.equals("Select You City")){
+
+            }else{
+                tv_SelectCity.setText(selectCityDet);
+            }
+
         }
 
         tv_SelectCity.setOnClickListener(new View.OnClickListener() {
@@ -186,6 +199,11 @@ public class Homepage extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 selectCityDet = tv_SelectCity.getAdapter().getItem(position).toString();
+
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("selectcity", selectCityDet);
+                editor.commit();
+
             }
         });
 

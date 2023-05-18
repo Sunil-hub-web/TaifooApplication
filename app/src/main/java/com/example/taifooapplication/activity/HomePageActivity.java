@@ -54,6 +54,7 @@ import com.example.taifooapplication.fragment.CartPage;
 import com.example.taifooapplication.fragment.CategoryPage;
 import com.example.taifooapplication.fragment.ContactSupport;
 import com.example.taifooapplication.fragment.Homepage;
+import com.example.taifooapplication.fragment.More_Fragment;
 import com.example.taifooapplication.fragment.MyOrder;
 import com.example.taifooapplication.fragment.PersonalInformation;
 import com.example.taifooapplication.fragment.SerachFoodPage;
@@ -117,7 +118,10 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
         getSupportFragmentManager().beginTransaction().replace(R.id.framLayout,new Homepage(),"HomeFragment").commit();
         //test = (Homepage) getSupportFragmentManager().findFragmentByTag("HomeFragment");
+
+
 /*
+
 
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -170,6 +174,9 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         nav_Home = header.findViewById(R.id.nav_Home);
         nav_Categogry = header.findViewById(R.id.nav_Categogry);
 
+
+        text_name.setTextSize(15);
+        text_name.setText("Home Page");
 
         nav_MyOrder.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -267,7 +274,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 text_name.setTextSize(18);
                 text_name.setText("My Cart");
 
-                bottomNavigation.setSelectedItemId(R.id.cart);
+               // bottomNavigation.setSelectedItemId(R.id.cart);
 
 
             }
@@ -433,14 +440,14 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
                         break;
 
-                    case R.id.cart:
+                    case R.id.more:
 
-                        selectedFragment = new CartPage();
+                        selectedFragment = new More_Fragment();
                         //loc.setVisibility(View.GONE);
                         //logo.setVisibility(View.GONE);
                         search.setVisibility(View.GONE);
                         text_name.setTextSize(18);
-                        text_name.setText("My Cart");
+                        text_name.setText("More");
                         //text_address.setVisibility(View.GONE);
 
                         getSupportFragmentManager().beginTransaction().replace(R.id.framLayout,selectedFragment).commit();
