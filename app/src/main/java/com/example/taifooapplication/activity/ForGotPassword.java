@@ -69,7 +69,8 @@ public class ForGotPassword extends AppCompatActivity {
 
                 if(TextUtils.isEmpty(edit_Emailid.getText())){
 
-                    edit_Emailid.setText("Fill The Details");
+                    edit_Emailid.setError("Fill The Details");
+                    edit_Emailid.requestFocus();
 
                 }else if(!isValidEmail(edit_Emailid.getText().toString().trim())){
 

@@ -38,29 +38,90 @@
             android:hint="email id"
             android:layout_margin="@dimen/ten"></EditText>
 
-        <Spinner
-            android:id="@+id/spinner_State"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_margin="@dimen/ten"
-            android:spinnerMode="dropdown"
-            android:background="@drawable/textfieldback" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
+            <Spinner
+                android:id="@+id/spinner_State"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginStart="@dimen/ten"
+                android:layout_marginLeft="@dimen/ten"
+                android:layout_marginTop="@dimen/ten"
+                android:layout_marginEnd="@dimen/ten"
+                android:layout_marginRight="@dimen/ten"
+                android:layout_marginBottom="@dimen/ten"
+                android:background="@drawable/textfieldback"
+                android:spinnerMode="dialog" />
+            <LinearLayout
+                android:id="@+id/ll_hint_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center">
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Select State..."/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <Spinner
                 android:id="@+id/spinner_City"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_margin="@dimen/ten"
-                android:spinnerMode="dropdown"
+                android:spinnerMode="dialog"
                 android:background="@drawable/textfieldback"></Spinner>
+            <LinearLayout
+                android:id="@+id/ll_hint_spinner1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center">
+                <TextView
 
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Select City..."/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             <Spinner
                 android:id="@+id/spinner_Pincode"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/forty_five"
                 android:layout_margin="@dimen/ten"
-                android:spinnerMode="dropdown"
+                android:spinnerMode="dialog"
                 android:background="@drawable/textfieldback"></Spinner>
+            <LinearLayout
+                android:id="@+id/ll_hint_spinner2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center">
+                <TextView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Select Pincode..."/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
 
         <EditText
             android:id="@+id/edit_Ares"

@@ -531,7 +531,7 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
 
                     //String message = jsonObject.getString("success");
                     String cart_count = jsonObject.getString("cart_count");
-                    HomePageActivity.text_ItemCount.setText(cart_count);
+                   // HomePageActivity.text_ItemCount.setText(cart_count);
 
                     String userId = SharedPrefManager.getInstance(context).getUser().getId();
                     CartCountClass cartCountClass = new CartCountClass(context);

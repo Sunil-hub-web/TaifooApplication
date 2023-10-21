@@ -39,8 +39,7 @@
             android:layout_marginTop="5dp"
             android:onClick="Serachpage"
             android:layout_marginRight="10dp"
-            android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/img_Cart">
+            android:layout_alignParentRight="true">
 
         </ImageView>
 
@@ -64,16 +63,6 @@
             android:layout_centerVertical="true"
             android:id="@+id/rle_click">
 
-           <!-- <ImageView
-                android:id="@+id/loc"
-                android:layout_width="@dimen/thirty"
-                android:layout_height="@dimen/thirty"
-                android:src="@drawable/place"
-                android:onClick="Serachpage"
-                android:layout_marginRight="@dimen/ten"
-                android:layout_centerVertical="true">
-
-            </ImageView>-->
 
             <TextView
                 android:id="@+id/text_addressName"
@@ -81,28 +70,35 @@
                 android:layout_height="wrap_content"
                 android:textColor="#22647E"
                 android:textSize="@dimen/textsize"
-                android:text="Home"
-                android:layout_toRightOf="@id/loc"
                 android:textStyle="bold"
-                android:layout_marginTop="@dimen/ten"></TextView>
+                android:layout_marginTop="@dimen/ten"
+                android:visibility="gone"></TextView>
 
-          <!--  <TextView
+            <ImageView
+                android:id="@+id/loc"
+                android:layout_width="@dimen/twenty"
+                android:layout_height="@dimen/twenty"
+                android:src="@drawable/place"
+                android:onClick="Serachpage"
+                android:layout_marginRight="@dimen/ten"
+                android:layout_centerVertical="true">
+
+            </ImageView>
+
+            <TextView
                 android:id="@+id/text_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#22647E"
                 android:textSize="@dimen/textsize"
-                android:text="Home"
                 android:layout_toRightOf="@id/loc"
-                android:layout_below="@+id/text_addressName"
-                android:textStyle="bold"
-                android:drawableRight="@drawable/arrow_drop_down"></TextView>
--->
+                android:textStyle="bold"></TextView>
+
         </RelativeLayout>
 
 
 
-        <ImageView
+       <!-- <ImageView
             android:id="@+id/img_Cart"
             android:layout_width="@dimen/twenty_five"
             android:layout_height="@dimen/twenty_five"
@@ -111,9 +107,9 @@
             android:layout_marginRight="40dp"
             android:layout_marginTop="@dimen/twenty">
 
-        </ImageView>
+        </ImageView>-->
 
-        <TextView
+       <!-- <TextView
             android:id="@+id/text_ItemCount"
             android:layout_width="@dimen/thirty"
             android:layout_height="@dimen/thirty"
@@ -124,7 +120,7 @@
             android:gravity="center"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/ten"
-            android:background="@drawable/textcountshape"/>
+            android:background="@drawable/textcountshape"/>-->
 
 
     </RelativeLayout>

@@ -43,7 +43,6 @@ public class More_Fragment extends Fragment {
                 fragmentTransaction.commit();
 
                 HomePageActivity.search.setVisibility(View.GONE);
-
                 HomePageActivity.text_name.setTextSize(18);
                 HomePageActivity.text_name.setText("About As");
             }

@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,6 +35,7 @@ import com.example.taifooapplication.activity.HomePageActivity;
 import com.example.taifooapplication.adapter.ProductCateGoryAdapter;
 import com.example.taifooapplication.modelclas.Category_ModelClass;
 import com.example.taifooapplication.modelclas.VariationDetails;
+import com.google.android.material.badge.BadgeDrawable;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -252,6 +254,11 @@ public class ActivityCategory extends Fragment {
                         String count = jsonObject.getString("count");
                         sharedPrefManager.cartCount(count);
                         //text_ItemCount.setText(count);
+                        int int_total_cart = Integer.parseInt(count);
+
+                        BadgeDrawable badge = HomePageActivity.bottomNavigation.getOrCreateBadge(R.id.cart);//R.id.action_add is menu id
+                        badge.setNumber(int_total_cart);
+                        badge.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.some_color));
 
                     }
                 } catch (JSONException e) {

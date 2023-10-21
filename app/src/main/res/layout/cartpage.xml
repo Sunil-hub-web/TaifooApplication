@@ -6,10 +6,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerCartPage"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/three_hundred_fifty"
-        android:layout_above="@id/amount"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="@dimen/twenty">
+        android:layout_marginBottom="@dimen/ten"
+        android:layout_above="@+id/amountdetails">
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -48,7 +48,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/ten"
-                    android:layout_toRightOf="@+id/subTotal"
                     android:text="₹"
                     android:textColor="@color/some_color1"
                     android:textSize="@dimen/edittextsize"
@@ -97,7 +96,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/ten"
-                    android:layout_toRightOf="@+id/shipping_Name"
                     android:text="₹"
                     android:textColor="@color/some_color1"
                     android:textSize="@dimen/edittextsize"
@@ -150,7 +148,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/ten"
-                    android:layout_toRightOf="@+id/delivery"
                     android:text="₹"
                     android:textColor="@color/some_color1"
                     android:textSize="@dimen/edittextsize"

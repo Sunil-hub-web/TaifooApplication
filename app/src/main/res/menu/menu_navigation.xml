@@ -11,10 +11,10 @@
         android:title="@string/myAccount"
         android:icon="@drawable/account"/>
 
-   <!-- <item
+    <item
         android:id="@+id/cart"
         android:title="@string/cart"
-        android:icon="@drawable/addcart"/>-->
+        android:icon="@drawable/addcart"/>
 
     <item
         android:id="@+id/more"

@@ -62,6 +62,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
@@ -82,24 +83,23 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     DrawerLayout drawerLayout;
     NavigationView navigationView;
 
-    BottomNavigationView bottomNavigation;
+    public static BottomNavigationView bottomNavigation;
 
-    public static TextView nav_MyOrder,text_name,nav_Profile,nav_MyAddress,nav_Home,
-            nav_Logout,nav_Name,nav_MobileNo,text_ItemCount,nav_ContactUs,
-            text_addressName,nav_Categogry;
+    public static TextView nav_MyOrder, nav_Profile, nav_MyAddress, nav_Home, nav_Logout, nav_Name, nav_MobileNo, nav_ContactUs,
+            text_address, nav_Categogry, text_name;
 
-    public static ImageView search,img_Cart,image_search,menu;
-
-    CircleImageView profile_image;
+    public static ImageView search, image_search, menu, loc;
+     CircleImageView profile_image;
 
     private int FINE_LOCATION_ACCESS_REQUEST_CODE = 10001;
     LocationManager locationManager;
     FusedLocationProviderClient fusedLocationProviderClient;
-    Double latitude,longitude;
-    String name,mobileNo,image,userid,addressDetails;
+    Double latitude, longitude;
+    String name, mobileNo, image, userid, addressDetails;
     private Boolean exit = false;
     public static FragmentManager fragmentManager;
     RelativeLayout rle_click;
+    SharedPrefManager sharedPrefManager;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -113,52 +113,50 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.setStatusBarColor(ContextCompat.getColor(HomePageActivity.this, R.color.white));*/
 
+        sharedPrefManager = new SharedPrefManager(HomePageActivity.this);
         userid = SharedPrefManager.getInstance(HomePageActivity.this).getUser().getId();
         getProfileDetails(userid);
+        getCartCount(userid);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.framLayout,new Homepage(),"HomeFragment").commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.framLayout, new Homepage(), "HomeFragment").commit();
         //test = (Homepage) getSupportFragmentManager().findFragmentByTag("HomeFragment");
 
 
-/*
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        enableUserLocation();
 
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            //Write Function To enable gps
+            locationPermission();
 
-            fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-            if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-                //Write Function To enable gps
-                locationPermission();
-
-            } else {
-                //GPS is already On then
-                getLocation();
-            }
-*/
+        } else {
+            //GPS is already On then
+            getLocation();
+        }
 
 
         drawerLayout = findViewById(R.id.drawer);
         navigationView = findViewById(R.id.navigationview);
 
         bottomNavigation = findViewById(R.id.bottomNavigation);
-        //loc = findViewById(R.id.loc);
+        loc = findViewById(R.id.loc);
         //logo = findViewById(R.id.logo);
         search = findViewById(R.id.image_search);
-        img_Cart = findViewById(R.id.img_Cart);
+        // img_Cart = findViewById(R.id.img_Cart);
         image_search = findViewById(R.id.image_search);
         menu = findViewById(R.id.menu);
-        text_ItemCount = findViewById(R.id.text_ItemCount);
-        //text_address = findViewById(R.id.text_address);
+        // text_ItemCount = findViewById(R.id.text_ItemCount);
+        text_address = findViewById(R.id.text_address);
         rle_click = findViewById(R.id.rle_click);
         text_name = findViewById(R.id.text_addressName);
 
 
-        //loc.setVisibility(View.VISIBLE);
-        //text_address.setVisibility(View.VISIBLE);
+        loc.setVisibility(View.VISIBLE);
+        text_address.setVisibility(View.VISIBLE);
         //logo.setVisibility(View.VISIBLE);
         search.setVisibility(View.VISIBLE);
-        //text_name.setVisibility(View.VISIBLE);
+        text_name.setVisibility(View.GONE);
 
 
         navigationView.setNavigationItemSelectedListener(this);
@@ -183,9 +181,9 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             public void onClick(View v) {
 
                 drawerLayout.closeDrawer(GravityCompat.START);
-                //loc.setVisibility(View.GONE);
-                //text_address.setVisibility(View.GONE);
-                //logo.setVisibility(View.GONE);
+                loc.setVisibility(View.GONE);
+                text_address.setVisibility(View.GONE);
+                text_name.setVisibility(View.VISIBLE);
                 search.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 MyOrder myOrder = new MyOrder();
@@ -201,8 +199,9 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             public void onClick(View v) {
 
                 drawerLayout.closeDrawer(GravityCompat.START);
-                //loc.setVisibility(View.GONE);
-                //text_address.setVisibility(View.GONE);
+                loc.setVisibility(View.GONE);
+                text_address.setVisibility(View.GONE);
+                text_name.setVisibility(View.VISIBLE);
                 search.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 PersonalInformation personalInformation = new PersonalInformation();
@@ -243,14 +242,15 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 }*/
 
                 drawerLayout.closeDrawer(GravityCompat.START);
-                //loc.setVisibility(View.VISIBLE);
-                //logo.setVisibility(View.VISIBLE);
+                loc.setVisibility(View.VISIBLE);
+                text_address.setVisibility(View.VISIBLE);
+                text_name.setVisibility(View.GONE);
                 search.setVisibility(View.VISIBLE);
                 //text_address.setVisibility(View.VISIBLE);
-                text_name.setVisibility(View.VISIBLE);
+                text_name.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 Homepage homepage = new Homepage();
-                ft.replace(R.id.framLayout, homepage,"HomeFragment");
+                ft.replace(R.id.framLayout, homepage, "HomeFragment");
                 ft.commit();
                 text_name.setTextSize(15);
                 text_name.setText("Home Page");
@@ -258,7 +258,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             }
         });
 
-        img_Cart.setOnClickListener(new View.OnClickListener() {
+       /* img_Cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -278,16 +278,16 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
 
             }
-        });
+        });*/
 
         image_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 drawerLayout.closeDrawer(GravityCompat.START);
-                //loc.setVisibility(View.GONE);
-                //text_address.setVisibility(View.GONE);
-                //logo.setVisibility(View.GONE);
+                loc.setVisibility(View.GONE);
+                text_address.setVisibility(View.GONE);
+                text_name.setVisibility(View.VISIBLE);
                 search.setVisibility(View.GONE);
                 menu.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -305,9 +305,10 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             public void onClick(View v) {
 
                 drawerLayout.closeDrawer(GravityCompat.START);
-                //loc.setVisibility(View.GONE);
-                //text_address.setVisibility(View.GONE);
-                //logo.setVisibility(View.GONE);
+                loc.setVisibility(View.GONE);
+                text_address.setVisibility(View.GONE);
+                text_name.setVisibility(View.VISIBLE);
+                search.setVisibility(View.GONE);
                 search.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 AddressDetails addressDetails = new AddressDetails();
@@ -332,20 +333,19 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         });
 
 
-
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
 
-                //loc.setVisibility(View.GONE);
+                loc.setVisibility(View.GONE);
                 //logo.setVisibility(View.VISIBLE);
                 search.setVisibility(View.GONE);
-                //text_address.setVisibility(View.GONE);
+                text_address.setVisibility(View.GONE);
                 text_name.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 SerachFoodPage serachFoodPage = new SerachFoodPage();
-                ft.replace(R.id.framLayout, serachFoodPage,"serachFoodPage");
+                ft.replace(R.id.framLayout, serachFoodPage, "serachFoodPage");
                 ft.commit();
                 text_name.setTextSize(15);
                 text_name.setText(addressDetails);
@@ -358,9 +358,9 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             public void onClick(View v) {
 
                 drawerLayout.closeDrawer(GravityCompat.START);
-                //loc.setVisibility(View.GONE);
-                //text_address.setVisibility(View.GONE);
-                //logo.setVisibility(View.GONE);
+                loc.setVisibility(View.GONE);
+                text_address.setVisibility(View.GONE);
+                text_name.setVisibility(View.VISIBLE);
                 search.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 ContactSupport contactSupport = new ContactSupport();
@@ -376,9 +376,9 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             public void onClick(View v) {
 
                 drawerLayout.closeDrawer(GravityCompat.START);
-                //loc.setVisibility(View.GONE);
-                //text_address.setVisibility(View.GONE);
-                //logo.setVisibility(View.GONE);
+                loc.setVisibility(View.GONE);
+                text_address.setVisibility(View.GONE);
+                text_name.setVisibility(View.VISIBLE);
                 search.setVisibility(View.GONE);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 CategoryPage categoryPage = new CategoryPage();
@@ -404,59 +404,75 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull  MenuItem item) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 Fragment selectedFragment = null;
 
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
 
                     case R.id.myAccount:
 
                         selectedFragment = new PersonalInformation();
 
-                        //loc.setVisibility(View.GONE);
-                        //logo.setVisibility(View.GONE);
+                        loc.setVisibility(View.GONE);
+                        text_address.setVisibility(View.GONE);
+                        text_name.setVisibility(View.VISIBLE);
                         search.setVisibility(View.GONE);
                         text_name.setTextSize(18);
                         text_name.setText("PersonalInformation");
                         //text_address.setVisibility(View.GONE);
 
-                        getSupportFragmentManager().beginTransaction().replace(R.id.framLayout,selectedFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.framLayout, selectedFragment).commit();
 
                         break;
 
                     case R.id.home:
 
                         selectedFragment = new Homepage();
-                        //loc.setVisibility(View.VISIBLE);
-                        text_name.setVisibility(View.VISIBLE);
-                        //text_address.setVisibility(View.VISIBLE);
-                        //logo.setVisibility(View.VISIBLE);
+                        loc.setVisibility(View.VISIBLE);
+                        text_address.setVisibility(View.VISIBLE);
+                        text_name.setVisibility(View.GONE);
                         search.setVisibility(View.VISIBLE);
+                        //text_address.setVisibility(View.VISIBLE);
+                        text_name.setVisibility(View.GONE);
                         text_name.setTextSize(15);
                         text_name.setText(addressDetails);
 
-                        getSupportFragmentManager().beginTransaction().replace(R.id.framLayout,selectedFragment,"HomeFragment").commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.framLayout, selectedFragment, "HomeFragment").commit();
 
                         break;
 
                     case R.id.more:
 
                         selectedFragment = new More_Fragment();
-                        //loc.setVisibility(View.GONE);
-                        //logo.setVisibility(View.GONE);
+                        loc.setVisibility(View.GONE);
+                        text_address.setVisibility(View.GONE);
+                        text_name.setVisibility(View.VISIBLE);
                         search.setVisibility(View.GONE);
                         text_name.setTextSize(18);
                         text_name.setText("More");
-                        //text_address.setVisibility(View.GONE);
+                        text_address.setVisibility(View.GONE);
 
-                        getSupportFragmentManager().beginTransaction().replace(R.id.framLayout,selectedFragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.framLayout, selectedFragment).commit();
 
                         break;
 
-                    /*case R.id.wishlist:
+                    case R.id.cart:
 
-                        return true;*/
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        loc.setVisibility(View.GONE);
+                        text_address.setVisibility(View.GONE);
+                        text_name.setVisibility(View.VISIBLE);
+                        search.setVisibility(View.GONE);
+                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                        CartPage cartPage = new CartPage();
+                        ft.replace(R.id.framLayout, cartPage);
+                        ft.commit();
+                        text_name.setTextSize(18);
+                        text_name.setText("My Cart");
+
+                        break;
+
 
                 }
                 //getSupportFragmentManager().beginTransaction().replace(R.id.framLayout,selectedFragment).commit();
@@ -507,19 +523,20 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
     }
 
-    public void Clickmenu(View view){
+    public void Clickmenu(View view) {
 
         // open drawer
         openDrawer(drawerLayout);
     }
 
-    private static void openDrawer(DrawerLayout drawerLayout){
+    private static void openDrawer(DrawerLayout drawerLayout) {
 
         // opendrawer layout
         drawerLayout.openDrawer(GravityCompat.START);
     }
+
     @Override
-    public boolean onNavigationItemSelected(@NonNull  MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
@@ -547,46 +564,52 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
     private void getLocation() {
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
-            @Override
-            public void onComplete(@NonNull Task<Location> task) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // reuqest for permission
 
-                //initialize location
-                Location location = task.getResult();
+            enableUserLocation();
 
-                if (location != null) {
+        } else {
 
-                    try {
-                        //initialize geocoder
-                        Geocoder geocoder = new Geocoder(HomePageActivity.this, Locale.getDefault());
+            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
 
-                        //initialize AddressList
-                        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+                    //initialize location
+                    Location location = task.getResult();
 
-                        //set Latitude On Text View
-                        latitude = addresses.get(0).getLatitude();
+                    if (location != null) {
 
-                        //set Longitude On Text View
-                        longitude = addresses.get(0).getLongitude();
+                        try {
+                            //initialize geocoder
+                            Geocoder geocoder = new Geocoder(HomePageActivity.this, Locale.getDefault());
 
-                        addressDetails = addresses.get(0).getAdminArea();
+                            //initialize AddressList
+                            List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 
-                        //set address On Text View
-                        //text_address.setText(addresses.get(0).getSubLocality()+","+addresses.get(0).getLocality());
-                        text_name.setText(addresses.get(0).getAdminArea());
+                            //set Latitude On Text View
+                            latitude = addresses.get(0).getLatitude();
+
+                            //set Longitude On Text View
+                            longitude = addresses.get(0).getLongitude();
+
+                            addressDetails = addresses.get(0).getAdminArea();
+
+                            //set address On Text View
+                            text_address.setText(addresses.get(0).getAddressLine(0));
+                            //text_addressName.setText(addresses.get(0).getAdminArea());
 
 
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
 
-            }
-        });
+                }
+            });
+        }
+
 
     }
 
@@ -618,7 +641,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                         (this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
-               // mMap.setMyLocationEnabled(true);
+                // mMap.setMyLocationEnabled(true);
             } else {
                 //We do not have the permission..
             }
@@ -626,11 +649,13 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
     }
 
 
-   /* @Override
+    @Override
     protected void onStart() {
         super.onStart();
 
-        if(test != null && test.isVisible()){
+        Homepage test = (Homepage) getSupportFragmentManager().findFragmentByTag("HomeFragment");
+
+        if (test != null && test.isVisible()) {
 
             fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -650,7 +675,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             getLocation();
         }
 
-    }*/
+    }
 
     public void getProfileDetails(String userId) {
 
@@ -668,7 +693,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
                     JSONObject jsonObject = new JSONObject(response);
                     String message = jsonObject.getString("success");
-                   // String msg = jsonObject.getString("msg");
+                    // String msg = jsonObject.getString("msg");
                     String img = jsonObject.getString("img");
 
 
@@ -717,9 +742,9 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                         }
 */
 
-                    }else{
+                    } else {
 
-                         String msg = jsonObject.getString("msg");
+                        String msg = jsonObject.getString("msg");
 
                         Toast.makeText(HomePageActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
@@ -802,16 +827,62 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                     }
                 }, 4 * 1000);
             }
-        }
-        else {
+        } else {
 
             text_name.setText("Home Page");
            /* HomePageActivity.fragmentManager.beginTransaction()
                     .replace(R.id.framLayout,new Homepage(),"HomeFragment").addToBackStack(null).commit();*/
 
-            getSupportFragmentManager().beginTransaction().replace(R.id.framLayout,new Homepage(),"HomeFragment").commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.framLayout, new Homepage(), "HomeFragment").commit();
 
         }
+    }
+
+    public void getCartCount(String userId) {
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.cartCount, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String msg = jsonObject.getString("msg");
+                    if (msg.equals("success")) {
+
+                        String count = jsonObject.getString("count");
+                        sharedPrefManager.cartCount(count);
+                        //HomePageActivity.text_ItemCount.setText(count);
+
+                        int int_total_cart = Integer.parseInt(count);
+
+                        BadgeDrawable badge = bottomNavigation.getOrCreateBadge(R.id.cart);//R.id.action_add is menu id
+                        badge.setNumber(int_total_cart);
+                        badge.setBackgroundColor(ContextCompat.getColor(HomePageActivity.this, R.color.some_color));
+
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<>();
+                params.put("user_id", userId);
+                return params;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(HomePageActivity.this);
+        requestQueue.getCache().clear();
+        requestQueue.add(stringRequest);
     }
 
 }

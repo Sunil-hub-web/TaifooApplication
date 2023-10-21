@@ -2,6 +2,8 @@ package com.example.taifooapplication.fragment;
 
 import android.content.Context;
 
+import androidx.core.content.ContextCompat;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -11,8 +13,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.taifooapplication.AppURL;
+import com.example.taifooapplication.R;
 import com.example.taifooapplication.SharedPrefManager;
 import com.example.taifooapplication.activity.HomePageActivity;
+import com.google.android.material.badge.BadgeDrawable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -44,7 +48,13 @@ public class CartCountClass {
 
                         String count = jsonObject.getString("count");
                         //sharedPrefManager.cartCount(count);
-                        HomePageActivity.text_ItemCount.setText(count);
+                       // HomePageActivity.text_ItemCount.setText(count);
+
+                        int int_total_cart = Integer.parseInt(count);
+
+                        BadgeDrawable badge = HomePageActivity.bottomNavigation.getOrCreateBadge(R.id.cart);//R.id.action_add is menu id
+                        badge.setNumber(int_total_cart);
+                        badge.setBackgroundColor(ContextCompat.getColor(context,R.color.some_color));
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);

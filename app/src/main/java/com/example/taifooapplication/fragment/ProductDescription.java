@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -43,6 +44,7 @@ import com.example.taifooapplication.SharedPrefManager;
 import com.example.taifooapplication.activity.HomePageActivity;
 import com.example.taifooapplication.adapter.VariationAdapterforProductlist;
 import com.example.taifooapplication.modelclas.VariationDetails;
+import com.google.android.material.badge.BadgeDrawable;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -459,7 +461,7 @@ public class ProductDescription extends Fragment {
 
                     //String message = jsonObject.getString("success");
                     String cart_count = jsonObject.getString("cart_count");
-                    HomePageActivity.text_ItemCount.setText(cart_count);
+                 //   HomePageActivity.text_ItemCount.setText(cart_count);
 
                     String userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
                     CartCountClass cartCountClass = new CartCountClass(getContext());
@@ -582,7 +584,7 @@ public class ProductDescription extends Fragment {
                             totalPrice1.setText(ss);
                             priceSymbol1.setText(ss1);
                             //textUnit.setText(text_Unit);
-                            //HomePageActivity.text_name.setText(productName);
+                            HomePageActivity.text_name.setText(productName);
                             productname.setText(productName);
                             totalPrice.setText(productprice);
                             Description_text.setText(Description);
@@ -606,7 +608,7 @@ public class ProductDescription extends Fragment {
                             totalPrice1.setText(ss);
                             priceSymbol1.setText(ss1);
                             //textUnit.setText(text_Unit);
-                            //HomePageActivity.text_name.setText(productName);
+                            HomePageActivity.text_name.setText(productName);
                             productname.setText(productName);
                             totalPrice.setText(productprice);
                             Description_text.setText(Description);
@@ -657,6 +659,12 @@ public class ProductDescription extends Fragment {
                         String count = jsonObject.getString("count");
                         sharedPrefManager.cartCount(count);
                         //text_ItemCount.setText(count);
+
+                        int int_total_cart = Integer.parseInt(count);
+
+                        BadgeDrawable badge = HomePageActivity.bottomNavigation.getOrCreateBadge(R.id.cart);//R.id.action_add is menu id
+                        badge.setNumber(int_total_cart);
+                        badge.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.some_color));
 
                     }
                 } catch (JSONException e) {

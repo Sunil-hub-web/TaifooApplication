@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -51,6 +52,7 @@ import com.example.taifooapplication.modelclas.CityModelClass;
 import com.example.taifooapplication.modelclas.ShowImage_ModelClass;
 import com.example.taifooapplication.modelclas.ShowItem_ModelClass;
 import com.example.taifooapplication.modelclas.VariationDetails;
+import com.google.android.material.badge.BadgeDrawable;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,7 +64,7 @@ import java.util.Map;
 
 public class Homepage extends Fragment {
 
-    TextView text_name, text_shopByCategory, text_ItemCount;
+    TextView text_shopByCategory,text_name;
     ImageView image_search;
     SliderAdpter sliderAdpter;
     ViewPager2 sliderViewPager2;
@@ -81,7 +83,7 @@ public class Homepage extends Fragment {
     int currentPossition = 0;
     int arraysize;
     SharedPrefManager sharedPrefManager;
-    AutoCompleteTextView tv_SelectCity;
+   // AutoCompleteTextView tv_SelectCity;
 
     ArrayList<CityModelClass> cityModelClasses = new ArrayList<>();
     ArrayList<String> cityModel_Name = new ArrayList<>();
@@ -106,8 +108,8 @@ public class Homepage extends Fragment {
         text_shopByCategory = view.findViewById(R.id.shopByCategory);
         text_name = view.findViewById(R.id.name);
         bestsellingRecycler = view.findViewById(R.id.bestsellingRecycler);
-        text_ItemCount = view.findViewById(R.id.text_ItemCount);
-        tv_SelectCity = view.findViewById(R.id.tv_SelectCity);
+       // text_ItemCount = view.findViewById(R.id.text_ItemCount);
+        //tv_SelectCity = view.findViewById(R.id.tv_SelectCity);
 
         sharedPrefManager = new SharedPrefManager(getContext());
 
@@ -176,7 +178,7 @@ public class Homepage extends Fragment {
 
         selectCityDet = sharedpreferences.getString("selectcity","null");
 
-        if (selectCityDet.equals("null")){
+       /* if (selectCityDet.equals("null")){
         }else{
             if (selectCityDet.equals("Select You City")){
 
@@ -184,17 +186,17 @@ public class Homepage extends Fragment {
                 tv_SelectCity.setText(selectCityDet);
             }
 
-        }
+        }*/
 
-        tv_SelectCity.setOnClickListener(new View.OnClickListener() {
+       /* tv_SelectCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 tv_SelectCity.showDropDown();
             }
-        });
+        });*/
 
-        tv_SelectCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*tv_SelectCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -205,7 +207,7 @@ public class Homepage extends Fragment {
                 editor.commit();
 
             }
-        });
+        });*/
 
         return view;
     }
@@ -367,8 +369,8 @@ public class Homepage extends Fragment {
                         );
 
                         godownListAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        tv_SelectCity.setThreshold(1); //will start working from first character
-                        tv_SelectCity.setAdapter(godownListAdapter);
+                        // tv_SelectCity.setThreshold(1); //will start working from first character
+                      //  tv_SelectCity.setAdapter(godownListAdapter);
 
                     }
                 } catch (JSONException e) {
@@ -452,7 +454,13 @@ public class Homepage extends Fragment {
 
                         String count = jsonObject.getString("count");
                         sharedPrefManager.cartCount(count);
-                        HomePageActivity.text_ItemCount.setText(count);
+                        //HomePageActivity.text_ItemCount.setText(count);
+
+                        int int_total_cart = Integer.parseInt(count);
+
+                        BadgeDrawable badge = HomePageActivity.bottomNavigation.getOrCreateBadge(R.id.cart);//R.id.action_add is menu id
+                        badge.setNumber(int_total_cart);
+                        badge.setBackgroundColor(ContextCompat.getColor(getContext(),R.color.some_color));
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
