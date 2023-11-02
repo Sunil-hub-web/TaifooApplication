@@ -56,6 +56,7 @@ public class MyOrderadapter extends RecyclerView.Adapter<MyOrderadapter.ViewHold
         holder.text_orderId.setText(myorder.getOrderId());
         holder.text_OrderDate.setText(myorder.getOrderDate());
         holder.totalPrice.setText(myorder.getTotal());
+        holder.text_PaymentMode.setText(myorder.getPayment_mode());
 
         holder.btn_ViewOrderDetails.setPaintFlags(holder.btn_ViewOrderDetails.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
 
@@ -132,7 +133,7 @@ public class MyOrderadapter extends RecyclerView.Adapter<MyOrderadapter.ViewHold
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView text_orderId,text_OrderDate,totalPrice,btn_ViewOrderDetails;
+        TextView text_orderId,text_OrderDate,totalPrice,btn_ViewOrderDetails,text_PaymentMode;
 
         public ViewHolder(@NonNull  View itemView) {
             super(itemView);
@@ -141,6 +142,7 @@ public class MyOrderadapter extends RecyclerView.Adapter<MyOrderadapter.ViewHold
             text_OrderDate = itemView.findViewById(R.id.text_OrderDate);
             btn_ViewOrderDetails = itemView.findViewById(R.id.btn_ViewOrderDetails);
             totalPrice = itemView.findViewById(R.id.totalPrice);
+            text_PaymentMode = itemView.findViewById(R.id.text_PaymentMode);
 
 
         }

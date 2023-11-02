@@ -137,6 +137,7 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
                 if (sellProduct.get(position).getVariation().isEmpty()) {
 
                 } else {
+
                     variations = sellProduct.get(position).getVariation();
 
                     dialogMenu = new Dialog(context, android.R.style.Theme_Light_NoTitleBar);
@@ -425,6 +426,9 @@ public class BestSellingAdapter extends RecyclerView.Adapter<BestSellingAdapter.
                         CartCountClass cartCountClass = new CartCountClass(context);
                         cartCountClass.getCartCount(userId);
 
+                    }else{
+
+                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
                     }
 
                 } catch (JSONException e) {

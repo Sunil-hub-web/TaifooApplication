@@ -5,14 +5,14 @@ import java.util.ArrayList;
 public class MyOrder_ModelClass {
 
     String orderId,orderDate,orderStatus,productName,price,unit,image,addressName,state,city,pincode,
-            address,phoneNumber,shipping_charge,subtotal,total;
+            address,phoneNumber,shipping_charge,subtotal,total,payment_mode;
     ArrayList<MyOrderDetails> MyorderDetails;
 
     public MyOrder_ModelClass(String orderId, String orderDate, String orderStatus,
                               ArrayList<MyOrderDetails> myorderDetails,String productName,
                               String price, String unit, String image,String addressName,String state,
                               String city,String pincode,String address,String phoneNumber,String shipping_charge,
-                              String subtotal,String total) {
+                              String subtotal,String total,String payment_mode) {
 
         this.orderId = orderId;
         this.orderDate = orderDate;
@@ -31,6 +31,7 @@ public class MyOrder_ModelClass {
         this.shipping_charge = shipping_charge;
         this.subtotal = subtotal;
         this.total = total;
+        this.payment_mode = payment_mode;
     }
 
     public String getOrderId() {
@@ -167,5 +168,13 @@ public class MyOrder_ModelClass {
 
     public void setTotal(String total) {
         this.total = total;
+    }
+
+    public String getPayment_mode() {
+        return payment_mode;
+    }
+
+    public void setPayment_mode(String payment_mode) {
+        this.payment_mode = payment_mode;
     }
 }

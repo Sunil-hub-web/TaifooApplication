@@ -52,12 +52,14 @@ import com.example.taifooapplication.SharedPrefManager;
 import com.example.taifooapplication.fragment.AddressDetails;
 import com.example.taifooapplication.fragment.CartPage;
 import com.example.taifooapplication.fragment.CategoryPage;
+import com.example.taifooapplication.fragment.CheckOutPage;
 import com.example.taifooapplication.fragment.ContactSupport;
 import com.example.taifooapplication.fragment.Homepage;
 import com.example.taifooapplication.fragment.More_Fragment;
 import com.example.taifooapplication.fragment.MyOrder;
 import com.example.taifooapplication.fragment.PersonalInformation;
 import com.example.taifooapplication.fragment.SerachFoodPage;
+import com.example.taifooapplication.fragment.WebViewFragment;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -806,6 +808,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         //super.onBackPressed();
 
         Homepage test = (Homepage) getSupportFragmentManager().findFragmentByTag("HomeFragment");
+        WebViewFragment fragmentInstance = (WebViewFragment) getSupportFragmentManager().findFragmentByTag("WebViewFragment");
 
         if (test != null && test.isVisible()) {
 
@@ -827,6 +830,10 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                     }
                 }, 4 * 1000);
             }
+        }else if (fragmentInstance != null) {
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.framLayout, new CheckOutPage()).commit();
+
         } else {
 
             text_name.setText("Home Page");

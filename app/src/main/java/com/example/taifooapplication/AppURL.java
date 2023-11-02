@@ -36,6 +36,8 @@ public class AppURL {
     public static final String searchProduct = "https://taifoo.in/admin/api/api.php?method=searchProduct";
 
     public static final String cartCount = "https://taifoo.in/admin/api/api.php?method=cartCount";
+    public static final String successfail = "https://www.taifoo.in/admin/api/api.php?method=successfail";
+    public static final String onlineorder = "https://www.taifoo.in/admin/api/api.php?method=onlineorder";
 
 
 

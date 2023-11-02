@@ -196,46 +196,15 @@ public class CartPage extends Fragment {
                 try {
 
                     JSONObject jsonObject = new JSONObject(response);
-                    //String message = jsonObject.getString("success");
-                    String All_Cart = jsonObject.getString("allcart");
+                    String success = jsonObject.getString("success");
 
                     itemList.clear();
 
-                    JSONArray jsonArray_AllCart1 = new JSONArray(All_Cart);
+                    if (success.equals("false")){
 
-                    if(jsonArray_AllCart1.length() != 0){
+                        String msg = jsonObject.getString("msg");
 
-                        JSONArray jsonArray_AllCart = new JSONArray(All_Cart);
-
-                        for (int i=0;i<jsonArray_AllCart.length();i++){
-
-                            JSONObject jsonObject_AllCart = jsonArray_AllCart.getJSONObject(i);
-
-                           // String cart_id = jsonObject_AllCart.getString("cart_id");
-                            String product_id = jsonObject_AllCart.getString("product_id");
-                            String product_name = jsonObject_AllCart.getString("product_name");
-                           // String product_weight = jsonObject_AllCart.getString("product_weight");
-                            String variation = jsonObject_AllCart.getString("variation");
-                            String product_img = jsonObject_AllCart.getString("product_image");
-                            String quantity = jsonObject_AllCart.getString("product_qty");
-                            String sale_price = jsonObject_AllCart.getString("price");
-
-                            CartPage_ModelClass cartPage_modelClass = new CartPage_ModelClass(
-                                    product_id,product_img,product_name,variation,sale_price,quantity
-                            );
-
-                            sales_Price = Double.valueOf(sale_price);
-
-                            quanTity = Double.valueOf(quantity);
-
-                            totalprice = sales_Price * quanTity;
-
-                            totalAmount = totalAmount + totalprice;
-
-                            itemList.add(cartPage_modelClass);
-
-
-                        }
+                        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 
                         if(itemList.size() == 0){
 
@@ -246,70 +215,112 @@ public class CartPage extends Fragment {
 
                         }else{
 
-                            cartempty.setVisibility(View.GONE);
-                            lin_amount.setVisibility(View.VISIBLE);
-                            recyclerCartPage.setVisibility(View.VISIBLE);
-                            rel_totalprice.setVisibility(View.VISIBLE);
-
-                            int size =  itemList.size();
-
-                            String str_size = String.valueOf(size);
-
-                            //text_ItemCount.setText(str_size);
-
-                            String total_price = String.valueOf(totalAmount);
-
-                            text_subTotalPrice.setText(total_price);
-
-                            String tax = text_taxandfee.getText().toString().trim();
-                            taxCharge = Double.valueOf(tax);
-
-                            Double amount = taxCharge + totalAmount;
-                            String str_Amount = String.valueOf(amount);
-
-                            //text_totalPrice.setText(str_Amount);
-
-                            String shippingPrice = text_deliveryPrice.getText().toString().trim();
-
-                            //delivery.setText(shippingName);
-                            //text_deliveryPrice.setText(shippingPrice);
-
-                            shipCharge = Double.valueOf(shippingPrice);
-
-                           /* String tax1 = text_taxandfee.getText().toString().trim();
-                            taxCharge = Double.valueOf(tax1);*/
-
-                            Double AmountTotal = totalAmount + shipCharge + taxCharge;
-
-                            String tot_Amount = String.valueOf(AmountTotal);
-
-                            text_totalPrice.setText(tot_Amount);
-
-                            linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
-                            cartPageAdapter = new CartPageAdapter(getActivity(),itemList,userid);
-                            recyclerCartPage.setLayoutManager(linearLayoutManager);
-                            recyclerCartPage.setHasFixedSize(true);
-                            recyclerCartPage.setAdapter(cartPageAdapter);
-
+                            cartempty.setVisibility(View.VISIBLE);
+                            lin_amount.setVisibility(View.GONE);
+                            recyclerCartPage.setVisibility(View.GONE);
+                            rel_totalprice.setVisibility(View.GONE);
                         }
 
                     }else{
 
-                        if(itemList.size() == 0){
+                        String All_Cart = jsonObject.getString("allcart");
 
-                            cartempty.setVisibility(View.VISIBLE);
-                            lin_amount.setVisibility(View.GONE);
-                            recyclerCartPage.setVisibility(View.GONE);
-                            rel_totalprice.setVisibility(View.GONE);
+                        JSONArray jsonArray_AllCart1 = new JSONArray(All_Cart);
 
-                        }else{
+                        if(jsonArray_AllCart1.length() != 0){
 
-                            cartempty.setVisibility(View.VISIBLE);
-                            lin_amount.setVisibility(View.GONE);
-                            recyclerCartPage.setVisibility(View.GONE);
-                            rel_totalprice.setVisibility(View.GONE);
+                            JSONArray jsonArray_AllCart = new JSONArray(All_Cart);
+
+                            for (int i=0;i<jsonArray_AllCart.length();i++){
+
+                                JSONObject jsonObject_AllCart = jsonArray_AllCart.getJSONObject(i);
+
+                                // String cart_id = jsonObject_AllCart.getString("cart_id");
+                                String product_id = jsonObject_AllCart.getString("product_id");
+                                String product_name = jsonObject_AllCart.getString("product_name");
+                                // String product_weight = jsonObject_AllCart.getString("product_weight");
+                                String variation = jsonObject_AllCart.getString("variation");
+                                String product_img = jsonObject_AllCart.getString("product_image");
+                                String quantity = jsonObject_AllCart.getString("product_qty");
+                                String sale_price = jsonObject_AllCart.getString("price");
+
+                                CartPage_ModelClass cartPage_modelClass = new CartPage_ModelClass(
+                                        product_id,product_img,product_name,variation,sale_price,quantity
+                                );
+
+                                sales_Price = Double.valueOf(sale_price);
+
+                                quanTity = Double.valueOf(quantity);
+
+                                totalprice = sales_Price * quanTity;
+
+                                totalAmount = totalAmount + totalprice;
+
+                                itemList.add(cartPage_modelClass);
+
+
+                            }
+
+                            if(itemList.size() == 0){
+
+                                cartempty.setVisibility(View.VISIBLE);
+                                lin_amount.setVisibility(View.GONE);
+                                recyclerCartPage.setVisibility(View.GONE);
+                                rel_totalprice.setVisibility(View.GONE);
+
+                            }else{
+
+                                cartempty.setVisibility(View.GONE);
+                                lin_amount.setVisibility(View.VISIBLE);
+                                recyclerCartPage.setVisibility(View.VISIBLE);
+                                rel_totalprice.setVisibility(View.VISIBLE);
+
+                                int size =  itemList.size();
+
+                                String str_size = String.valueOf(size);
+
+                                //text_ItemCount.setText(str_size);
+
+                                String total_price = String.valueOf(totalAmount);
+
+                                text_subTotalPrice.setText(total_price);
+
+                                String tax = text_taxandfee.getText().toString().trim();
+                                taxCharge = Double.valueOf(tax);
+
+                                Double amount = taxCharge + totalAmount;
+                                String str_Amount = String.valueOf(amount);
+
+                                //text_totalPrice.setText(str_Amount);
+
+                                String shippingPrice = text_deliveryPrice.getText().toString().trim();
+
+                                //delivery.setText(shippingName);
+                                //text_deliveryPrice.setText(shippingPrice);
+
+                                shipCharge = Double.valueOf(shippingPrice);
+
+                           /* String tax1 = text_taxandfee.getText().toString().trim();
+                            taxCharge = Double.valueOf(tax1);*/
+
+                                Double AmountTotal = totalAmount + shipCharge + taxCharge;
+
+                                String tot_Amount = String.valueOf(AmountTotal);
+
+                                text_totalPrice.setText(tot_Amount);
+
+                                linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+                                cartPageAdapter = new CartPageAdapter(getActivity(),itemList,userid);
+                                recyclerCartPage.setLayoutManager(linearLayoutManager);
+                                recyclerCartPage.setHasFixedSize(true);
+                                recyclerCartPage.setAdapter(cartPageAdapter);
+
+                            }
+
                         }
+
                     }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

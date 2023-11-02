@@ -284,7 +284,7 @@ public class Homepage extends Fragment {
 
                         }
 
-                        gridLayoutManager = new GridLayoutManager(getContext(), 3, GridLayoutManager.VERTICAL, false);
+                        gridLayoutManager = new GridLayoutManager(getContext(), 4, GridLayoutManager.VERTICAL, false);
                         showItemAdapter = new ShowItemAdapter(getContext(), showItem, cart_count);
                         showitemRecycler.setLayoutManager(gridLayoutManager);
                         showitemRecycler.setHasFixedSize(true);

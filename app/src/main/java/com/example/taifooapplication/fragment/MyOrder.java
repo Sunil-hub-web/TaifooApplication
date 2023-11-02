@@ -104,6 +104,7 @@ public class MyOrder extends Fragment {
                             String shipping_charge = jsonObject_Order.getString("shipping_charge");
                             String subtotal = jsonObject_Order.getString("subtotal");
                             String total = jsonObject_Order.getString("total");
+                            String payment_mode = jsonObject_Order.getString("payment_mode");
 
                             JSONObject jsonobject_Address = jsonObject_Order.getJSONObject("Address");
 
@@ -141,7 +142,7 @@ public class MyOrder extends Fragment {
                             MyOrder_ModelClass myOrder_modelClass = new MyOrder_ModelClass(
                                     order_id, delivery_date, order_status, myorderDetails, "",
                                     "", "", "",addressName,state,city,pincode,address,phoneNumber,
-                                    shipping_charge,subtotal,total
+                                    shipping_charge,subtotal,total,payment_mode
                             );
 
                             myorder.add(myOrder_modelClass);
@@ -178,6 +179,7 @@ public class MyOrder extends Fragment {
 
                 Map<String, String> params = new HashMap<>();
                 params.put("user_id", userid);
+                Log.d("parametersdetails",params.toString());
                 return params;
             }
         };

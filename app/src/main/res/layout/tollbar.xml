@@ -5,7 +5,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/sixty">
+        android:layout_height="wrap_content">
 
 
         <ImageView
@@ -13,7 +13,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/sort"
-            android:layout_marginTop="@dimen/ten"
             android:onClick="Clickmenu"
             android:layout_marginRight="@dimen/five">
 
@@ -39,7 +38,8 @@
             android:layout_marginTop="5dp"
             android:onClick="Serachpage"
             android:layout_marginRight="10dp"
-            android:layout_alignParentRight="true">
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
 
         </ImageView>
 
@@ -61,7 +61,9 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/menu"
             android:layout_centerVertical="true"
-            android:id="@+id/rle_click">
+            android:id="@+id/rle_click"
+            android:layout_toLeftOf="@id/image_search"
+            android:layout_marginRight="@dimen/ten">
 
 
             <TextView
@@ -91,6 +93,9 @@
                 android:layout_height="wrap_content"
                 android:textColor="#22647E"
                 android:textSize="@dimen/textsize"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text=""
                 android:layout_toRightOf="@id/loc"
                 android:textStyle="bold"></TextView>
 

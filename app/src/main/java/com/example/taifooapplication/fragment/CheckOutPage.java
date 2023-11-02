@@ -26,6 +26,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -87,7 +89,7 @@ public class CheckOutPage extends Fragment {
             str_PinCode,City_id,pincode_Name, userId,subTotalPrice,deliveryPrice,totalPrice,taxandfee,
             Name,Email,MobileNo,City,Area,Address,PinCode,addressId,city_id,cityid,pin_code,pin_id,str_Total,
             str_ShowAddress,str_ShippingNmae,addreessid,selectPaymentOption,currentDate,currentTime,state_id,
-            state_name,pincode_id,state_Id,state_Name;
+            state_name,pincode_id,state_Id,state_Name,order_id;
 
     RecyclerView recyclerAddressDetails;
     LinearLayoutManager linearLayoutManager1;
@@ -120,7 +122,16 @@ public class CheckOutPage extends Fragment {
 
         //userId = SharedPrefManager.getInstance(getContext()).getUser().getId();
 
-        getCartItem(userId);
+        SharedPreferences pref1 = getContext().getSharedPreferences("order_id123", 0);
+        order_id = pref1.getString("order_id", null);
+
+        if (order_id == null){
+            getCartItem(userId);
+        }else{
+            successPayment(userId);
+        }
+
+
 
         SharedPreferences sp = getContext().getSharedPreferences("details", Context.MODE_PRIVATE);
 
@@ -181,11 +192,20 @@ public class CheckOutPage extends Fragment {
                     selectedRadioButton = view.findViewById(selectedRadioButtonId);
                     selectPaymentOption = selectedRadioButton.getText().toString();
 
-                    orderPlaced(userId,addreessid,deliveryPrice,str_ShippingNmae,selectPaymentOption,currentDate,currentTime);
+
+                    if (selectPaymentOption.equals("Pay Online")){
+
+                        String str_totalprice = text_TotalPrice.getText().toString().trim();
+
+                        orderPlaced_online(userId,addreessid,deliveryPrice,str_ShippingNmae,selectPaymentOption,currentDate,currentTime,str_totalprice);
+
+                    }else{
+
+                       orderPlaced(userId,addreessid,deliveryPrice,str_ShippingNmae,selectPaymentOption,currentDate,currentTime);
+
+                    }
 
                 }
-
-
             }
         });
 
@@ -924,6 +944,90 @@ public class CheckOutPage extends Fragment {
 
     }
 
+    public void orderPlaced_online(String userid,String addressid,String shippingCharges,String shippingType,
+                            String paymentType,String deliveryDate,String ArrivalTime,String GrandTotal){
+
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Your OrderPlaced Please Wait...");
+        progressDialog.show();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.onlineorder, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                progressDialog.dismiss();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String success = jsonObject.getString("success");
+
+                    if(success.equals("true")){
+
+                        String online_url = jsonObject.getString("online_url");
+                        String order_id = jsonObject.getString("order_id");
+
+                       // Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+
+                        SharedPreferences pref = getContext().getSharedPreferences("order_id123", 0); // 0 - for private mode
+                        SharedPreferences.Editor editor = pref.edit();
+                        editor.putString("order_id",order_id);
+                        editor.commit();
+
+                        Fragment fragment = new WebViewFragment();
+                        Bundle args = new Bundle();
+                        args.putString("weburl", online_url);
+                        fragment.setArguments(args);
+                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.framLayout, fragment, "WebViewFragment");
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                progressDialog.dismiss();
+                error.printStackTrace ();
+                Toast.makeText(getContext(), "address Details Not Found", Toast.LENGTH_SHORT).show();
+
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String,String> params = new HashMap<>();
+
+                params.put("user_id",userid);
+                params.put("adresss_id",addressid);
+                params.put("shipChar",shippingCharges);
+                params.put("shiptype",shippingType);
+                params.put("payment_type",paymentType);
+                params.put("delivery_date",deliveryDate);
+                params.put("AvalTimeSlot",ArrivalTime);
+                params.put("GrandTotal",GrandTotal);
+
+                Log.d("parameterlist",params.toString());
+
+                return params;
+            }
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,3,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+
+
+    }
+
     public void vieworder() {
 
         Dialog dialog = new Dialog(getContext());
@@ -958,5 +1062,57 @@ public class CheckOutPage extends Fragment {
         window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         //window.setBackgroundDrawableResource(R.drawable.dialogback);
 
+    }
+
+    public void successPayment(String userId){
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.successfail, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(response);
+                    String success = jsonObject.getString("success");
+                    if (success.equals("false")){
+                        String msg = jsonObject.getString("msg");
+                        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+
+                        getCartItem(userId);
+
+                    }else{
+
+                       startActivity(new Intent(getActivity(), HomePageActivity.class));
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                error.printStackTrace ();
+                Toast.makeText(getContext(), "address Details Not Found", Toast.LENGTH_SHORT).show();
+            }
+        }){
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                SharedPreferences pref1 = getContext().getSharedPreferences("order_id123", 0);
+                order_id = pref1.getString("order_id", null);
+
+                Map<String,String> params = new HashMap<>();
+                params.put("order_id",order_id);
+                return params;
+            }
+        };
+
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,3,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
     }
 }
