@@ -54,9 +54,9 @@ public class CartPage extends Fragment {
     ArrayList<ShappingCharges_ModelClass> ShippingCharges = new ArrayList<ShappingCharges_ModelClass>();
     public static TextView text_gotoCheckout,text_deliveryPrice,text_subTotalPrice,text_taxandfee,
             text_totalPrice,delivery;
-    String userId;
+    public static String userId,deliveryprice,deliveryamount;
     Dialog dialogMenu;
-    double totalprice, sales_Price, quanTity, totalAmount = 0.0, shipCharge,taxCharge;
+    double totalprice, sales_Price, quanTity, totalAmount = 0.0, shipCharge,taxCharge,valcharges = 0.0;
     public static LinearLayout cartempty,lin_amount;
     public static RelativeLayout rel_totalprice;
 
@@ -84,28 +84,25 @@ public class CartPage extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if(text_deliveryPrice.getText().toString().trim().equals("0")){
+//                if(text_deliveryPrice.getText().toString().trim().equals("0")){
+//
+//                    Toast.makeText(getContext(), "Please Select Delevery Charges", Toast.LENGTH_SHORT).show();
+//                }else{}
 
-                    Toast.makeText(getContext(), "Please Select Delevery Charges", Toast.LENGTH_SHORT).show();
+                HomePageActivity.text_name.setText("Checkout");
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                CheckOutPage checkOutPage = new CheckOutPage();
+                ft.replace(R.id.framLayout, checkOutPage,"testID");
+                ft.commit();
 
-                }else{
-
-                    HomePageActivity.text_name.setText("Checkout");
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    CheckOutPage checkOutPage = new CheckOutPage();
-                    ft.replace(R.id.framLayout, checkOutPage,"testID");
-                    ft.commit();
-
-                    SharedPreferences sp = getContext().getSharedPreferences("details", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sp.edit();
-                    editor.putString("subTotalPrice",text_subTotalPrice.getText().toString().trim());
-                    editor.putString("deliveryPrice",text_deliveryPrice.getText().toString().trim());
-                    editor.putString("totalPrice",text_totalPrice.getText().toString().trim());
-                    editor.putString("taxandfee",text_taxandfee.getText().toString().trim());
-                    editor.putString("ShippingNmae",delivery.getText().toString().trim());
-                    editor.commit();
-
-                }
+                SharedPreferences sp = getContext().getSharedPreferences("details", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("subTotalPrice",text_subTotalPrice.getText().toString().trim());
+                editor.putString("deliveryPrice",text_deliveryPrice.getText().toString().trim());
+                editor.putString("totalPrice",text_totalPrice.getText().toString().trim());
+                editor.putString("taxandfee",text_taxandfee.getText().toString().trim());
+                editor.putString("ShippingNmae",delivery.getText().toString().trim());
+                editor.commit();
 
 
             }
@@ -300,20 +297,37 @@ public class CartPage extends Fragment {
 
                                 shipCharge = Double.valueOf(shippingPrice);
 
-                           /* String tax1 = text_taxandfee.getText().toString().trim();
-                            taxCharge = Double.valueOf(tax1);*/
+                               /* String tax1 = text_taxandfee.getText().toString().trim();
+                               taxCharge = Double.valueOf(tax1);*/
 
-                                Double AmountTotal = totalAmount + shipCharge + taxCharge;
+                                if(totalAmount < valcharges) {
 
-                                String tot_Amount = String.valueOf(AmountTotal);
+                                    Double AmountTotal = totalAmount + shipCharge + taxCharge;
 
-                                text_totalPrice.setText(tot_Amount);
+                                    String tot_Amount = String.valueOf(AmountTotal);
 
-                                linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
-                                cartPageAdapter = new CartPageAdapter(getActivity(),itemList,userid);
-                                recyclerCartPage.setLayoutManager(linearLayoutManager);
-                                recyclerCartPage.setHasFixedSize(true);
-                                recyclerCartPage.setAdapter(cartPageAdapter);
+                                    text_totalPrice.setText(tot_Amount);
+
+                                    linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                                    cartPageAdapter = new CartPageAdapter(getActivity(), itemList, userid);
+                                    recyclerCartPage.setLayoutManager(linearLayoutManager);
+                                    recyclerCartPage.setHasFixedSize(true);
+                                    recyclerCartPage.setAdapter(cartPageAdapter);
+
+                                }else{
+
+                                    Double AmountTotal = totalAmount + 0 + taxCharge;
+
+                                    String tot_Amount = String.valueOf(AmountTotal);
+
+                                    text_totalPrice.setText(tot_Amount);
+
+                                    linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                                    cartPageAdapter = new CartPageAdapter(getActivity(), itemList, userid);
+                                    recyclerCartPage.setLayoutManager(linearLayoutManager);
+                                    recyclerCartPage.setHasFixedSize(true);
+                                    recyclerCartPage.setAdapter(cartPageAdapter);
+                                }
 
                             }
 
@@ -373,16 +387,24 @@ public class CartPage extends Fragment {
                         String delivery_price = jsonObject.getString("delivery_price");
                         String name = jsonObject.getString("name");
 
+                        deliveryprice = delivery_price;
+                        deliveryamount = price;
 
                         ShappingCharges_ModelClass shappingCharges_modelClass = new ShappingCharges_ModelClass(shipping_id,
                                 price, delivery_price, name
                         );
 
+                        ShappingCharges_ModelClass shippingmodel = new ShappingCharges_ModelClass();
+                        shippingmodel.setDeliveryPrice(delivery_price);
+                        shippingmodel.setShappingName(name);
+                        shippingmodel.setPrice(price);
+
+
                         ShippingCharges.add(shappingCharges_modelClass);
 
-                        Double valcharges = Double.valueOf(delivery_price);
+                        valcharges = Double.valueOf(delivery_price);
 
-                        if(totalAmount < valcharges){
+                        if(totalAmount > valcharges){
 
                             String shippingPrice = price;
                             String shippingName = name;
@@ -401,13 +423,31 @@ public class CartPage extends Fragment {
 
                             text_totalPrice.setText(tot_Amount);
 
-
                             Log.d("ShippingCharges", ShippingCharges.toString());
 
                         }else{
 
-                            delivery.setVisibility(View.GONE);
-                            text_deliveryPrice.setVisibility(View.GONE);
+                            String shippingPrice = price;
+                            //String shippingName = name;
+
+                            //delivery.setText(shippingName);
+                            text_deliveryPrice.setText("0");
+
+                           // shipCharge = Double.valueOf(shippingPrice);
+
+                           // String tax = text_taxandfee.getText().toString().trim();
+                            //taxCharge = Double.valueOf(tax);
+
+                            Double AmountTotal = totalAmount + 0 + taxCharge;
+
+                            String tot_Amount = String.valueOf(AmountTotal);
+
+                            text_totalPrice.setText(tot_Amount);
+
+                            Log.d("ShippingCharges", ShippingCharges.toString());
+
+                            //delivery.setVisibility(View.GONE);
+                            //text_deliveryPrice.setVisibility(View.GONE);
                         }
 
                     }

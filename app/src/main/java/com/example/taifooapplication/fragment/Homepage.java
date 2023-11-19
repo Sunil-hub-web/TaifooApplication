@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.text.Html;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -394,6 +395,7 @@ public class Homepage extends Fragment {
 
                 Map<String, String> params = new HashMap<>();
                 params.put("user_id", userid);
+                Log.d("parameters",params.toString());
                 return params;
             }
         };

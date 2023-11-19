@@ -36,6 +36,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.taifooapplication.AppURL;
 import com.example.taifooapplication.R;
 import com.example.taifooapplication.SharedPrefManager;
+import com.example.taifooapplication.activity.HomePageActivity;
 import com.example.taifooapplication.activity.SerachAreaDetails;
 import com.example.taifooapplication.adapter.CitySpinerAdapter;
 import com.example.taifooapplication.adapter.PincodeSpinerAdapter;
@@ -71,6 +72,7 @@ public class AddressDetails extends Fragment {
     RecyclerView recyclerAddressDetails;
     ViewaddressDetailsAdapter viewaddressDetailsAdapter;
     LinearLayoutManager linearLayoutManager;
+    TextView text_statae,text_city,text_pincode;
 
     @Nullable
     @Override
@@ -118,6 +120,9 @@ public class AddressDetails extends Fragment {
         EditText edit_Address = dialog.findViewById(R.id.edit_Address);
         Button btn_Save = dialog.findViewById(R.id.btn_Save);
         Button btn_cancle = dialog.findViewById(R.id.btn_cancle);
+        text_statae = dialog.findViewById(R.id.text_statae);
+        text_city = dialog.findViewById(R.id.text_city);
+        text_pincode = dialog.findViewById(R.id.text_pincode);
         //Button btn_Map = dialog.findViewById(R.id.btn_Map);
 
 /*        btn_Map.setOnClickListener(new View.OnClickListener() {
@@ -233,6 +238,7 @@ public class AddressDetails extends Fragment {
                                     (jsonObject1.getString("state_name"), state_id);
 
                             list_state.add(state_modelClass);
+                            text_statae.setVisibility(View.GONE);
                         }
 
                         SateSpinearAdapter adapter = new SateSpinearAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item
@@ -335,6 +341,8 @@ public class AddressDetails extends Fragment {
                                             (jsonObjectcity.getString("city_name"), cityid);
 
                                     list_city.add(city_modelClass);
+
+                                    text_city.setVisibility(View.GONE);
                                 }
 
                                 CitySpinerAdapter adapter = new CitySpinerAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item
@@ -448,6 +456,8 @@ public class AddressDetails extends Fragment {
 
                                             PinCode_ModelClass pinCode_modelClass = new PinCode_ModelClass(pin_code, pin_id);
                                             arrayListPincode.add(pinCode_modelClass);
+
+                                            text_pincode.setVisibility(View.GONE);
                                         }
 
                                     }
@@ -530,6 +540,12 @@ public class AddressDetails extends Fragment {
                         Toast.makeText(getContext(), "Address Insterted Success Fully..", Toast.LENGTH_SHORT).show();
 
                         getaddressDetails(userId);
+
+                        SharedPreferences sh = getActivity().getSharedPreferences("MySharedPref", getActivity().MODE_PRIVATE);
+                        String address_share = sh.getString("address", "");
+
+                        addLocationDetails(userId, address_share);
+
 
 
                     }
@@ -667,5 +683,50 @@ public class AddressDetails extends Fragment {
         requestQueue.getCache().clear();
         requestQueue.add(stringRequest);
 
+    }
+
+    public void addLocationDetails(String id, String location) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.locationmap, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    String success = jsonObject.getString("success");
+                    String msg = jsonObject.getString("msg");
+
+                    if (success.equals("true")) {
+
+                        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+
+                    }else{
+
+                        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Toast.makeText(getActivity(), ""+error, Toast.LENGTH_SHORT).show();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                Map<String, String> params = new HashMap<>();
+                params.put("id", id);
+                params.put("location", location);
+                return params;
+            }
+        };
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        RequestQueue requestQueue = Volley.newRequestQueue(getActivity());
+        requestQueue.getCache().clear();
+        requestQueue.add(stringRequest);
     }
 }

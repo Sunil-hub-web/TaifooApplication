@@ -4,6 +4,8 @@ public class ShappingCharges_ModelClass {
 
     String shappingId,price,deliveryPrice,ShappingName;
 
+    public ShappingCharges_ModelClass() {}
+
     public ShappingCharges_ModelClass(String shappingId, String price, String deliveryPrice, String shappingName) {
 
         this.shappingId = shappingId;

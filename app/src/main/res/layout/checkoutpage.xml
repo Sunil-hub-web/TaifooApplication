@@ -8,7 +8,7 @@
         android:id="@+id/value"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/fifteen"
+        android:layout_marginLeft="@dimen/ten"
         android:orientation="vertical">
 
         <RadioGroup
@@ -43,13 +43,141 @@
 
         </RadioGroup>
 
+        <LinearLayout
+            android:id="@+id/datetimeslot_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ten"
+                app:cardCornerRadius="@dimen/five">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/five"
+                        android:layout_marginBottom="@dimen/five"
+                        android:orientation="horizontal">
+
+                        <TextView
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerInParent="true"
+                            android:text="Select Delivery Date &amp; Time"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sixteen"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ten"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:text="Date"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/fifteen"
+                            android:textStyle="normal" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/twenty"
+                        android:orientation="horizontal"
+                        android:background="@drawable/background">
+
+                        <TextView
+                            android:id="@+id/date_txt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:fontFamily="sans-serif"
+                            android:padding="@dimen/ten"
+                            android:text="Select Date"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/fourteen"
+                            android:textStyle="normal"
+                            android:drawableRight="@drawable/calendar"/>
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/twenty"
+                        android:layout_marginRight="@dimen/twenty"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:text="Time Slots"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/fifteen"
+                            android:textStyle="normal" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ten"
+                        android:layout_marginRight="@dimen/twenty"
+                        android:layout_marginBottom="@dimen/five"
+                        android:orientation="horizontal"
+                        android:background="@drawable/background">
+
+                        <Spinner
+                            android:id="@+id/timeslot"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/forty"
+                            android:layout_alignParentLeft="true"
+                            android:prompt="@string/prom"
+                            android:spinnerMode="dropdown"
+                            android:text="Shipping"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/fifteen"
+                            android:textStyle="normal" />
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/twenty"
             android:text="Address"
             android:textColor="#22647E"
-            android:textSize="@dimen/edittextsize"></TextView>
+            android:textSize="@dimen/edittextsize" />
 
         <TextView
             android:id="@+id/text_ShowAddress"
@@ -57,7 +185,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/ten"
             android:textColor="#787B7C"
-            android:textSize="@dimen/edittextsize"></TextView>
+            android:textSize="@dimen/edittextsize" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,7 +203,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/twelve_size"
                 android:textStyle="bold"
-                app:backgroundTint="#DA291C"></com.google.android.material.button.MaterialButton>
+                app:backgroundTint="#DA291C" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_selectAddress"
@@ -87,7 +215,7 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/twelve_size"
                 android:textStyle="bold"
-                app:backgroundTint="#1D4759"></com.google.android.material.button.MaterialButton>
+                app:backgroundTint="#1D4759" />
 
         </LinearLayout>
 
@@ -98,7 +226,7 @@
             android:layout_marginTop="@dimen/fifteen"
             android:text="Order Summary"
             android:textColor="#22647E"
-            android:textSize="@dimen/edittextsize"></TextView>
+            android:textSize="@dimen/edittextsize" />
 
     </LinearLayout>
 
@@ -126,7 +254,7 @@
                 android:layout_weight="1"
                 android:text="Image"
                 android:textColor="@color/black"
-                android:textSize="@dimen/textsize"></TextView>
+                android:textSize="@dimen/textsize" />
 
             <TextView
                 android:id="@+id/productName"
@@ -137,7 +265,7 @@
                 android:layout_weight="1"
                 android:text="ProductName"
                 android:textColor="@color/black"
-                android:textSize="@dimen/textsize"></TextView>
+                android:textSize="@dimen/textsize" />
 
             <TextView
                 android:id="@+id/total"
@@ -147,7 +275,7 @@
                 android:layout_weight="1"
                 android:text="Total"
                 android:textColor="@color/black"
-                android:textSize="@dimen/textsize"></TextView>
+                android:textSize="@dimen/textsize" />
 
 
         </LinearLayout>
@@ -188,7 +316,7 @@
                 android:text="SubTotal"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/edittextsize"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/priceSymbol1"
@@ -199,7 +327,7 @@
                 android:text="₹"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/edittextsize"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/text_subTotalPrice"
@@ -209,7 +337,7 @@
                 android:text="145.00"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/edittextsize"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
@@ -229,7 +357,7 @@
                 android:text="Shipping Charges"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/edittextsize"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/priceSymbol2"
@@ -240,7 +368,7 @@
                 android:text="₹"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/edittextsize"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/text_shippingCharges"
@@ -250,7 +378,7 @@
                 android:text="5.0"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/edittextsize"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -269,7 +397,7 @@
                 android:text="Toatl"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/edittextsize"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold" />
 
             <!--  <TextView
                   android:id="@+id/priceSymbol3"
@@ -291,7 +419,7 @@
                 android:text="Fee"
                 android:textColor="@color/some_color1"
                 android:textSize="@dimen/edittextsize"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold" />
         </RelativeLayout>
 
     </LinearLayout>
@@ -311,7 +439,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/textsize"
         android:textStyle="bold"
-        app:backgroundTint="#DA291C"></com.google.android.material.button.MaterialButton>
+        app:backgroundTint="#DA291C" />
 
 
 </RelativeLayout>

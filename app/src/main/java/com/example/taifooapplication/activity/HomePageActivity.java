@@ -18,6 +18,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -602,6 +603,13 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                             text_address.setText(addresses.get(0).getAddressLine(0));
                             //text_addressName.setText(addresses.get(0).getAdminArea());
 
+                            //addLocationDetails(userid,addresses.get(0).getAddressLine(0));
+
+                            SharedPreferences sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE);
+                            SharedPreferences.Editor myEdit = sharedPreferences.edit();
+                            myEdit.putString("address", addresses.get(0).getAddressLine(0));
+                            myEdit.apply();
+                            myEdit.commit();
 
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -649,7 +657,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
             }
         }
     }
-
 
     @Override
     protected void onStart() {
@@ -891,5 +898,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
         requestQueue.getCache().clear();
         requestQueue.add(stringRequest);
     }
+
+
 
 }

@@ -31,6 +31,7 @@ import com.example.taifooapplication.SharedPrefManager;
 import com.example.taifooapplication.fragment.CartCountClass;
 import com.example.taifooapplication.fragment.CartPage;
 import com.example.taifooapplication.modelclas.CartPage_ModelClass;
+import com.example.taifooapplication.modelclas.ShappingCharges_ModelClass;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
@@ -44,9 +45,9 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
 
     Context context;
     ArrayList<CartPage_ModelClass> itemlist;
-    String productid,userid1,price_total,total_price,str_SumTotal,str_Shpping,str_TotalPrice,sum,tax;
-    int Total,price,quantity,salesPrice;
-    Double d_totPrice,d_Sum,sumOfTotal,d_ShppingCharges,d_TotlAmount,taxCharge;
+    String productid, userid1, price_total, total_price, str_SumTotal, str_Shpping, str_TotalPrice, sum, tax;
+    int Total, price, quantity, salesPrice;
+    Double d_totPrice, d_Sum, sumOfTotal, d_ShppingCharges, d_TotlAmount, taxCharge;
 
     public CartPageAdapter(FragmentActivity activity, ArrayList<CartPage_ModelClass> itemList, String userid) {
 
@@ -57,14 +58,14 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull  ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cartpagedetails,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cartpagedetails, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull  ViewHolder holder, @SuppressLint("RecyclerView") int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         CartPage_ModelClass cartItem = itemlist.get(position);
 
@@ -84,10 +85,10 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
         Picasso.with(context).load(image).into(holder.productImage);
 
         holder.product_Name.setText(cartItem.getProduct_name());
-        holder.unit_Name.setText("Q :"+cartItem.getQuantity());
+        holder.unit_Name.setText("Q :" + cartItem.getQuantity());
         holder.t2.setText(cartItem.getQuantity());
 
-      //  userid = SharedPrefManager.getInstance(context).getUser().getId();
+        //  userid = SharedPrefManager.getInstance(context).getUser().getId();
 
         //SharedPreferences sh = context.getSharedPreferences("MySharedPref", context.MODE_PRIVATE);
         //userid = sh.getString("userId", "");
@@ -98,11 +99,11 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
 
                 productid = cartItem.getProduct_id();
 
-               deleteCartItem(userid1,productid);
-               itemlist.remove(position);
-               notifyDataSetChanged();
+                deleteCartItem(userid1, productid);
+                itemlist.remove(position);
+                notifyDataSetChanged();
 
-               int arraySize = itemlist.size();
+                int arraySize = itemlist.size();
                 String str_ArraySize = String.valueOf(arraySize);
                 //CartPage.text_ItemCount.setText(str_ArraySize);
 
@@ -126,7 +127,7 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
                 tax = CartPage.text_taxandfee.getText().toString().trim();
                 taxCharge = Double.valueOf(tax);
 
-                d_TotlAmount  = d_deletePrice + d_ShppingCharges + taxCharge;
+                d_TotlAmount = d_deletePrice + d_ShppingCharges + taxCharge;
 
                 str_TotalPrice = String.valueOf(d_TotlAmount);
 
@@ -134,7 +135,7 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
 
                 CartPage.text_totalPrice.setText(str_TotalPrice);
 
-                if(itemlist.size() == 0){
+                if (itemlist.size() == 0) {
 
                     CartPage.cartempty.setVisibility(View.VISIBLE);
                     CartPage.lin_amount.setVisibility(View.GONE);
@@ -154,16 +155,14 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
                 String productid = cartItem.getProduct_id();
                 String quantity = holder.t2.getText().toString().trim();
 
-                if(quantity.equals("1")){
+                if (quantity.equals("0")) {
 
                     Toast.makeText(context, "Do You want To delete Please click Delete", Toast.LENGTH_SHORT).show();
 
-                }else{
+                } else {
 
-                    holder.unit_Name.setText("Q :"+quantity);
                     String price1 = holder.totalPrice.getText().toString().trim();
                     String price = cartItem.getSale_price();
-
                     int qun = Integer.valueOf(quantity);
                     int tot = Integer.valueOf(price);
                     int total = qun * tot;
@@ -174,6 +173,8 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
 
                     salesPrice = Integer.valueOf(price);
 
+                    holder.unit_Name.setText("Q :" + quantity);
+
                     sum = CartPage.text_subTotalPrice.getText().toString().trim();
                     d_totPrice = Double.valueOf(price);
                     d_Sum = Double.valueOf(sum);
@@ -182,21 +183,57 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
 
                     CartPage.text_subTotalPrice.setText(str_SumTotal);
 
-                    str_Shpping = CartPage.text_deliveryPrice.getText().toString().trim();
+                    ShappingCharges_ModelClass shipping_data = new ShappingCharges_ModelClass();
 
-                    d_ShppingCharges = Double.valueOf(str_Shpping);
+                   // String deliveryprice = shipping_data.getDeliveryPrice();
+                   // String str_pricedetails = shipping_data.getPrice();
 
-                    tax = CartPage.text_taxandfee.getText().toString().trim();
-                    taxCharge = Double.valueOf(tax);
+                    double d_deliveryprice = Double.parseDouble(CartPage.deliveryprice);
+                    double d_pricedetails = Double.parseDouble(CartPage.deliveryamount);
 
-                    d_TotlAmount  = sumOfTotal + d_ShppingCharges + taxCharge;
+                    if (sumOfTotal < d_deliveryprice){
 
-                    str_TotalPrice = String.valueOf(d_TotlAmount);
+                        CartPage.text_deliveryPrice.setText(String.valueOf(d_pricedetails));
 
-                    CartPage.text_totalPrice.setText(str_TotalPrice);
+                        str_Shpping = CartPage.text_deliveryPrice.getText().toString().trim();
+
+                        d_ShppingCharges = Double.valueOf(str_Shpping);
+
+                        tax = CartPage.text_taxandfee.getText().toString().trim();
+                        taxCharge = Double.valueOf(tax);
+
+                        d_TotlAmount = sumOfTotal + 20 + taxCharge;
+
+                        str_TotalPrice = String.valueOf(d_TotlAmount);
+
+                        CartPage.text_totalPrice.setText(str_TotalPrice);
+
+                        updateToCart(userid1, productid, quantity);
+
+                        //  holder.unit_Name.setText("Q :"+quantity);
+                    }else{
+
+                        CartPage.text_deliveryPrice.setText(String.valueOf(d_pricedetails));
+
+                        str_Shpping = CartPage.text_deliveryPrice.getText().toString().trim();
+
+                        d_ShppingCharges = Double.valueOf(str_Shpping);
+
+                        tax = CartPage.text_taxandfee.getText().toString().trim();
+                        taxCharge = Double.valueOf(tax);
+
+                        d_TotlAmount = sumOfTotal + 0 + taxCharge;
+
+                        str_TotalPrice = String.valueOf(d_TotlAmount);
+
+                        CartPage.text_totalPrice.setText(str_TotalPrice);
+
+                        updateToCart(userid1, productid, quantity);
+                    }
 
 
-                    updateToCart(userid1,productid,quantity);
+
+
 
                 }
 
@@ -213,28 +250,41 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
                 String productid = cartItem.getProduct_id();
                 String quantity = holder.t2.getText().toString().trim();
 
-                    holder.unit_Name.setText("Q :"+quantity);
+                holder.unit_Name.setText("Q :" + quantity);
 
-                    String price1 = holder.totalPrice.getText().toString().trim();
-                    String price = cartItem.getSale_price();
+                String price1 = holder.totalPrice.getText().toString().trim();
+                String price = cartItem.getSale_price();
 
-                    int qun = Integer.valueOf(quantity);
-                    int tot = Integer.valueOf(price);
-                    int total = qun * tot;
-                    String tot_al = String.valueOf(total);
-                    holder.totalPrice.setText(tot_al);
+                int qun = Integer.valueOf(quantity);
+                int tot = Integer.valueOf(price);
+                int total = qun * tot;
+                String tot_al = String.valueOf(total);
+                holder.totalPrice.setText(tot_al);
 
-                    total_price = holder.totalPrice.getText().toString().trim();
+                total_price = holder.totalPrice.getText().toString().trim();
 
-                    salesPrice = Integer.valueOf(price);
+                salesPrice = Integer.valueOf(price);
 
-                    sum = CartPage.text_subTotalPrice.getText().toString().trim();
-                    d_totPrice = Double.valueOf(price);
-                    d_Sum = Double.valueOf(sum);
-                    sumOfTotal = d_Sum + d_totPrice;
-                    str_SumTotal = String.valueOf(sumOfTotal);
+                sum = CartPage.text_subTotalPrice.getText().toString().trim();
+                d_totPrice = Double.valueOf(price);
+                d_Sum = Double.valueOf(sum);
+                sumOfTotal = d_Sum + d_totPrice;
+                str_SumTotal = String.valueOf(sumOfTotal);
 
-                    CartPage.text_subTotalPrice.setText(str_SumTotal);
+                CartPage.text_subTotalPrice.setText(str_SumTotal);
+
+                ShappingCharges_ModelClass shipping_data = new ShappingCharges_ModelClass();
+
+              //  String deliveryprice = shipping_data.getDeliveryPrice();
+              //  String str_pricedetails = shipping_data.getPrice();
+
+                double d_deliveryprice = Double.parseDouble(CartPage.deliveryprice);
+                double d_pricedetails = Double.parseDouble(CartPage.deliveryamount);
+
+                if (sumOfTotal < d_deliveryprice){
+
+                    CartPage.text_deliveryPrice.setText(String.valueOf("20"));
+
 
                     str_Shpping = CartPage.text_deliveryPrice.getText().toString().trim();
 
@@ -243,13 +293,36 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
                     tax = CartPage.text_taxandfee.getText().toString().trim();
                     taxCharge = Double.valueOf(tax);
 
-                    d_TotlAmount  = sumOfTotal + d_ShppingCharges + taxCharge;
+                    d_TotlAmount = sumOfTotal + d_pricedetails + taxCharge;
 
                     str_TotalPrice = String.valueOf(d_TotlAmount);
 
                     CartPage.text_totalPrice.setText(str_TotalPrice);
 
-                    updateToCart(userid1,productid,quantity);
+                    updateToCart(userid1, productid, quantity);
+
+                }else{
+
+                    CartPage.text_deliveryPrice.setText(String.valueOf("0"));
+
+                    str_Shpping = CartPage.text_deliveryPrice.getText().toString().trim();
+
+                    d_ShppingCharges = Double.valueOf(str_Shpping);
+
+                    tax = CartPage.text_taxandfee.getText().toString().trim();
+                    taxCharge = Double.valueOf(tax);
+
+                    d_TotlAmount = sumOfTotal + 0 + taxCharge;
+
+                    str_TotalPrice = String.valueOf(d_TotlAmount);
+
+                    CartPage.text_totalPrice.setText(str_TotalPrice);
+
+                    updateToCart(userid1, productid, quantity);
+
+                }
+
+
 
             }
         });
@@ -263,7 +336,7 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView totalPrice,product_Name,unit_Name,t1, t2, t3;
+        TextView totalPrice, product_Name, unit_Name, t1, t2, t3;
         ImageView productImage;
         LinearLayout linearLayout;
         RelativeLayout img_Delete;
@@ -283,16 +356,16 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
             t3 = itemView.findViewById(R.id.t3);
         }
 
-        private void linearLayout(Boolean x){
+        private void linearLayout(Boolean x) {
             int y = Integer.parseInt(t2.getText().toString());
-            if(x){
+            if (x) {
                 y++;
                 t2.setText(String.valueOf(y));
-            }else {
+            } else {
                 y--;
-                if(y <= 0){
+                if (y <= 0) {
                     t2.setText("1");
-                }else {
+                } else {
                     t2.setText(String.valueOf(y));
                     Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
                 }
@@ -300,7 +373,7 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
         }
     }
 
-    public void deleteCartItem(String userId,String productId){
+    public void deleteCartItem(String userId, String productId) {
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.deleteFormCart, new Response.Listener<String>() {
             @Override
@@ -310,10 +383,10 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
                     JSONObject jsonObject = new JSONObject(response);
 
                     String message = jsonObject.getString("success");
-                   // String cart_count = jsonObject.getString("cart_count");
-                   // HomePageActivity.text_ItemCount.setText(cart_count);
+                    // String cart_count = jsonObject.getString("cart_count");
+                    // HomePageActivity.text_ItemCount.setText(cart_count);
 
-                    if(message.equals("true")){
+                    if (message.equals("true")) {
 
                         String msg = jsonObject.getString("msg");
                         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
@@ -336,14 +409,14 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
 
                 error.printStackTrace();
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
-                Map<String,String> params = new HashMap<>();
+                Map<String, String> params = new HashMap<>();
 
-                params.put("user_id",userId);
-                params.put("product_id",productId);
+                params.put("user_id", userId);
+                params.put("product_id", productId);
 
                 return params;
             }
@@ -356,13 +429,13 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
 
     }
 
-    public void updateToCart(String userId,String productId,String quantity){
+    public void updateToCart(String userId, String productId, String quantity) {
 
         ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setMessage("Updte Cart SuccessFully");
         progressDialog.show();
 
-        StringRequest stringRequest  = new StringRequest(Request.Method.POST, AppURL.updateToCart, new Response.Listener<String>() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.updateToCart, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
 
@@ -373,7 +446,7 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
                     String message = jsonObject.getString("success");
                     String msg = jsonObject.getString("msg");
 
-                    if(message.equals("true")){
+                    if (message.equals("true")) {
 
                         Toast.makeText(context, msg, Toast.LENGTH_SHORT).show();
 
@@ -389,24 +462,24 @@ public class CartPageAdapter extends RecyclerView.Adapter<CartPageAdapter.ViewHo
             public void onErrorResponse(VolleyError error) {
 
                 progressDialog.dismiss();
-                error.printStackTrace ();
+                error.printStackTrace();
                 Toast.makeText(context, "address Details Not Found", Toast.LENGTH_SHORT).show();
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
-                Map<String,String> params = new HashMap<>();
-                params.put("user_id",userId);
-                params.put("product_id",productId);
-                params.put("quantity",quantity);
+                Map<String, String> params = new HashMap<>();
+                params.put("user_id", userId);
+                params.put("product_id", productId);
+                params.put("quantity", quantity);
 
                 return params;
             }
         };
 
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,3,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
 

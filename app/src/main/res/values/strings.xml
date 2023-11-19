@@ -12,5 +12,83 @@
     <string name="enteremail">Enter You Email</string>
     <string name="enterpassword">Enter Your Password</string>
     <string name="api_key">AIzaSyA4qXMgau9-5bDIPh3IeX8pU-zmPLR7viw</string>
+    <string name="prom">Select Delivery type</string>
+
+    <string-array name="timearray1">
+        <item>Select time slot</item>
+        <item> </item>
+        <item>7AM-9AM</item>
+        <item> </item>
+        <item>9AM-11AM</item>
+        <item> </item>
+        <item>11AM-1PM</item>
+        <item> </item>
+        <item>1PM-3PM</item>
+        <item> </item>
+        <item>3PM-5PM</item>
+        <item> </item>
+        <item>5PM-6PM</item>
+        <item> </item>
+    </string-array>
+
+    <string-array name="timearray2">
+        <item>Select time slot</item>
+        <item> </item>
+        <item>9AM-11AM</item>
+        <item> </item>
+        <item>11AM-1PM</item>
+        <item> </item>
+        <item>1PM-3PM</item>
+        <item> </item>
+        <item>3PM-5PM</item>
+        <item> </item>
+        <item>5PM-6PM</item>
+        <item> </item>
+    </string-array>
+
+    <string-array name="timearray3">
+        <item>Select time slot</item>
+        <item> </item>
+        <item>11AM-1PM</item>
+        <item> </item>
+        <item>1PM-3PM</item>
+        <item> </item>
+        <item>3PM-5PM</item>
+        <item> </item>
+        <item>5PM-6PM</item>
+        <item> </item>
+    </string-array>
+
+    <string-array name="timearray4">
+        <item>Select time slot</item>
+        <item> </item>
+        <item>1PM-3PM</item>
+        <item> </item>
+        <item>3PM-5PM</item>
+        <item> </item>
+        <item>5PM-6PM</item>
+        <item> </item>
+    </string-array>
+
+    <string-array name="timearray5">
+        <item>Select time slot</item>
+        <item> </item>
+        <item>3PM-5PM</item>
+        <item> </item>
+        <item>5PM-6PM</item>
+        <item> </item>
+    </string-array>
+
+    <string-array name="timearray6">
+        <item>Select time slot</item>
+        <item> </item>
+        <item>5PM-6PM</item>
+        <item> </item>
+    </string-array>
+
+    <string-array name="timearray7">
+        <item>Select time slot</item>
+        <item> </item>
+    </string-array>
 
 </resources>

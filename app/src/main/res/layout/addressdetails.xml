@@ -61,7 +61,7 @@
                 android:layout_centerInParent="true"
                 android:gravity="center">
                 <TextView
-
+                    android:id="@+id/text_statae"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
@@ -87,7 +87,7 @@
                 android:layout_centerInParent="true"
                 android:gravity="center">
                 <TextView
-
+                    android:id="@+id/text_city"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
@@ -113,7 +113,7 @@
                 android:layout_centerInParent="true"
                 android:gravity="center">
                 <TextView
-
+                    android:id="@+id/text_pincode"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"

@@ -1,19 +1,25 @@
 package com.example.taifooapplication.fragment;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,6 +31,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -62,8 +69,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -78,32 +88,37 @@ public class CheckOutPage extends Fragment {
     ArrayList<State_ModelClass> list_state = new ArrayList<>();
     ArrayList<PinCode_ModelClass> arrayListPincode = new ArrayList<PinCode_ModelClass>();
     ArrayList<ViewAddressDetails_ModelClass> addressDetails = new ArrayList<>();
-    double totalprice, sales_Price, quanTity, totalAmount = 0,d_taxandfee,d_subTotalPrice,d_Total;
-    TextView text_subTotalPrice,text_shippingCharges,text_TotalPrice,text_ShowAddress;
+    double totalprice, sales_Price, quanTity, totalAmount = 0, d_taxandfee, d_subTotalPrice, d_Total;
+    TextView text_subTotalPrice, text_shippingCharges, text_TotalPrice, text_ShowAddress, date_txt;
     Dialog dialog;
-    Spinner spinner_City,spinner_Pincode,spinner_State;
-    Button btn_AddnewAddress,btn_selectAddress,btn_ProceedCheckout;
-    RadioButton radio_cashondelivery,selectedRadioButton;
+    Spinner spinner_City, spinner_Pincode, spinner_State, timeslot;
+    Button btn_AddnewAddress, btn_selectAddress, btn_ProceedCheckout;
+    RadioButton radio_cashondelivery, selectedRadioButton;
     RadioGroup radioGroup;
-    String str_Name,str_Email,str_MobileNo,str_City,str_Area,str_Address,city_Id,city_Name,pincode,
-            str_PinCode,City_id,pincode_Name, userId,subTotalPrice,deliveryPrice,totalPrice,taxandfee,
-            Name,Email,MobileNo,City,Area,Address,PinCode,addressId,city_id,cityid,pin_code,pin_id,str_Total,
-            str_ShowAddress,str_ShippingNmae,addreessid,selectPaymentOption,currentDate,currentTime,state_id,
-            state_name,pincode_id,state_Id,state_Name,order_id;
+    String str_Name, str_Email, str_MobileNo, str_City, str_Area, str_Address, city_Id, city_Name, pincode,
+            str_PinCode, City_id, pincode_Name, userId, subTotalPrice, deliveryPrice, totalPrice, taxandfee,
+            Name, Email, MobileNo, City, Area, Address, PinCode, addressId, city_id, cityid, pin_code, pin_id, str_Total,
+            str_ShowAddress, str_ShippingNmae, addreessid, selectPaymentOption, currentDate, currentTime, state_id,
+            state_name, pincode_id, state_Id, state_Name, order_id, dateselected = "", name_time = "", name_date = "";
 
     RecyclerView recyclerAddressDetails;
     LinearLayoutManager linearLayoutManager1;
     SelectAddressAdapter selectAddressAdapter;
+    DatePickerDialog datePickerDialog;
+    int year, month, dayOfMonth, i;
+    Calendar calendar;
+    CardView addresslayout;
+    ArrayAdapter<CharSequence> adapter;
+    long timeInMilliseconds;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull  LayoutInflater inflater,
-                             @Nullable  ViewGroup container,
-                             @Nullable  Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
 
 
-
-        View view = inflater.inflate(R.layout.checkoutpage,container,false);
+        View view = inflater.inflate(R.layout.checkoutpage, container, false);
 
         orderSummaryRecycler = view.findViewById(R.id.orderSummaryRecycler);
         text_subTotalPrice = view.findViewById(R.id.text_subTotalPrice);
@@ -116,6 +131,8 @@ public class CheckOutPage extends Fragment {
         radio_cashondelivery = view.findViewById(R.id.radio_cashondelivery);
         //radio_payonline = view.findViewById(R.id.radio_payonline);
         radioGroup = view.findViewById(R.id.radioGroup);
+        date_txt = view.findViewById(R.id.date_txt);
+        timeslot = view.findViewById(R.id.timeslot);
 
         SharedPreferences sh = getContext().getSharedPreferences("MySharedPref", getContext().MODE_PRIVATE);
         userId = sh.getString("userId", "");
@@ -125,21 +142,20 @@ public class CheckOutPage extends Fragment {
         SharedPreferences pref1 = getContext().getSharedPreferences("order_id123", 0);
         order_id = pref1.getString("order_id", null);
 
-        if (order_id == null){
+        if (order_id == null) {
             getCartItem(userId);
-        }else{
+        } else {
             successPayment(userId);
         }
 
 
-
         SharedPreferences sp = getContext().getSharedPreferences("details", Context.MODE_PRIVATE);
 
-        subTotalPrice = sp.getString("subTotalPrice",null);
-        deliveryPrice = sp.getString("deliveryPrice",null);
-        totalPrice = sp.getString("totalPrice",null);
-        taxandfee = sp.getString("taxandfee",null);
-        str_ShippingNmae = sp.getString("ShippingNmae",null);
+        subTotalPrice = sp.getString("subTotalPrice", null);
+        deliveryPrice = sp.getString("deliveryPrice", null);
+        totalPrice = sp.getString("totalPrice", null);
+        taxandfee = sp.getString("taxandfee", null);
+        str_ShippingNmae = sp.getString("ShippingNmae", null);
 
         d_taxandfee = Double.valueOf(taxandfee);
         d_subTotalPrice = Double.valueOf(subTotalPrice);
@@ -171,9 +187,12 @@ public class CheckOutPage extends Fragment {
             @Override
             public void onClick(View v) {
 
+                name_time = timeslot.getSelectedItem().toString();
+                name_date = date_txt.getText().toString().trim();
+
                 int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
 
-                if(text_ShowAddress.getText().toString().trim().equals("")){
+                if (text_ShowAddress.getText().toString().trim().equals("")) {
 
                     Toast.makeText(getContext(), "Select Your address", Toast.LENGTH_SHORT).show();
 
@@ -181,10 +200,21 @@ public class CheckOutPage extends Fragment {
 
                     Toast.makeText(getContext(), "Please select RadioButton", Toast.LENGTH_SHORT).show();
 
-                }else{
+                } else if (name_date.equals("")) {
+
+                    Toast.makeText(getContext(), "Select Your Date", Toast.LENGTH_SHORT).show();
+
+                } else if (name_time.equals("")) {
+
+                    Toast.makeText(getContext(), "Select Your Time", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    name_time = timeslot.getSelectedItem().toString();
+                    name_date = date_txt.getText().toString().trim();
 
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-                    currentDate= sdf.format(new Date());
+                    currentDate = sdf.format(new Date());
 
                     SimpleDateFormat sdt = new SimpleDateFormat("HH:mm:ss");
                     currentTime = sdt.format(new Date());
@@ -193,26 +223,69 @@ public class CheckOutPage extends Fragment {
                     selectPaymentOption = selectedRadioButton.getText().toString();
 
 
-                    if (selectPaymentOption.equals("Pay Online")){
+                    if (selectPaymentOption.equals("Pay Online")) {
 
                         String str_totalprice = text_TotalPrice.getText().toString().trim();
 
-                        orderPlaced_online(userId,addreessid,deliveryPrice,str_ShippingNmae,selectPaymentOption,currentDate,currentTime,str_totalprice);
+                        orderPlaced_online(userId, addreessid, deliveryPrice, str_ShippingNmae, selectPaymentOption,
+                                name_date, name_time, str_totalprice);
 
-                    }else{
+                    } else {
 
-                       orderPlaced(userId,addreessid,deliveryPrice,str_ShippingNmae,selectPaymentOption,currentDate,currentTime);
+                        orderPlaced(userId, addreessid, deliveryPrice, str_ShippingNmae, selectPaymentOption,
+                                name_date, name_time);
 
                     }
-
                 }
+            }
+        });
+
+        date_txt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                calendar = Calendar.getInstance();
+                year = calendar.get(Calendar.YEAR);
+                month = calendar.get(Calendar.MONTH);
+                dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+
+                datePickerDialog = new DatePickerDialog(getActivity(),
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+//                                edit_date.setText(year + "-" + (month + 1) + "-" + day);
+
+                                DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-d");
+                                DateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
+                                String inputDateStr = year + "-" + (month + 1) + "-" + day;
+                                Log.d("sufifn", inputDateStr);
+                                dateselected = inputDateStr;
+                                Date date = null;
+                                try {
+                                    date = inputFormat.parse(inputDateStr);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                                String outputDateStr = outputFormat.format(date);
+
+                                date_txt.setText(outputDateStr);
+                                setSpinnerData();
+
+                            }
+                        }, year, month, dayOfMonth);
+
+                datePickerDialog.getDatePicker().setMinDate(calendar.getTimeInMillis());
+//                  datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+                datePickerDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                datePickerDialog.show();
             }
         });
 
         return view;
     }
 
-    public void getCartItem(String userid){
+    public void getCartItem(String userid) {
 
         ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Get Cart Item Details");
@@ -231,11 +304,11 @@ public class CheckOutPage extends Fragment {
 
                     JSONArray jsonArray_AllCart1 = new JSONArray(All_Cart);
 
-                    if(jsonArray_AllCart1.length() != 0){
+                    if (jsonArray_AllCart1.length() != 0) {
 
                         JSONArray jsonArray_AllCart = new JSONArray(All_Cart);
 
-                        for (int i=0;i<jsonArray_AllCart.length();i++){
+                        for (int i = 0; i < jsonArray_AllCart.length(); i++) {
 
                             JSONObject jsonObject_AllCart = jsonArray_AllCart.getJSONObject(i);
 
@@ -249,7 +322,7 @@ public class CheckOutPage extends Fragment {
                             String sale_price = jsonObject_AllCart.getString("price");
 
                             OrderSummary_ModelClass orderSummary_modelClass = new OrderSummary_ModelClass(
-                                    product_id,product_img,product_name,variation,sale_price,quantity
+                                    product_id, product_img, product_name, variation, sale_price, quantity
                             );
 
                             sales_Price = Double.valueOf(sale_price);
@@ -265,8 +338,8 @@ public class CheckOutPage extends Fragment {
 
                         }
 
-                        linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
-                        orderSummaryAdapter = new OrderSummaryAdapter(getContext(),ordersummary);
+                        linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                        orderSummaryAdapter = new OrderSummaryAdapter(getContext(), ordersummary);
                         orderSummaryRecycler.setLayoutManager(linearLayoutManager);
                         orderSummaryRecycler.setHasFixedSize(true);
                         orderSummaryRecycler.setAdapter(orderSummaryAdapter);
@@ -282,28 +355,28 @@ public class CheckOutPage extends Fragment {
             public void onErrorResponse(VolleyError error) {
 
                 progressDialog.dismiss();
-                error.printStackTrace ();
+                error.printStackTrace();
                 Toast.makeText(getContext(), "address Details Not Found", Toast.LENGTH_SHORT).show();
 
             }
-        }){
+        }) {
 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
-                Map<String,String> params = new HashMap<>();
-                params.put("user_id",userid);
+                Map<String, String> params = new HashMap<>();
+                params.put("user_id", userid);
                 return params;
             }
         };
 
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,3,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
 
     }
 
-    public void addAddress(){
+    public void addAddress() {
 
         dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.addressdetails);
@@ -335,27 +408,27 @@ public class CheckOutPage extends Fragment {
             public void onClick(View v) {
 
 
-                if(edit_userName.getText().toString().trim().equals("")){
+                if (edit_userName.getText().toString().trim().equals("")) {
 
                     edit_userName.setError("Please Enter Name");
 
-                }else if (TextUtils.isEmpty(edit_EmailId.getText())){
+                } else if (TextUtils.isEmpty(edit_EmailId.getText())) {
 
                     edit_EmailId.setError("Please Enter Email");
 
-                }else if (TextUtils.isEmpty(edit_MobileNo.getText()) && edit_MobileNo.getText().toString().trim().length() == 10) {
+                } else if (TextUtils.isEmpty(edit_MobileNo.getText()) && edit_MobileNo.getText().toString().trim().length() == 10) {
 
                     edit_MobileNo.setError("Please Enter MobileNumber");
 
-                }else if (TextUtils.isEmpty(edit_Areas.getText())) {
+                } else if (TextUtils.isEmpty(edit_Areas.getText())) {
 
                     edit_Areas.setError("Please Enter Area");
 
-                }else if (TextUtils.isEmpty(edit_Address.getText())) {
+                } else if (TextUtils.isEmpty(edit_Address.getText())) {
 
                     edit_Address.setError("Please Enter Address");
 
-                }else{
+                } else {
 
                     str_Name = edit_userName.getText().toString().trim();
                     str_Email = edit_EmailId.getText().toString().trim();
@@ -365,7 +438,7 @@ public class CheckOutPage extends Fragment {
                     str_PinCode = pincode;
                     str_City = city_Id;
 
-                    addAddress_Save(userId,str_Name,state_Id,city_Id,pincode_id,str_MobileNo,str_Address);
+                    addAddress_Save(userId, str_Name, state_Id, city_Id, pincode_id, str_MobileNo, str_Address);
 
                 }
 
@@ -381,9 +454,9 @@ public class CheckOutPage extends Fragment {
 
     }
 
-    public void getLocationCity(){
+    public void getLocationCity() {
 
-        ProgressDialog progressDialog  = new ProgressDialog(getContext());
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Show Your City");
         progressDialog.show();
 
@@ -472,9 +545,9 @@ public class CheckOutPage extends Fragment {
 
     }
 
-    public void getCityData(String state_Id){
+    public void getCityData(String state_Id) {
 
-        ProgressDialog progressDialog  = new ProgressDialog(getContext());
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Show Your City");
         progressDialog.show();
 
@@ -501,11 +574,11 @@ public class CheckOutPage extends Fragment {
 
                             String state_id = jsonObject1.getString("state_id");
 
-                            if(state_id.equals(state_Id)){
+                            if (state_id.equals(state_Id)) {
 
                                 JSONArray jsinArraycity = jsonObject1.getJSONArray("city_list");
 
-                                for (int j =0;j<jsinArraycity.length();j++){
+                                for (int j = 0; j < jsinArraycity.length(); j++) {
 
                                     JSONObject jsonObjectcity = jsinArraycity.getJSONObject(j);
 
@@ -578,7 +651,7 @@ public class CheckOutPage extends Fragment {
 
         arrayListPincode.clear();
 
-        ProgressDialog progressDialog  = new ProgressDialog(getContext());
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Show Your PinCode");
         progressDialog.show();
 
@@ -604,14 +677,13 @@ public class CheckOutPage extends Fragment {
 
                             String state_id = jsonObject1.getString("state_id");
 
-                            if(state_id.equals(state_Id)){
+                            if (state_id.equals(state_Id)) {
 
                                 JSONArray jsinArraycity = jsonObject1.getJSONArray("city_list");
 
-                                for (int j =0;j<jsinArraycity.length();j++){
+                                for (int j = 0; j < jsinArraycity.length(); j++) {
 
                                     JSONObject jsonObjectcity = jsinArraycity.getJSONObject(j);
-
 
 
                                     cityid = jsonObjectcity.getString("city_id");
@@ -686,10 +758,10 @@ public class CheckOutPage extends Fragment {
         requestQueue.add(stringRequest);
     }
 
-    public void addAddress_Save(String userId,String name,String state_id,String city_id,
-                                String pincode,String number,String address){
+    public void addAddress_Save(String userId, String name, String state_id, String city_id,
+                                String pincode, String number, String address) {
 
-        ProgressDialog progressDialog  = new ProgressDialog(getContext());
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Add Address Details");
         progressDialog.show();
 
@@ -705,7 +777,7 @@ public class CheckOutPage extends Fragment {
 
                     String message = jsonObject.getString("success");
 
-                    if (message.equals("true")){
+                    if (message.equals("true")) {
 
                         Toast.makeText(getContext(), "Address Insterted Success Fully..", Toast.LENGTH_SHORT).show();
 
@@ -722,37 +794,37 @@ public class CheckOutPage extends Fragment {
             public void onErrorResponse(VolleyError error) {
 
                 progressDialog.dismiss();
-                error.printStackTrace ();
-                Toast.makeText (getContext(), "Address not Stored Successfully", Toast.LENGTH_SHORT).show ( );
+                error.printStackTrace();
+                Toast.makeText(getContext(), "Address not Stored Successfully", Toast.LENGTH_SHORT).show();
 
             }
-        }){
+        }) {
 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
-                Map<String,String> params = new HashMap<>();
+                Map<String, String> params = new HashMap<>();
 
-                params.put("id",userId);
-                params.put("name",name);
-                params.put("state_id",state_id);
-                params.put("city_id",city_id);
-                params.put("pincode",pincode);
-                params.put("number",number);
-                params.put("address",address);
+                params.put("id", userId);
+                params.put("name", name);
+                params.put("state_id", state_id);
+                params.put("city_id", city_id);
+                params.put("pincode", pincode);
+                params.put("number", number);
+                params.put("address", address);
 
                 return params;
             }
         };
 
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000,5,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.getCache().clear();
         requestQueue.add(stringRequest);
 
     }
 
-    public void selectAddress(){
+    public void selectAddress() {
 
         Dialog dialogSelect = new Dialog(getContext());
         dialogSelect.setContentView(R.layout.selectaddress);
@@ -784,11 +856,11 @@ public class CheckOutPage extends Fragment {
 
     }
 
-    public void getaddressDetails(String userid){
+    public void getaddressDetails(String userid) {
 
         addressDetails.clear();
 
-        ProgressDialog progressDialog  = new ProgressDialog(getContext());
+        ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Show User Address Details");
         progressDialog.show();
 
@@ -803,13 +875,13 @@ public class CheckOutPage extends Fragment {
 
                     String message = jsonObject.getString("success");
 
-                    if(message.equals("true")){
+                    if (message.equals("true")) {
 
                         String address = jsonObject.getString("All_address");
 
                         JSONArray jsonArray = new JSONArray(address);
 
-                        for(int i=0;i<jsonArray.length();i++){
+                        for (int i = 0; i < jsonArray.length(); i++) {
 
                             JSONObject jsonObject1 = jsonArray.getJSONObject(i);
 
@@ -828,16 +900,16 @@ public class CheckOutPage extends Fragment {
 
 
                             ViewAddressDetails_ModelClass viewAddressDetails_modelClass = new ViewAddressDetails_ModelClass(
-                                    addressId,city_id,Name,City,Area,PinCode,MobileNo,Address,Email
+                                    addressId, city_id, Name, City, Area, PinCode, MobileNo, Address, Email
                             );
 
                             addressDetails.add(viewAddressDetails_modelClass);
                         }
 
-                        linearLayoutManager1 = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
+                        linearLayoutManager1 = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                         recyclerAddressDetails.setLayoutManager(linearLayoutManager1);
                         recyclerAddressDetails.setHasFixedSize(true);
-                        selectAddressAdapter = new SelectAddressAdapter(getContext(),addressDetails);
+                        selectAddressAdapter = new SelectAddressAdapter(getContext(), addressDetails);
                         recyclerAddressDetails.setAdapter(selectAddressAdapter);
 
                     }
@@ -852,29 +924,29 @@ public class CheckOutPage extends Fragment {
             public void onErrorResponse(VolleyError error) {
 
                 progressDialog.dismiss();
-                error.printStackTrace ();
+                error.printStackTrace();
                 Toast.makeText(getContext(), "address Details Not Found", Toast.LENGTH_SHORT).show();
 
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
-                Map<String,String> params = new HashMap<>();
-                params.put("id",userid);
+                Map<String, String> params = new HashMap<>();
+                params.put("id", userid);
                 return params;
             }
         };
 
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy( 50000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(50000, 5, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.getCache().clear();
         requestQueue.add(stringRequest);
 
     }
 
-    public void orderPlaced(String userid,String addressid,String shippingCharges,String shippingType,
-                            String paymentType,String deliveryDate,String ArrivalTime){
+    public void orderPlaced(String userid, String addressid, String shippingCharges, String shippingType,
+                            String paymentType, String deliveryDate, String ArrivalTime) {
 
         ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Your OrderPlaced Please Wait...");
@@ -890,10 +962,10 @@ public class CheckOutPage extends Fragment {
                     JSONObject jsonObject = new JSONObject(response);
                     String message = jsonObject.getString("success");
 
-                    if(message.equals("true")){
+                    if (message.equals("true")) {
 
                         String order_id = jsonObject.getString("order_id");
-                       // String order_date = jsonObject.getString("order_date");
+                        // String order_date = jsonObject.getString("order_date");
                         String msg = jsonObject.getString("msg");
 
                         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
@@ -914,38 +986,38 @@ public class CheckOutPage extends Fragment {
             public void onErrorResponse(VolleyError error) {
 
                 progressDialog.dismiss();
-                error.printStackTrace ();
+                error.printStackTrace();
                 Toast.makeText(getContext(), "address Details Not Found", Toast.LENGTH_SHORT).show();
 
             }
-        }){
+        }) {
 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
-                Map<String,String> params = new HashMap<>();
+                Map<String, String> params = new HashMap<>();
 
-                params.put("user_id",userid);
-                params.put("adresss_id",addressid);
-                params.put("shipChar",shippingCharges);
-                params.put("shiptype",shippingType);
-                params.put("payment_type",paymentType);
-                params.put("delivery_date",deliveryDate);
-                params.put("AvalTimeSlot",ArrivalTime);
+                params.put("user_id", userid);
+                params.put("adresss_id", addressid);
+                params.put("shipChar", shippingCharges);
+                params.put("shiptype", shippingType);
+                params.put("payment_type", paymentType);
+                params.put("delivery_date", deliveryDate);
+                params.put("AvalTimeSlot", ArrivalTime);
 
                 return params;
             }
         };
 
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,3,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
 
 
     }
 
-    public void orderPlaced_online(String userid,String addressid,String shippingCharges,String shippingType,
-                            String paymentType,String deliveryDate,String ArrivalTime,String GrandTotal){
+    public void orderPlaced_online(String userid, String addressid, String shippingCharges, String shippingType,
+                                   String paymentType, String deliveryDate, String ArrivalTime, String GrandTotal) {
 
         ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Your OrderPlaced Please Wait...");
@@ -961,16 +1033,16 @@ public class CheckOutPage extends Fragment {
                     JSONObject jsonObject = new JSONObject(response);
                     String success = jsonObject.getString("success");
 
-                    if(success.equals("true")){
+                    if (success.equals("true")) {
 
                         String online_url = jsonObject.getString("online_url");
                         String order_id = jsonObject.getString("order_id");
 
-                       // Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(getContext(), "", Toast.LENGTH_SHORT).show();
 
                         SharedPreferences pref = getContext().getSharedPreferences("order_id123", 0); // 0 - for private mode
                         SharedPreferences.Editor editor = pref.edit();
-                        editor.putString("order_id",order_id);
+                        editor.putString("order_id", order_id);
                         editor.commit();
 
                         Fragment fragment = new WebViewFragment();
@@ -995,33 +1067,33 @@ public class CheckOutPage extends Fragment {
             public void onErrorResponse(VolleyError error) {
 
                 progressDialog.dismiss();
-                error.printStackTrace ();
+                error.printStackTrace();
                 Toast.makeText(getContext(), "address Details Not Found", Toast.LENGTH_SHORT).show();
 
             }
-        }){
+        }) {
 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
-                Map<String,String> params = new HashMap<>();
+                Map<String, String> params = new HashMap<>();
 
-                params.put("user_id",userid);
-                params.put("adresss_id",addressid);
-                params.put("shipChar",shippingCharges);
-                params.put("shiptype",shippingType);
-                params.put("payment_type",paymentType);
-                params.put("delivery_date",deliveryDate);
-                params.put("AvalTimeSlot",ArrivalTime);
-                params.put("GrandTotal",GrandTotal);
+                params.put("user_id", userid);
+                params.put("adresss_id", addressid);
+                params.put("shipChar", shippingCharges);
+                params.put("shiptype", shippingType);
+                params.put("payment_type", paymentType);
+                params.put("delivery_date", deliveryDate);
+                params.put("AvalTimeSlot", ArrivalTime);
+                params.put("GrandTotal", GrandTotal);
 
-                Log.d("parameterlist",params.toString());
+                Log.d("parameterlist", params.toString());
 
                 return params;
             }
         };
 
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,3,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
 
@@ -1064,7 +1136,7 @@ public class CheckOutPage extends Fragment {
 
     }
 
-    public void successPayment(String userId){
+    public void successPayment(String userId) {
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, AppURL.successfail, new Response.Listener<String>() {
             @Override
@@ -1074,15 +1146,15 @@ public class CheckOutPage extends Fragment {
                 try {
                     jsonObject = new JSONObject(response);
                     String success = jsonObject.getString("success");
-                    if (success.equals("false")){
+                    if (success.equals("false")) {
                         String msg = jsonObject.getString("msg");
                         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
 
                         getCartItem(userId);
 
-                    }else{
+                    } else {
 
-                       startActivity(new Intent(getActivity(), HomePageActivity.class));
+                        startActivity(new Intent(getActivity(), HomePageActivity.class));
                     }
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
@@ -1094,10 +1166,10 @@ public class CheckOutPage extends Fragment {
             @Override
             public void onErrorResponse(VolleyError error) {
 
-                error.printStackTrace ();
+                error.printStackTrace();
                 Toast.makeText(getContext(), "address Details Not Found", Toast.LENGTH_SHORT).show();
             }
-        }){
+        }) {
 
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -1105,14 +1177,199 @@ public class CheckOutPage extends Fragment {
                 SharedPreferences pref1 = getContext().getSharedPreferences("order_id123", 0);
                 order_id = pref1.getString("order_id", null);
 
-                Map<String,String> params = new HashMap<>();
-                params.put("order_id",order_id);
+                Map<String, String> params = new HashMap<>();
+                params.put("order_id", order_id);
                 return params;
             }
         };
 
-        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,3,DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000, 3, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
     }
+
+    public void setSpinnerData() {
+
+        adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.timearray1, R.layout.spinnerfront2);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+        timeslot.setAdapter(adapter);
+
+        Date currentTime = Calendar.getInstance().getTime();
+
+        timeInMilliseconds = getMilliFromDate(dateselected);
+        if (DateUtils.isToday(timeInMilliseconds)) {
+
+            try {
+
+                Date time1 = new SimpleDateFormat("HH:mm:ss").parse("07:00:00");
+                Calendar calendar1 = Calendar.getInstance();
+                //  calendar1.setTime(time1);
+                //   calendar1.add(Calendar.DATE, 1);
+                //  calendar1.setTime(time1);
+                //   calendar1.add(Calendar.DATE, 1);
+
+                calendar1.set(Calendar.HOUR_OF_DAY, 7);
+                calendar1.set(Calendar.MINUTE, 0);
+                calendar1.set(Calendar.SECOND, 0);
+
+                Date time2 = new SimpleDateFormat("HH:mm:ss").parse("09:00:00");
+                Calendar calendar2 = Calendar.getInstance();
+                //calendar2.setTime(time2);
+                //  calendar2.add(Calendar.DATE, 1);
+
+                //  calendar2.add(Calendar.DATE, 1);
+
+
+                calendar2.set(Calendar.HOUR_OF_DAY, 9);
+                calendar2.set(Calendar.MINUTE, 0);
+                calendar2.set(Calendar.SECOND, 0);
+
+                Date time3 = new SimpleDateFormat("HH:mm:ss").parse("11:00:00");
+                Calendar calendar3 = Calendar.getInstance();
+
+                // calendar3.setTime(time3);
+                // calendar3.add(Calendar.DATE, 1);
+
+                // calendar3.setTime(time3);
+                // calendar3.add(Calendar.DATE, 1);
+
+
+                calendar3.set(Calendar.HOUR_OF_DAY, 11);
+                calendar3.set(Calendar.MINUTE, 0);
+                calendar3.set(Calendar.SECOND, 0);
+
+                Date time4 = new SimpleDateFormat("HH:mm:ss").parse("13:00:00");
+                Calendar calendar4 = Calendar.getInstance();
+                //calendar4.setTime(time4);
+                //calendar4.add(Calendar.DATE, 1);
+
+                calendar4.set(Calendar.HOUR_OF_DAY, 13);
+                calendar4.set(Calendar.MINUTE, 0);
+                calendar4.set(Calendar.SECOND, 0);
+
+                Date time5 = new SimpleDateFormat("HH:mm:ss").parse("15:00:00");
+                Calendar calendar5 = Calendar.getInstance();
+                //calendar5.setTime(time5);
+                // calendar5.add(Calendar.DATE, 1);
+
+                // calendar5.add(Calendar.DATE, 1);
+
+                calendar5.set(Calendar.HOUR_OF_DAY, 15);
+                calendar5.set(Calendar.MINUTE, 0);
+                calendar5.set(Calendar.SECOND, 0);
+
+                Date time6 = new SimpleDateFormat("HH:mm:ss").parse("17:00:00");
+                Calendar calendar6 = Calendar.getInstance();
+                // calendar6.setTime(time6);
+                // calendar6.add(Calendar.DATE, 1);
+                // calendar6.setTime(time6);
+                // calendar6.add(Calendar.DATE, 1);
+
+                calendar6.set(Calendar.HOUR_OF_DAY, 17);
+                calendar6.set(Calendar.MINUTE, 0);
+                calendar6.set(Calendar.SECOND, 0);
+
+                Date time7 = new SimpleDateFormat("HH:mm:ss").parse("18:00:00");
+                Calendar calendar7 = Calendar.getInstance();
+
+                // calendar7.setTime(time7);
+                // calendar7.setTime(time7);
+                //calendar7.add(Calendar.DATE, 1);
+
+                calendar7.set(Calendar.HOUR_OF_DAY, 19);
+                calendar7.set(Calendar.MINUTE, 0);
+                calendar7.set(Calendar.SECOND, 0);
+
+//                Date time8 = new SimpleDateFormat("HH:mm:ss").parse("18:00:00");
+//                Calendar calendar8 = Calendar.getInstance();
+//                // calendar7.setTime(time7);
+//                //calendar7.add(Calendar.DATE, 1);
+//
+//                calendar8.set(Calendar.HOUR_OF_DAY, 23);
+//                calendar8.set(Calendar.MINUTE, 0);
+//                calendar8.set(Calendar.SECOND, 0);
+//
+//                Date time9 = new SimpleDateFormat("HH:mm:ss").parse("18:00:00");
+//                Calendar calendar9 = Calendar.getInstance();
+//                // calendar7.setTime(time7);
+//                //calendar7.add(Calendar.DATE, 1);
+//
+//                calendar8.set(Calendar.HOUR_OF_DAY, 24);
+//                calendar8.set(Calendar.MINUTE, 0);
+//                calendar8.set(Calendar.SECOND, 0);
+
+
+                Date x = Calendar.getInstance().getTime();
+//                final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+//                Date x = dateFormat.format(new Date());
+
+                Log.d("mkfgud_1", "" + calendar1.getTime());
+                Log.d("mkfgud_2", "" + calendar2.getTime());
+                Log.d("mkfgud_3", "" + calendar3.getTime());
+                Log.d("mkfgud_4", "" + calendar4.getTime());
+                Log.d("mkfgud_5", "" + calendar5.getTime());
+                Log.d("mkfgud_6", "" + calendar6.getTime());
+                Log.d("mkfgud_7", "" + calendar7.getTime());
+                Log.d("mkfgud_8", "" + x);
+
+                if (x.before(calendar1.getTime())) {
+                    adapter = ArrayAdapter.createFromResource(getActivity(),
+                            R.array.timearray1, R.layout.spinnerfront2);
+
+                } else if (x.before(calendar2.getTime())) {
+                    adapter = ArrayAdapter.createFromResource(getActivity(),
+                            R.array.timearray2, R.layout.spinnerfront2);
+
+                } else if (x.before(calendar3.getTime())) {
+                    adapter = ArrayAdapter.createFromResource(getActivity(),
+                            R.array.timearray3, R.layout.spinnerfront2);
+
+                } else if (x.before(calendar4.getTime())) {
+                    adapter = ArrayAdapter.createFromResource(getActivity(),
+                            R.array.timearray4, R.layout.spinnerfront2);
+
+                } else if (x.before(calendar5.getTime())) {
+                    adapter = ArrayAdapter.createFromResource(getActivity(),
+                            R.array.timearray5, R.layout.spinnerfront2);
+
+                } else if (x.before(calendar6.getTime())) {
+                    adapter = ArrayAdapter.createFromResource(getActivity(),
+                            R.array.timearray6, R.layout.spinnerfront2);
+
+                } else if (x.before(calendar7.getTime())) {
+                    adapter = ArrayAdapter.createFromResource(getActivity(),
+                            R.array.timearray7, R.layout.spinnerfront2);
+
+                }
+
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+                timeslot.setAdapter(adapter);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            adapter = ArrayAdapter.createFromResource(getActivity(),
+                    R.array.timearray1, R.layout.spinnerfront2);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
+            timeslot.setAdapter(adapter);
+        }
+
+    }
+
+    public long getMilliFromDate(String dateFormat) {
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-d");
+        try {
+            date = formatter.parse(dateFormat);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        System.out.println("Today is " + date);
+        return date.getTime();
+    }
+
+
 }
