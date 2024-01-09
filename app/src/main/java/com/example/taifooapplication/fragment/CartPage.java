@@ -404,7 +404,7 @@ public class CartPage extends Fragment {
 
                         valcharges = Double.valueOf(delivery_price);
 
-                        if(totalAmount > valcharges){
+                        if(totalAmount < valcharges){
 
                             String shippingPrice = price;
                             String shippingName = name;

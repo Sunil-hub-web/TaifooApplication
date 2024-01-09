@@ -505,7 +505,6 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
                 SharedPrefManager.getInstance(HomePageActivity.this).logout();
 
                 dialog.dismiss();
-
                 finish();
                 //System.exit(1);
 

@@ -135,7 +135,7 @@
                 android:layout_below="@id/spinertext"
                 android:layout_marginTop="@dimen/five"
                 android:layout_marginBottom="@dimen/seven"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <!-- <TextView
                      android:id="@+id/text_Unit"
