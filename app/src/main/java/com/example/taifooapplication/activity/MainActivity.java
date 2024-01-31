@@ -6,8 +6,10 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -90,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 
         if (SharedPrefManager.getInstance(MainActivity.this).isLoggedIn()) {
+
+            Log.d("username", SharedPrefManager.getInstance(MainActivity.this).getUser().getName());
+            Log.d("username2123", SharedPrefManager.getInstance(MainActivity.this).getUser().getPassword());
 
             Intent intent = new Intent(MainActivity.this, HomePageActivity.class);
             startActivity(intent);

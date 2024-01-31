@@ -588,7 +588,7 @@ public class SerachAdapter extends RecyclerView.Adapter<SerachAdapter.ViewHolder
 
             for(SerachProductModel item : sellProduct){
 
-                if(item.getProduct_name().contains((charSequence))){
+                if(item.getProduct_name().toLowerCase().contains((charSequence))){
                     tempArrayList.add(item);
                 }
             }

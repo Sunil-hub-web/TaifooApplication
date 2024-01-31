@@ -11,6 +11,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.MultiTransformation;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.taifooapplication.R;
 import com.example.taifooapplication.modelclas.ShowImage_ModelClass;
 import com.squareup.picasso.Picasso;
@@ -50,6 +54,9 @@ public class SliderAdpter extends RecyclerView.Adapter<SliderAdpter.ViewHOlder> 
 
         String image = slideImage.getImage();
         Picasso.with(context).load(image).into(holder.img_showImage);
+
+       // Glide.with(context).load(image).into(holder.img_showImage);
+
 
         if(position == show_Image.size() - 2){
 
