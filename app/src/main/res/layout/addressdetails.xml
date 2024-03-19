@@ -1,206 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/ten"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
-        <EditText
-            android:id="@+id/edit_userName"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/textfieldback"
-            android:padding="@dimen/twelve"
-            android:hint="User Name"
-            android:layout_margin="@dimen/ten"></EditText>
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/ten"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/edit_MobileNo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/textfieldback"
-            android:padding="@dimen/twelve"
-            android:hint="phone no"
-            android:layout_margin="@dimen/ten"></EditText>
-
-        <EditText
-            android:id="@+id/edit_EmailId"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/textfieldback"
-            android:padding="@dimen/twelve"
-            android:hint="email id"
-            android:layout_margin="@dimen/ten"></EditText>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <Spinner
-                android:id="@+id/spinner_State"
+            <EditText
+                android:id="@+id/edit_userName"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginStart="@dimen/ten"
-                android:layout_marginLeft="@dimen/ten"
-                android:layout_marginTop="@dimen/ten"
-                android:layout_marginEnd="@dimen/ten"
-                android:layout_marginRight="@dimen/ten"
-                android:layout_marginBottom="@dimen/ten"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/ten"
                 android:background="@drawable/textfieldback"
-                android:spinnerMode="dialog" />
-            <LinearLayout
-                android:id="@+id/ll_hint_spinner"
+                android:hint="User Name"
+                android:padding="@dimen/twelve"></EditText>
+
+            <EditText
+                android:id="@+id/edit_MobileNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center">
-                <TextView
-                    android:id="@+id/text_statae"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="Select State..."/>
-
-            </LinearLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <Spinner
-                android:id="@+id/spinner_City"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
                 android:layout_margin="@dimen/ten"
-                android:spinnerMode="dialog"
-                android:background="@drawable/textfieldback"></Spinner>
-            <LinearLayout
-                android:id="@+id/ll_hint_spinner1"
+                android:background="@drawable/textfieldback"
+                android:hint="phone no"
+                android:maxLength="10"
+                android:padding="@dimen/twelve"></EditText>
+
+            <EditText
+                android:id="@+id/edit_EmailId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center">
-                <TextView
-                    android:id="@+id/text_city"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="Select City..."/>
-
-            </LinearLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <Spinner
-                android:id="@+id/spinner_Pincode"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/forty_five"
                 android:layout_margin="@dimen/ten"
-                android:spinnerMode="dialog"
-                android:background="@drawable/textfieldback"></Spinner>
-            <LinearLayout
-                android:id="@+id/ll_hint_spinner2"
+                android:background="@drawable/textfieldback"
+                android:hint="email id"
+                android:padding="@dimen/twelve"></EditText>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Spinner
+                    android:id="@+id/spinner_State"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginStart="@dimen/ten"
+                    android:layout_marginLeft="@dimen/ten"
+                    android:layout_marginTop="@dimen/ten"
+                    android:layout_marginEnd="@dimen/ten"
+                    android:layout_marginRight="@dimen/ten"
+                    android:layout_marginBottom="@dimen/ten"
+                    android:background="@drawable/textfieldback"
+                    android:spinnerMode="dialog" />
+
+                <LinearLayout
+                    android:id="@+id/ll_hint_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/text_statae"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Select State..." />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Spinner
+                    android:id="@+id/spinner_City"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_margin="@dimen/ten"
+                    android:background="@drawable/textfieldback"
+                    android:spinnerMode="dialog"></Spinner>
+
+                <LinearLayout
+                    android:id="@+id/ll_hint_spinner1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/text_city"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Select City..." />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Spinner
+                    android:id="@+id/spinner_Pincode"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/forty_five"
+                    android:layout_margin="@dimen/ten"
+                    android:background="@drawable/textfieldback"
+                    android:spinnerMode="dialog"></Spinner>
+
+                <LinearLayout
+                    android:id="@+id/ll_hint_spinner2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/text_pincode"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Select Pincode..." />
+
+                </LinearLayout>
+            </RelativeLayout>
+
+
+            <EditText
+                android:id="@+id/edit_Ares"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center">
-                <TextView
-                    android:id="@+id/text_pincode"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="Select Pincode..."/>
+                android:layout_margin="@dimen/ten"
+                android:background="@drawable/textfieldback"
+                android:hint="area"
+                android:padding="@dimen/twelve"></EditText>
+
+            <EditText
+                android:id="@+id/edit_Address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/ten"
+                android:background="@drawable/textfieldback"
+                android:hint="address"
+                android:padding="@dimen/twelve"></EditText>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_Save"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ten"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="@dimen/ten"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:text="Save"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    app:backgroundTint="#DA291C"></com.google.android.material.button.MaterialButton>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_cancle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/ten"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="@dimen/ten"
+                    android:layout_weight="1"
+                    android:padding="10dp"
+                    android:text="Cancel"
+                    android:textColor="@color/white"
+                    android:textSize="15dp"
+                    android:textStyle="bold"
+                    app:backgroundTint="#DA291C">
+
+                </com.google.android.material.button.MaterialButton>
 
             </LinearLayout>
-        </RelativeLayout>
 
 
-        <EditText
-            android:id="@+id/edit_Ares"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/textfieldback"
-            android:padding="@dimen/twelve"
-            android:layout_margin="@dimen/ten"
-            android:hint="area"></EditText>
+            <!--<com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_Map"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/ten"
+                android:layout_marginRight="@dimen/ten"
+                android:layout_marginBottom="10dp"
+                android:padding="10dp"
+                android:text="   Google Map    "
+                android:layout_gravity="center"
+                app:backgroundTint="#DA291C"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="15dp">
 
-        <EditText
-            android:id="@+id/edit_Address"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/textfieldback"
-            android:padding="@dimen/twelve"
-            android:layout_margin="@dimen/ten"
-            android:hint="address"></EditText>
+            </com.google.android.material.button.MaterialButton>-->
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:weightSum="2"
-           android:orientation="horizontal">
+        </LinearLayout>
 
-           <com.google.android.material.button.MaterialButton
-               android:id="@+id/btn_Save"
-               android:layout_width="0dp"
-               android:layout_weight="1"
-               android:layout_height="wrap_content"
-               android:layout_marginLeft="@dimen/ten"
-               android:layout_marginRight="@dimen/ten"
-               android:layout_marginTop="20dp"
-               android:layout_marginBottom="10dp"
-               android:padding="10dp"
-               android:text="Save"
-               app:backgroundTint="#DA291C"
-               android:textColor="@color/white"
-               android:textStyle="bold"
-               android:textSize="15dp"></com.google.android.material.button.MaterialButton>
-
-           <com.google.android.material.button.MaterialButton
-               android:id="@+id/btn_cancle"
-               android:layout_width="0dp"
-               android:layout_weight="1"
-               android:layout_height="wrap_content"
-               android:layout_marginLeft="@dimen/ten"
-               android:layout_marginRight="@dimen/ten"
-               android:layout_marginTop="20dp"
-               android:padding="10dp"
-               android:text="Cancel"
-               app:backgroundTint="#DA291C"
-               android:textColor="@color/white"
-               android:textStyle="bold"
-               android:textSize="15dp">
-
-           </com.google.android.material.button.MaterialButton>
-
-       </LinearLayout>
-
-
-        <!--<com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_Map"
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/ten"
-            android:layout_marginRight="@dimen/ten"
-            android:layout_marginBottom="10dp"
-            android:padding="10dp"
-            android:text="   Google Map    "
-            android:layout_gravity="center"
-            app:backgroundTint="#DA291C"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="15dp">
-
-        </com.google.android.material.button.MaterialButton>-->
-
-    </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

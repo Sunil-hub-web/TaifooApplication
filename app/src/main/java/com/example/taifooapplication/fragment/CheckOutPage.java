@@ -89,7 +89,7 @@ public class CheckOutPage extends Fragment {
     ArrayList<PinCode_ModelClass> arrayListPincode = new ArrayList<PinCode_ModelClass>();
     ArrayList<ViewAddressDetails_ModelClass> addressDetails = new ArrayList<>();
     double totalprice, sales_Price, quanTity, totalAmount = 0, d_taxandfee, d_subTotalPrice, d_Total;
-    TextView text_subTotalPrice, text_shippingCharges, text_TotalPrice, text_ShowAddress, date_txt;
+    TextView text_subTotalPrice, text_shippingCharges, text_TotalPrice, text_ShowAddress, date_txt,text_statae,text_city,text_pincode;
     Dialog dialog;
     Spinner spinner_City, spinner_Pincode, spinner_State, timeslot;
     Button btn_AddnewAddress, btn_selectAddress, btn_ProceedCheckout;
@@ -100,6 +100,8 @@ public class CheckOutPage extends Fragment {
             Name, Email, MobileNo, City, Area, Address, PinCode, addressId, city_id, cityid, pin_code, pin_id, str_Total,
             str_ShowAddress, str_ShippingNmae, addreessid, selectPaymentOption, currentDate, currentTime, state_id,
             state_name, pincode_id, state_Id, state_Name, order_id, dateselected = "", name_time = "", name_date = "";
+
+    String regex = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
 
     RecyclerView recyclerAddressDetails;
     LinearLayoutManager linearLayoutManager1;
@@ -187,8 +189,15 @@ public class CheckOutPage extends Fragment {
             @Override
             public void onClick(View v) {
 
-                name_time = timeslot.getSelectedItem().toString();
-                name_date = date_txt.getText().toString().trim();
+                if (date_txt.getText().toString().trim().equals("Select Date")){
+
+                    Toast.makeText(getActivity(), "Please Select Your date", Toast.LENGTH_SHORT).show();
+
+                }else{
+
+                    name_date = date_txt.getText().toString().trim();
+                    name_time = timeslot.getSelectedItem().toString();
+                }
 
                 int selectedRadioButtonId = radioGroup.getCheckedRadioButtonId();
 
@@ -198,9 +207,9 @@ public class CheckOutPage extends Fragment {
 
                 } else if (selectedRadioButtonId == -1) {
 
-                    Toast.makeText(getContext(), "Please select RadioButton", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Please select", Toast.LENGTH_SHORT).show();
 
-                } else if (name_date.equals("")) {
+                } else if (date_txt.getText().toString().trim().equals("Select Date")) {
 
                     Toast.makeText(getContext(), "Select Your Date", Toast.LENGTH_SHORT).show();
 
@@ -394,6 +403,9 @@ public class CheckOutPage extends Fragment {
         EditText edit_Address = dialog.findViewById(R.id.edit_Address);
         Button btn_Save = dialog.findViewById(R.id.btn_Save);
         Button btn_cancle = dialog.findViewById(R.id.btn_cancle);
+        text_statae = dialog.findViewById(R.id.text_statae);
+        text_city = dialog.findViewById(R.id.text_city);
+        text_pincode = dialog.findViewById(R.id.text_pincode);
 
         btn_cancle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -416,7 +428,11 @@ public class CheckOutPage extends Fragment {
 
                     edit_EmailId.setError("Please Enter Email");
 
-                } else if (TextUtils.isEmpty(edit_MobileNo.getText()) && edit_MobileNo.getText().toString().trim().length() == 10) {
+                }else if (!edit_EmailId.getText().toString().trim().matches(regex)){
+
+                    edit_EmailId.setError("Email Is Not Valide");
+
+                } else if (TextUtils.isEmpty(edit_MobileNo.getText()) && edit_MobileNo.getText().toString().trim().length() != 10) {
 
                     edit_MobileNo.setError("Please Enter MobileNumber");
 
@@ -438,7 +454,8 @@ public class CheckOutPage extends Fragment {
                     str_PinCode = pincode;
                     str_City = city_Id;
 
-                    addAddress_Save(userId, str_Name, state_Id, city_Id, pincode_id, str_MobileNo, str_Address);
+                   // addAddress_Save(userId, str_Name, state_Id, city_Id, pincode_id, str_MobileNo, str_Address);
+                    addAddress_Save(userId,str_Name,state_Id,city_Id,pincode_id,str_MobileNo,str_Address,str_Email,str_Area);
 
                 }
 
@@ -454,9 +471,9 @@ public class CheckOutPage extends Fragment {
 
     }
 
-    public void getLocationCity() {
+    public void getLocationCity(){
 
-        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        ProgressDialog progressDialog  = new ProgressDialog(getContext());
         progressDialog.setMessage("Show Your City");
         progressDialog.show();
 
@@ -472,6 +489,8 @@ public class CheckOutPage extends Fragment {
                     String message = jsonObject.getString("success");
 
                     if (message.equals("true")) {
+
+                        list_state.clear();
 
                         String allLocation = jsonObject.getString("All_loc");
 
@@ -490,6 +509,7 @@ public class CheckOutPage extends Fragment {
                                     (jsonObject1.getString("state_name"), state_id);
 
                             list_state.add(state_modelClass);
+                            text_statae.setVisibility(View.GONE);
                         }
 
                         SateSpinearAdapter adapter = new SateSpinearAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item
@@ -545,9 +565,9 @@ public class CheckOutPage extends Fragment {
 
     }
 
-    public void getCityData(String state_Id) {
+    public void getCityData(String state_Id){
 
-        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        ProgressDialog progressDialog  = new ProgressDialog(getContext());
         progressDialog.setMessage("Show Your City");
         progressDialog.show();
 
@@ -564,6 +584,8 @@ public class CheckOutPage extends Fragment {
 
                     if (message.equals("true")) {
 
+                        list_city.clear();
+
                         String allLocation = jsonObject.getString("All_loc");
 
                         JSONArray jsonArray = new JSONArray(allLocation);
@@ -574,11 +596,11 @@ public class CheckOutPage extends Fragment {
 
                             String state_id = jsonObject1.getString("state_id");
 
-                            if (state_id.equals(state_Id)) {
+                            if(state_id.equals(state_Id)){
 
                                 JSONArray jsinArraycity = jsonObject1.getJSONArray("city_list");
 
-                                for (int j = 0; j < jsinArraycity.length(); j++) {
+                                for (int j =0;j<jsinArraycity.length();j++){
 
                                     JSONObject jsonObjectcity = jsinArraycity.getJSONObject(j);
 
@@ -590,6 +612,8 @@ public class CheckOutPage extends Fragment {
                                             (jsonObjectcity.getString("city_name"), cityid);
 
                                     list_city.add(city_modelClass);
+
+                                    text_city.setVisibility(View.GONE);
                                 }
 
                                 CitySpinerAdapter adapter = new CitySpinerAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item
@@ -651,7 +675,7 @@ public class CheckOutPage extends Fragment {
 
         arrayListPincode.clear();
 
-        ProgressDialog progressDialog = new ProgressDialog(getContext());
+        ProgressDialog progressDialog  = new ProgressDialog(getContext());
         progressDialog.setMessage("Show Your PinCode");
         progressDialog.show();
 
@@ -667,6 +691,8 @@ public class CheckOutPage extends Fragment {
 
                     if (message.equals("true")) {
 
+                        arrayListPincode.clear();
+
                         String allLocation = jsonObject.getString("All_loc");
 
                         JSONArray jsonArray = new JSONArray(allLocation);
@@ -677,13 +703,14 @@ public class CheckOutPage extends Fragment {
 
                             String state_id = jsonObject1.getString("state_id");
 
-                            if (state_id.equals(state_Id)) {
+                            if(state_id.equals(state_Id)){
 
                                 JSONArray jsinArraycity = jsonObject1.getJSONArray("city_list");
 
-                                for (int j = 0; j < jsinArraycity.length(); j++) {
+                                for (int j =0;j<jsinArraycity.length();j++){
 
                                     JSONObject jsonObjectcity = jsinArraycity.getJSONObject(j);
+
 
 
                                     cityid = jsonObjectcity.getString("city_id");
@@ -700,6 +727,8 @@ public class CheckOutPage extends Fragment {
 
                                             PinCode_ModelClass pinCode_modelClass = new PinCode_ModelClass(pin_code, pin_id);
                                             arrayListPincode.add(pinCode_modelClass);
+
+                                            text_pincode.setVisibility(View.GONE);
                                         }
 
                                     }
@@ -759,7 +788,7 @@ public class CheckOutPage extends Fragment {
     }
 
     public void addAddress_Save(String userId, String name, String state_id, String city_id,
-                                String pincode, String number, String address) {
+                                String pincode, String number, String address, String email, String address1) {
 
         ProgressDialog progressDialog = new ProgressDialog(getContext());
         progressDialog.setMessage("Add Address Details");
@@ -805,13 +834,15 @@ public class CheckOutPage extends Fragment {
 
                 Map<String, String> params = new HashMap<>();
 
-                params.put("id", userId);
-                params.put("name", name);
-                params.put("state_id", state_id);
-                params.put("city_id", city_id);
-                params.put("pincode", pincode);
-                params.put("number", number);
-                params.put("address", address);
+                params.put("id",userId);
+                params.put("name",name);
+                params.put("state_id",state_id);
+                params.put("city_id",city_id);
+                params.put("pincode",pincode);
+                params.put("number",number);
+                params.put("email",email);
+                params.put("address",address);
+                params.put("address1",address1);
 
                 return params;
             }
@@ -892,11 +923,11 @@ public class CheckOutPage extends Fragment {
                             city_id = jsonObject1.getString("city_id");
                             City = jsonObject1.getString("city_name");
                             pin_id = jsonObject1.getString("pin_id");
-                            // Area = jsonObject1.getString("area");
+                            Area = jsonObject1.getString("address1");
                             PinCode = jsonObject1.getString("pincode");
                             MobileNo = jsonObject1.getString("number");
                             Address = jsonObject1.getString("address");
-                            // Email = jsonObject1.getString("email");
+                            Email = jsonObject1.getString("email");
 
 
                             ViewAddressDetails_ModelClass viewAddressDetails_modelClass = new ViewAddressDetails_ModelClass(

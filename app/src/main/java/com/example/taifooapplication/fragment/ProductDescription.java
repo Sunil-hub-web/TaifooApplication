@@ -98,7 +98,7 @@ public class ProductDescription extends Fragment {
         spinertext = view.findViewById(R.id.spinertext);
         priceRel = view.findViewById(R.id.priceRel);
         backOption = view.findViewById(R.id.backOption);
-        btn_bynow = view.findViewById(R.id.btn_bynow);
+      //  btn_bynow = view.findViewById(R.id.btn_bynow);
     //    img_Cart = view.findViewById(R.id.img_Cart);
 
         linearLayout = view.findViewById(R.id.inc);
@@ -128,23 +128,23 @@ public class ProductDescription extends Fragment {
 
         }
 
-        btn_bynow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Fragment fragment = new CartPage();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.framLayout, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-
-                HomePageActivity.search.setVisibility(View.GONE);
-
-                HomePageActivity.text_name.setTextSize(18);
-                HomePageActivity.text_name.setText("My Cart");
-            }
-        });
+//        btn_bynow.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Fragment fragment = new CartPage();
+//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.framLayout, fragment);
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
+//
+//                HomePageActivity.search.setVisibility(View.GONE);
+//
+//                HomePageActivity.text_name.setTextSize(18);
+//                HomePageActivity.text_name.setText("My Cart");
+//            }
+//        });
 
         t3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -279,6 +279,12 @@ public class ProductDescription extends Fragment {
                             totalPrice1.setText("₹ " + parenting.getPrice());
                             totalPrice.setText("₹ " + parenting.getPrice());
                             spinertext.setText(parenting.getVarations());
+
+                            productprice = parenting.getPrice();
+
+                            //productname.setText(productName);
+                            //totalPrice.setText(productprice);
+                            //Description_text.setText(Description);
 
                             dialogMenu.dismiss();
                         }
@@ -563,6 +569,7 @@ public class ProductDescription extends Fragment {
                         if(product_Image.equals("")){
 
                         }else{
+
                             Picasso.with(getContext()).load(product_Image).into(productImage);
                         }
 

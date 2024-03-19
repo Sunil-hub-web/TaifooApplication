@@ -520,7 +520,7 @@ public class HomePageActivity extends AppCompatActivity implements NavigationVie
 
         dialog.show();
         Window window = dialog.getWindow();
-        window.setLayout(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         window.setBackgroundDrawableResource(R.drawable.homecard_back1);
 
     }

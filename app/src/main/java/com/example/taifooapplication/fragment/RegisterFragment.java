@@ -15,11 +15,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -34,6 +37,7 @@ import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.example.taifooapplication.AppURL;
 import com.example.taifooapplication.R;
 import com.example.taifooapplication.activity.HomePageActivity;
+import com.example.taifooapplication.activity.TeramConditionApp;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,6 +54,7 @@ public class RegisterFragment extends Fragment {
     String str_UserFullName, str_MobileNumber, str_EmailId, str_UserName, str_Password;
     private AwesomeValidation awesomeValidation;
     CheckBox termsconditions;
+    TextView termsconditions1;
 
     @Nullable
     @Override
@@ -65,12 +70,24 @@ public class RegisterFragment extends Fragment {
         edit_UserName = view.findViewById(R.id.edit_UserName);
         edit_Password = view.findViewById(R.id.edit_Password);
         termsconditions = view.findViewById(R.id.termsconditions);
+        termsconditions1 = view.findViewById(R.id.termsconditions1);
 
         btn_signup = view.findViewById(R.id.btn_signup);
 
-        String checkBox_html = "<font color=#817F7F>Read our   </font> <font color=#F44336><b><u>Terms &amp; Conditions</u></b></font>";
-
+        String checkBox_html = "<font color=#817F7F>Read our </font>";
+        String checkBox_html1 = "<font color=#F44336><b><u>Terms &amp; Conditions</u></b></font>";
+        termsconditions1.setText(Html.fromHtml(checkBox_html1));
         termsconditions.setText(Html.fromHtml(checkBox_html));
+
+        termsconditions1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getContext(), TeramConditionApp.class);
+                startActivity(intent);
+
+            }
+        });
 
 
         btn_signup.setOnClickListener(new View.OnClickListener() {

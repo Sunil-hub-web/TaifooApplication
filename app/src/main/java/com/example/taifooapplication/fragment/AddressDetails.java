@@ -73,6 +73,7 @@ public class AddressDetails extends Fragment {
     ViewaddressDetailsAdapter viewaddressDetailsAdapter;
     LinearLayoutManager linearLayoutManager;
     TextView text_statae,text_city,text_pincode;
+    String regex = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$";
 
     @Nullable
     @Override
@@ -156,7 +157,11 @@ public class AddressDetails extends Fragment {
 
                     edit_EmailId.setError("Please Enter Email");
 
-                }else if (TextUtils.isEmpty(edit_MobileNo.getText()) && edit_MobileNo.getText().toString().trim().length() == 10) {
+                }else if (!edit_EmailId.getText().toString().trim().matches(regex)){
+
+                    edit_EmailId.setError("Email Is Not Valide");
+
+                }else if (TextUtils.isEmpty(edit_MobileNo.getText()) && edit_MobileNo.getText().toString().trim().length() != 10) {
 
                     edit_MobileNo.setError("Please Enter MobileNumber");
 
@@ -183,8 +188,9 @@ public class AddressDetails extends Fragment {
                     str_MobileNo = edit_MobileNo.getText().toString().trim();
                     str_Area = edit_Areas.getText().toString().trim();
                     str_Address = edit_Address.getText().toString().trim();
+                    str_Address = edit_Address.getText().toString().trim();
 
-                    addAddress_Save(userId,str_Name,state_Id,city_Id,pincode_id,str_MobileNo,str_Address);
+                    addAddress_Save(userId,str_Name,state_Id,city_Id,pincode_id,str_MobileNo,str_Address,str_Email,str_Area);
 
                 }
 
@@ -194,7 +200,7 @@ public class AddressDetails extends Fragment {
 
         dialog.show();
         Window window = dialog.getWindow();
-        window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        window.setLayout(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
         //window.setBackgroundDrawableResource(R.drawable.dialogback);
 
 
@@ -517,7 +523,7 @@ public class AddressDetails extends Fragment {
     }
 
     public void addAddress_Save(String userId,String name,String state_id,String city_id,
-                                String pincode,String number,String address){
+                                String pincode,String number,String address,String email,String address1){
 
         ProgressDialog progressDialog  = new ProgressDialog(getContext());
         progressDialog.setMessage("Add Address Details");
@@ -577,7 +583,9 @@ public class AddressDetails extends Fragment {
                 params.put("city_id",city_id);
                 params.put("pincode",pincode);
                 params.put("number",number);
+                params.put("email",email);
                 params.put("address",address);
+                params.put("address1",address1);
 
                 return params;
             }
@@ -626,11 +634,11 @@ public class AddressDetails extends Fragment {
                             city_id = jsonObject1.getString("city_id");
                             City = jsonObject1.getString("city_name");
                             pin_id = jsonObject1.getString("pin_id");
-                           // Area = jsonObject1.getString("area");
+                            Area = jsonObject1.getString("address1");
                             PinCode = jsonObject1.getString("pincode");
                             MobileNo = jsonObject1.getString("number");
                             Address = jsonObject1.getString("address");
-                           // Email = jsonObject1.getString("email");
+                            Email = jsonObject1.getString("email");
 
 
                             ViewAddressDetails_ModelClass viewAddressDetails_modelClass = new ViewAddressDetails_ModelClass(
